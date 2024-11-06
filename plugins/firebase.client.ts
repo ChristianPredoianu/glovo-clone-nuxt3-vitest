@@ -6,20 +6,19 @@ export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
 
   const firebaseConfig = {
-    apiKey: 'AIzaSyArPI4RkedDOJk1aX0XunDxiqu4ONcngBs',
-    authDomain: 'glovo-clone-new.firebaseapp.com',
-    projectId: 'glovo-clone-new',
-    databaseURL: 'https://glovo-clone-new-default-rtdb.firebaseio.com/',
-    storageBucket: 'glovo-clone-new.firebasestorage.app',
-    messagingSenderId: '405556089874',
-    appId: '1:405556089874:web:c66a434bc84f9e2b2b74cb',
-    measurementId: 'G-4ELCW1179D',
+    apiKey: config.firebase.apiKey,
+    authDomain: config.firebase.authDomain,
+    projectId: config.firebase.projectId,
+    databaseURL: config.firebase.databaseURL,
+    storageBucket: config.firebase.storageBucket,
+    messagingSenderId: config.firebase.messagingSenderId,
+    appId: config.firebase.appId,
+    measurementId: config.firebase.measurementId,
   };
 
   // Initialize Firebase app if not already initialized
   const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-  // Initialize Firebase services
   const auth = getAuth(app);
   const database = getDatabase(app);
 
