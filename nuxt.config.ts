@@ -8,14 +8,24 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['composables', 'composables/auth', 'composables/ui'],
   },
-  /*  runtimeConfig: {
-    apiEdamamAppKey: '4b4dc5f4bc65e69c3e05af0392a55b18%09',
-    public: {
-      apiSecretLocationReverse: 'pk.a75cdfe1cc307b34218d8021f4122dc6',
-      apiEdamamAppId: 'e5a7e476',
-      apiEdamamAppKey: '4b4dc5f4bc65e69c3e05af0392a55b18%09',
+  runtimeConfig: {
+    firebase: {
+      apiKey: process.env.FIREBASE_API_KEY,
+      authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+      appId: process.env.FIREBASE_APP_ID,
+      measurementId: process.env.FIREBASE_MEASUREMENT_ID,
     },
-  }, */
+
+    public: {
+      apiKeyLocationReverse: process.env.NUXT_API_KEY_LOCATION_REVERSE,
+      edamamAppId: process.env.NUXT_PUBLIC_EDAMAM_APP_ID,
+      edamamAppKey: process.env.NUXT_PUBLIC_EDAMAM_APP_KEY,
+    },
+  },
 
   devtools: { enabled: true },
 
@@ -43,6 +53,4 @@ export default defineNuxtConfig({
     { path: '@/components/modals', extensions: ['vue'] },
     { path: '@/components/counters', extensions: ['vue'] },
   ],
-
-  devtools: { enabled: true },
 });
