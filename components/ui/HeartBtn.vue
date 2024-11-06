@@ -5,13 +5,13 @@ const props = defineProps<{
   mealItem: IItem;
 }>();
 
-/* const { user } = useAuth(); */
+const { user } = useAuth();
 const { writeFavoriteUserItemData } = useFirebaseActions();
 const { openModal } = useModal();
 
 const isFavorite = ref<boolean>(false);
 
-/* function toggleFavorite() {
+function toggleFavorite() {
   if (!user.value) {
     openModal('signIn');
   } else {
@@ -19,11 +19,11 @@ const isFavorite = ref<boolean>(false);
     console.log(props.mealItem);
     writeFavoriteUserItemData(props.mealItem);
   }
-} */
+}
 </script>
 
 <template>
-  <!--   <button
+  <button
     @click.stop="toggleFavorite"
     class="cursor-pointer"
     :class="[
@@ -31,5 +31,5 @@ const isFavorite = ref<boolean>(false);
     ]"
   >
     <font-awesome-icon :icon="['fas', 'fa-heart']" />
-  </button> -->
+  </button>
 </template>
