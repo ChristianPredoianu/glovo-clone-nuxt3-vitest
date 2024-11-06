@@ -8,6 +8,7 @@ const props = defineProps<{
 const { user } = useAuth();
 const { writeFavoriteUserItemData } = useFirebaseActions();
 const { openModal } = useModal();
+const { isLoaded } = useIsLoaded();
 
 const isFavorite = ref<boolean>(false);
 
@@ -30,6 +31,6 @@ function toggleFavorite() {
       isFavorite ? 'text-red-500 border-red-500' : 'text-gray-500 border-gray-300',
     ]"
   >
-    <font-awesome-icon :icon="['fas', 'fa-heart']" />
+    <font-awesome-icon v-if="isLoaded" :icon="['fas', 'fa-heart']" />
   </button>
 </template>
