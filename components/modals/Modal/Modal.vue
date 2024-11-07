@@ -4,7 +4,7 @@ const props = defineProps({ modalName: String });
 const { isModalOpen, closeModal } = useModal();
 
 // Compute `isOpen` by calling `isModalOpen` with the modalName, ensuring a boolean result
-const isOpen = computed(() => isModalOpen(props.modalName));
+const isOpen = computed(() => isModalOpen(props.modalName!));
 </script>
 
 <template>
