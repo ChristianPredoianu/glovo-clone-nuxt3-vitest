@@ -125,3 +125,7 @@ export interface ISelectedCategory {
   text: string;
   category: string;
 }
+
+export interface IItem {
+  [key: string]: any;
+}
