@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type { IItem } from '@/interfaces/interfaces.interface';
+
 const props = defineProps({
   items: {
-    type: Array as PropType<Record<string, any>[]>,
+    type: Array as PropType<IItem[]>,
     default: () => [],
   },
   field: {
