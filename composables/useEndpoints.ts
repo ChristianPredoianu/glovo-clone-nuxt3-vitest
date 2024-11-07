@@ -1,4 +1,10 @@
 import { fakeStoreCategories } from '@/data/productCategoriesData';
+import {
+  restCountriesEndpoint,
+  edamamBaseUrl,
+  locationiqBaseUrl,
+  fakestoreBaseUrl,
+} from '@/endpoints';
 
 export function useEndpoints(
   category?: string | string[],
@@ -6,10 +12,6 @@ export function useEndpoints(
   routeIndex?: string
 ) {
   const config = useRuntimeConfig();
-  console.log(config);
-  const restCountriesEndpoint = 'https://restcountries.com/v3.1/region/europe';
-  const edamamBaseUrl = 'https://api.edamam.com/api/recipes/v2?type=public';
-  const locationiqBaseUrl = 'https://api.locationiq.com/v1/autocomplete';
 
   const indexMealDataEndpoint = computed(() => {
     return `${edamamBaseUrl}&app_id=${config.public.edamamAppId}&app_key=${config.public.edamamAppKey}&mealType=Dinner&dishType=Main%20course`;
@@ -28,21 +30,20 @@ export function useEndpoints(
   });
 
   const edamamApiEndpoint = computed(() => {
-    return `https://api.edamam.com/api/recipes/v2?type=public&app_id=${config.public.edamamAppId}&app_key=${config.public.edamamAppKey}&mealType=${category}&dishType=Main%20course`;
+    return `${edamamBaseUrl}&app_id=${config.public.edamamAppId}&app_key=${config.public.edamamAppKey}&mealType=${category}&dishType=Main%20course`;
   });
 
   const edamamApiFilteredEndpoint = computed(() => {
     if (filter)
-      return `https://api.edamam.com/api/recipes/v2?type=public&app_id=${config.public.edamamAppId}&app_key=${config.public.edamamAppKey}&mealType=${category}&cuisineType=${filter.value}`;
+      return `${edamamBaseUrl}?type=public&app_id=${config.public.edamamAppId}&app_key=${config.public.edamamAppKey}&mealType=${category}&cuisineType=${filter.value}`;
   });
 
   const fakeStoreEndpoint = computed(() => {
-    return `https://fakestoreapi.com/products/category/${category}`;
+    return `${fakestoreBaseUrl}${category}`;
   });
 
   const fakeStoreFilteredEndpoint = computed(() => {
-    if (filter)
-      return `https://fakestoreapi.com/products/category/${filter.value.toLowerCase()}`;
+    if (filter) return `${fakestoreBaseUrl}${filter.value.toLowerCase()}`;
   });
 
   const selectedApiEndpoint = computed(() => {
