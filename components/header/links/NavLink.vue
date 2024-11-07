@@ -4,7 +4,9 @@ const { screenWidth } = useScreenWidth();
 const props = defineProps({
   title: String,
   link: String,
-  icon: String,
+  icon: {
+    type: Array as () => string[],
+  },
 });
 </script>
 
