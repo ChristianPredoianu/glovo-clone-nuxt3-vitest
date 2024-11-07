@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { IItem } from '@/interfaces/interfaces.interface';
 
-const props = defineProps<{
-  mealItem: IItem;
-}>();
+const props = defineProps({
+  mealItem: {
+    type: Object as PropType<IItem>,
+  },
+});
 
 const { user } = useAuth();
 const { writeFavoriteUserItemData } = useFirebaseActions();
@@ -18,7 +20,7 @@ function toggleFavorite() {
   } else {
     isFavorite.value = !isFavorite.value;
     console.log(props.mealItem);
-    writeFavoriteUserItemData(props.mealItem);
+    writeFavoriteUserItemData(props.mealItem as IItem);
   }
 }
 </script>
