@@ -1,12 +1,12 @@
 <script setup lang="ts">
-interface ISelectedCategory {
-  index: number;
-  img: string;
-  text: string;
-  category: string;
-}
+import type { ISelectedCategory } from '@/interfaces/interfaces.interface';
 
-const props = defineProps<ISelectedCategory>();
+const props = defineProps({
+  index: Number,
+  img: String,
+  text: String,
+  category: String,
+});
 
 async function navigateToPage(selectedCategory: ISelectedCategory) {
   await navigateTo({
@@ -19,7 +19,7 @@ async function navigateToPage(selectedCategory: ISelectedCategory) {
 <template>
   <article
     class="flex flex-col items-center transform cursor-pointer"
-    @click="navigateToPage(props)"
+    @click="navigateToPage(props as ISelectedCategory)"
   >
     <div class="relative w-24 h-24 xl:w-32 xl:h-32 flex items-center justify-center">
       <img
