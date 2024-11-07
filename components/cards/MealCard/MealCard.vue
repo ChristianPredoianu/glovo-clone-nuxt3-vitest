@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { replaceRecipeText } from '@/helpers/replaceRecipeText';
 
-const props = defineProps<{
+interface IMealProps {
   category: string;
   label: string;
   img: string;
-}>();
+}
+
+const props = defineProps<IMealProps>();
+
+const { isLoaded } = useIsLoaded();
 
 const mealItem = {
   category: props.category,
@@ -38,7 +42,11 @@ const mealItem = {
 
       <div class="relative flex justify-between items-center mt-4">
         <div class="flex items-center gap-2 py-1 px-3 bg-amber-400 rounded-md">
-          <!--  <font-awesome-icon :icon="['fas', 'fa-truck']" class="text-xs" /> -->
+          <font-awesome-icon
+            v-if="isLoaded"
+            :icon="['fas', 'fa-truck']"
+            class="text-xs"
+          />
           <p class="text-xs font-semibold">Free</p>
         </div>
         <div class="absolute right-0 z-50">
