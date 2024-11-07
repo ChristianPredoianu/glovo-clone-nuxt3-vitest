@@ -5,7 +5,18 @@ interface DropdownOption<T> {
   defaultOptionText?: string;
 }
 
-const props = defineProps<DropdownOption<Record<string, any>>>();
+const props = defineProps({
+  options: {
+    type: Array as PropType<Record<string, any>[]>,
+    default: () => [],
+  },
+  displayKey: {
+    type: String as PropType<keyof Record<string, any>>,
+  },
+  defaultOptionText: {
+    type: String,
+  },
+});
 
 const selectedOption = ref<string | null>(null);
 const isOpen = ref(false);
@@ -69,7 +80,7 @@ const selectOption = (option: Record<string, any>) => {
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             role="menuitem"
           >
-            {{ option[props.displayKey] }}
+            {{ option[props.displayKey as keyof typeof option] }}
           </a>
         </template>
       </div>
