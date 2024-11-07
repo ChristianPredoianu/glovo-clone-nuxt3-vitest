@@ -3,11 +3,20 @@ import type { IDropdownOptions } from '@/interfaces/interfaces.interface';
 import type { ILocationAdress } from '@/interfaces/interfaces.interface';
 import SearchLocationDropdown from '~/components/ui/Dropdown/SearchLocationDropdown.vue';
 
-const props = defineProps<{
-  options: IDropdownOptions[];
-  idKey: keyof IDropdownOptions;
-  textKey: keyof IDropdownOptions;
-}>();
+const props = defineProps({
+  options: {
+    type: Array as PropType<IDropdownOptions[]>,
+    required: true,
+  },
+  idKey: {
+    type: String,
+    required: true,
+  },
+  textKey: {
+    type: String,
+    required: true,
+  },
+});
 
 const emits = defineEmits(['emitInput', 'emitOption', 'emitLocation']);
 
