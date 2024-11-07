@@ -1,9 +1,18 @@
 <script setup lang="ts">
-const props = defineProps<{
-  currentPage: number;
-  totalItems: number;
-  itemsPerPage: number;
-}>();
+const props = defineProps({
+  currentPage: {
+    type: Number,
+    required: true,
+  },
+  totalItems: {
+    type: Number,
+    required: true,
+  },
+  itemsPerPage: {
+    type: Number,
+    required: true,
+  },
+});
 
 const emit = defineEmits<{
   (event: 'pageChanged', newPage: number): void;
