@@ -1,8 +1,14 @@
 <script setup lang="ts">
-const props = defineProps<{
-  items: Record<string, any>[];
-  field: string;
-}>();
+const props = defineProps({
+  items: {
+    type: Array as PropType<Record<string, any>[]>,
+    default: () => [],
+  },
+  field: {
+    type: String,
+    default: '',
+  },
+});
 </script>
 
 <template>
