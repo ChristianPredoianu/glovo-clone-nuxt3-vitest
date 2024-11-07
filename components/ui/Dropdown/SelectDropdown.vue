@@ -1,10 +1,4 @@
 <script setup lang="ts">
-interface DropdownOption<T> {
-  options: T[];
-  displayKey: keyof T;
-  defaultOptionText?: string;
-}
-
 const props = defineProps({
   options: {
     type: Array as PropType<Record<string, any>[]>,
