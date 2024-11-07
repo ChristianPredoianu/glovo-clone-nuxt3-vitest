@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { numberOfCartProducts } = useCart();
 
-const numberKey = useState('numberKey', () => 0);
+const numberKey = ref(0);
 
 watch(numberOfCartProducts, (newCount, oldCount) => {
   if (newCount !== oldCount) numberKey.value++;
