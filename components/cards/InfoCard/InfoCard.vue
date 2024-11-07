@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const props = defineProps<{
-  icon: string;
-  heading: string;
-  paragraph: string;
-  span: string;
-}>();
+const props = defineProps({
+  icon: String,
+  heading: String,
+  paragraph: String,
+  span: String,
+});
 
 const isLoaded = ref(false);
 
