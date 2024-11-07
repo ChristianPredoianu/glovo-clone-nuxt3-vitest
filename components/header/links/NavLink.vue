@@ -1,11 +1,11 @@
 <script setup lang="ts">
 const { screenWidth } = useScreenWidth();
 
-const props = defineProps<{
-  title: string;
-  link: string;
-  icon: string[];
-}>();
+const props = defineProps({
+  title: String,
+  link: String,
+  icon: String,
+});
 </script>
 
 <template>
