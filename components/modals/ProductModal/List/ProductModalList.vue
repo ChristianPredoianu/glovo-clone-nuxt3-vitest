@@ -1,12 +1,13 @@
 <script setup lang="ts">
-interface Ingredient {
-  foodId: string;
-  text: string;
-}
+import type { IIngredient } from '@/interfaces/interfaces.interface.ts';
 
-const props = defineProps<{
-  ingredients: Ingredient[];
-}>();
+const props = defineProps({
+  foodId: String,
+  text: String,
+  ingredients: {
+    type: Array as () => IIngredient[],
+  },
+});
 </script>
 
 <template>
