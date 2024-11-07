@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const props = defineProps<{
-  text: string;
-  icon: string;
-  backCol: string;
-}>();
+const props = defineProps({
+  text: String;
+  icon: String;
+  backCol: String;
+});
 
 const emits = defineEmits(['emitClick']);
 </script>
