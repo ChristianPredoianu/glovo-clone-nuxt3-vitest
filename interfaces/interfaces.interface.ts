@@ -66,7 +66,7 @@ export interface IProduct {
   title?: string;
 }
 
-interface IIngredient {
+export interface IIngredient {
   foodId: string;
   text: string;
 }
