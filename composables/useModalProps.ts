@@ -8,11 +8,8 @@ import type {
 } from '@/interfaces/interfaces.interface';
 
 export function useModalProps() {
-  const mealModalProps = useState<IMealModalProps | null>('mealModalProps', () => null);
-  const productModalProps = useState<IProductModalProps | null>(
-    'productModalProps',
-    () => null
-  );
+  const mealModalProps = ref<IMealModalProps | null>(null);
+  const productModalProps = ref<IProductModalProps | null>(null);
 
   const { isSingleMealData } = useIsMealData();
 
