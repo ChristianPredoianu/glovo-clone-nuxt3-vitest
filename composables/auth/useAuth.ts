@@ -61,15 +61,12 @@ export function useAuth() {
     authErrorMessage.value = null;
 
     try {
-      // Validate email and password
       validateCredentials(email, password);
 
-      // Validate repeated password
       if (!validateRepeatedPassword(password, repeatedPassword)) {
         throw new Error('Password and repeated password do not match');
       }
 
-      // If all validations pass, create the user
       const userCredential = await createUserWithEmailAndPassword($auth, email, password);
       const user = userCredential.user;
 
@@ -85,7 +82,6 @@ export function useAuth() {
             'This email is already in use. Please sign in instead.';
         }
       }
-      console.log('Sign up failed:', authErrorMessage.value);
     }
   }
 
@@ -98,9 +94,8 @@ export function useAuth() {
 
       const userCredential = await signInWithEmailAndPassword($auth, email, password);
       const user = userCredential.user;
-      console.log(user);
-      setSuccessMessageWithTimeout('Successfully signed in!', DELAY);
 
+      setSuccessMessageWithTimeout('Successfully signed in!', DELAY);
       await delay(DELAY);
 
       await router.push('/dashboard');
@@ -132,10 +127,8 @@ export function useAuth() {
     onAuthStateChanged($auth, (currentUser) => {
       if (currentUser) {
         user.value = currentUser;
-        console.log('User is signed in:', user.value);
       } else {
         user.value = null;
-        console.log('No user is signed in.');
       }
     });
   });
