@@ -25,10 +25,14 @@ async function toggleFavorite() {
   await writeFavoriteUserItemData(props.mealItem as IItem);
 }
 
-onMounted(async () => {
+watchEffect(async () => {
   if (user.value) {
+    console.log(user.value);
     const favoriteStatus = await fetchFavoriteStatus(props.mealItem);
-    isFavorite.value = favoriteStatus; // Set the correct initial value based on the DB
+    console.log(favoriteStatus);
+    isFavorite.value = favoriteStatus;
+  } else {
+    console.log('User is not signed in');
   }
 });
 </script>
