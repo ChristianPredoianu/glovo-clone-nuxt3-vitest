@@ -114,9 +114,11 @@ export interface ICartProduct {
 }
 
 export interface IItem {
-  category: string;
+  id: number;
   label: string;
+  category: string;
   img: string;
+  dishType?: string;
 }
 
 export interface ISelectedCategory {
@@ -126,6 +128,7 @@ export interface ISelectedCategory {
   category: string;
 }
 
-export interface IItem {
-  [key: string]: any;
+export interface GenericListProps {
+  items: Array<Record<string, any>>;
+  field: string;
 }
