@@ -8,6 +8,7 @@ import type {
   ICountriesData,
   IMeals,
   IDropdownOptions,
+  IItem,
 } from '@/interfaces/interfaces.interface';
 import { productCategories, dishTypes } from '@/data/productCategoriesData';
 import { generateRandomPrice } from '@/helpers/randomPrice';
