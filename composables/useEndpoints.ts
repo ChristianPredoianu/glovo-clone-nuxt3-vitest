@@ -35,7 +35,7 @@ export function useEndpoints(
 
   const edamamApiFilteredEndpoint = computed(() => {
     if (filter)
-      return `${edamamBaseUrl}?type=public&app_id=${config.public.edamamAppId}&app_key=${config.public.edamamAppKey}&mealType=${category}&cuisineType=${filter.value}`;
+      return `${edamamBaseUrl}&app_id=${config.public.edamamAppId}&app_key=${config.public.edamamAppKey}&mealType=${category}&cuisineType=${filter.value}`;
   });
 
   const fakeStoreEndpoint = computed(() => {
