@@ -9,7 +9,8 @@ const props = defineProps({
 });
 
 const { user } = useAuth();
-const { writeFavoriteUserItemData, isItemFavorite } = useFirebaseActions();
+const { writeFavoriteUserItemData, deleteFavoriteUserItemData, isItemFavorite } =
+  useFirebaseActions();
 const { openModal } = useModal();
 const { isLoaded } = useIsLoaded();
 
@@ -17,24 +18,18 @@ const isFavorite = ref<boolean>(false);
 
 async function toggleFavorite() {
   if (!user.value) {
-    openModal('signIn');
+    openModal('signin');
     return;
   }
-  if (await isItemFavorite(props.mealItem.label)) {
-    console.log('already there');
-    return;
+
+  if (isFavorite.value) {
+    await deleteFavoriteUserItemData(props.mealItem);
+    isFavorite.value = false;
+  } else {
+    await writeFavoriteUserItemData(props.mealItem);
+    isFavorite.value = true;
   }
 }
-/* 
-async function toggleFavorite() {
-  if (!user.value) {
-    openModal('signIn');
-    return;
-  }else if(user.value && await isItemFavorite(props.mealItem.label)){}
-  isFavorite.value = !isFavorite.value;
-  console.log(props.mealItem);
-  await writeFavoriteUserItemData(props.mealItem as IItem);
-} */
 
 onMounted(() => {
   watchEffect(async () => {
