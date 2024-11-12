@@ -2,28 +2,67 @@
 const props = defineProps({
   product: Object,
 });
-</script>
-<template>
-  <article class="flex flex-col gap-y-4 p-4 shadow-sm rounded-md cursor-pointer">
-    <div class="relative">
-      <img :src="product?.image" alt="Product image" class="mx-auto md:h-52" />
-      <div
-        class="absolute bottom-1 px-2 right-1 flex items-center justify-center gap-x-2 bg-gray-200 rounded-md"
-      >
-        <font-awesome-icon :icon="['fas', 'fa-thumbs-up']" />
-        <p class="text-sm font-bold">{{ product?.rating.rate }}</p>
-        <p class="text-xs">{{ product?.rating.count }}</p>
-      </div>
-    </div>
 
-    <div class="flex justify-between">
-      <h3 class="text-sm w-1/2">{{ product?.title }}</h3>
-      <p class="text-xs">{{ product?.category }}</p>
-    </div>
-    <div class="flex items-center gap-x-1 justify-self-end mt-auto">
-      <font-awesome-icon :icon="['fas', 'fa-bicycle']" class="text-amber-600" />
-      <p class="text-amber-700 font-semibold">Free</p>
-      <p>10-20min</p>
+// Calculate the number of full, half, and empty stars based on the rating
+const fullStars = computed(() => Math.floor(props.product?.rating.rate)); // Full stars count
+const halfStar = computed(() => props.product?.rating.rate % 1 >= 0.5); // Half // Empty stars count
+</script>
+
+<template>
+  <article class="w-full shadow-lg cursor-pointer rounded-md">
+    <div
+      class="bg-white p-x-6 rounded-xl shadow-lg overflow-hidden flex flex-col items-center justify-center w-full h-full"
+    >
+      <div class="h-40 p-4 w-full">
+        <img
+          :src="product?.image"
+          alt="Product image"
+          class="mx-auto rounded-lg transform transition-transform duration-300 hover:scale-105 object-contain h-full"
+        />
+      </div>
+      <div class="flex flex-col flex-grow p-6">
+        <h3
+          class="text-sm tracking-widest text-center font-bold text-gray-800 mb-8 flex-grow"
+        >
+          {{ product?.title }}
+        </h3>
+
+        <p class="text-center text-lg font-semibold text-green-800">
+          {{ product?.price }} $
+        </p>
+        <div class="flex flex-col items-center mb-4">
+          <div class="flex text-yellow-500 mt-2 mb-2">
+            <!-- Full Stars -->
+            <font-awesome-icon
+              v-for="n in fullStars"
+              :key="'full-' + n"
+              :icon="['fas', 'fa-star']"
+              class="text-xl"
+            />
+            <!-- Half Star -->
+            <font-awesome-icon
+              v-if="halfStar"
+              :icon="['fas', 'fa-star-half-stroke']"
+              class="text-xl"
+            />
+            <!-- Empty Stars -->
+            <font-awesome-icon
+              v-for="n in 5 - fullStars - (halfStar ? 1 : 0)"
+              :key="'empty-' + n"
+              :icon="['fas', 'fa-star']"
+              class="text-xl text-gray-300"
+            />
+          </div>
+          <p class="ml-2 text-sm text-gray-600">({{ product?.rating.count }} reviews)</p>
+        </div>
+        <div class="mt-auto w-full">
+          <button
+            class="w-full bg-green-500 inline text-white py-2 px-4 shadow-md hover:bg-green-600 transition duration-200"
+          >
+            Add to cart
+          </button>
+        </div>
+      </div>
     </div>
   </article>
 </template>
