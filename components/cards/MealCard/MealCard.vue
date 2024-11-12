@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { IItem } from '@/interfaces/interfaces.interface';
 import { replaceRecipeText } from '@/helpers/replaceRecipeText';
 
 interface IMealProps {
@@ -50,7 +51,7 @@ const mealItem = {
           <p class="text-xs font-semibold">Free</p>
         </div>
         <div class="absolute right-0 z-50">
-          <HeartBtn :mealItem="mealItem" />
+          <HeartBtn :mealItem="mealItem as IItem" />
         </div>
       </div>
     </div>
