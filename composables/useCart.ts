@@ -1,7 +1,7 @@
 import type { ICartProduct } from '@/interfaces/interfaces.interface';
 
 export function useCart() {
-  const cartProducts = ref<ICartProduct[]>([]);
+  const cartProducts = useState<ICartProduct[]>('cartProducts', () => []);
 
   const { startProgressBar } = useProgressBar();
 
