@@ -93,7 +93,7 @@ onBeforeRouteLeave((to, from, next) => {
       @closeModal="closeModal"
     />
   </Modal>
-  <div class="container mx-auto px-4">
+  <div class="container mx-auto px-4 min-h-screen">
     <section
       v-if="screenWidth <= 1024"
       class="mt-10 flex justify-center items-center gap-4"
@@ -133,7 +133,7 @@ onBeforeRouteLeave((to, from, next) => {
           :class="{
             'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6':
               renderType === 'meals' || renderType === 'filteredMeals',
-            'grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5':
+            'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4':
               renderType === 'products' || renderType === 'filteredProducts',
           }"
         >
