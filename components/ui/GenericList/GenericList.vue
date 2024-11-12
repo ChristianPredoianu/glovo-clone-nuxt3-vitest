@@ -1,16 +1,7 @@
 <script setup lang="ts">
-import type { IItem } from '@/interfaces/interfaces.interface';
+import type { GenericListProps } from '@/interfaces/interfaces.interface';
 
-const props = defineProps({
-  items: {
-    type: Array as PropType<IItem[]>,
-    default: () => [],
-  },
-  field: {
-    type: String,
-    default: '',
-  },
-});
+const props = defineProps<GenericListProps>();
 </script>
 
 <template>
