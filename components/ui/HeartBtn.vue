@@ -9,7 +9,7 @@ const props = defineProps({
 });
 
 const { user } = useAuth();
-const { writeFavoriteUserItemData, fetchFavoriteStatus } = useFirebaseActions();
+const { writeFavoriteUserItemData, isItemFavorite } = useFirebaseActions();
 const { openModal } = useModal();
 const { isLoaded } = useIsLoaded();
 
@@ -20,20 +20,29 @@ async function toggleFavorite() {
     openModal('signIn');
     return;
   }
+  if (await isItemFavorite(props.mealItem.label)) {
+    console.log('already there');
+    return;
+  }
+}
+/* 
+async function toggleFavorite() {
+  if (!user.value) {
+    openModal('signIn');
+    return;
+  }else if(user.value && await isItemFavorite(props.mealItem.label)){}
   isFavorite.value = !isFavorite.value;
   console.log(props.mealItem);
   await writeFavoriteUserItemData(props.mealItem as IItem);
-}
+} */
 
-watchEffect(async () => {
-  if (user.value) {
-    console.log(user.value);
-    const favoriteStatus = await fetchFavoriteStatus(props.mealItem);
-    console.log(favoriteStatus);
-    isFavorite.value = favoriteStatus;
-  } else {
-    console.log('User is not signed in');
-  }
+onMounted(() => {
+  watchEffect(async () => {
+    if (user.value && props.mealItem && props.mealItem.label) {
+      const favoriteStatus = await isItemFavorite(props.mealItem.label);
+      isFavorite.value = favoriteStatus;
+    }
+  });
 });
 </script>
 
