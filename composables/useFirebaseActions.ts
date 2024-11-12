@@ -1,13 +1,4 @@
-import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  query,
-  orderByChild,
-  equalTo,
-  push,
-} from 'firebase/database';
+import { getDatabase, ref, set, get, remove, push } from 'firebase/database';
 
 import type { IItem } from '@/interfaces/interfaces.interface';
 
@@ -27,50 +18,106 @@ export function useFirebaseActions() {
   }
 
   async function isLabelAlreadyFavorite(favoriteItem: IItem): Promise<boolean> {
-    const favoriteItemRef = getFavoriteItemRef();
-    const snapshot = await get(favoriteItemRef);
+    try {
+      const favoriteItemRef = getFavoriteItemRef();
+      const snapshot = await get(favoriteItemRef);
 
-    if (!snapshot.exists()) return false;
+      if (!snapshot.exists()) return false;
 
-    const favorites = snapshot.val() as { [key: string]: IItem };
+      const favorites = snapshot.val() as { [key: string]: IItem };
+      const isAlreadyFavorite = Object.values(favorites).some(
+        (item) => item.label === favoriteItem.label
+      );
 
-    const isAlreadyFavorite = Object.values(favorites).some(
-      (item) => item.label === favoriteItem.label
-    );
-
-    return isAlreadyFavorite;
+      return isAlreadyFavorite;
+    } catch (error: any) {
+      console.error(`Error in isLabelAlreadyFavorite: ${error.message}`);
+      return false;
+    }
   }
 
   async function writeFavoriteUserItemData(favoriteItem: IItem) {
-    if (!user.value) return;
+    try {
+      if (!user.value) {
+        console.error('User is not authenticated');
+        return;
+      }
 
-    const isAlreadyFavorite = await isLabelAlreadyFavorite(favoriteItem);
+      const isAlreadyFavorite = await isLabelAlreadyFavorite(favoriteItem);
 
-    if (isAlreadyFavorite) {
-      console.log('Item is already a favorite');
-      return;
+      if (isAlreadyFavorite) return;
+
+      const favoriteItemRef = getFavoriteItemRef();
+      const newFavoriteItemRef = push(favoriteItemRef);
+      await set(newFavoriteItemRef, favoriteItem);
+
+      console.log('Item added to favorites');
+    } catch (error: any) {
+      console.error(`Error adding item to favorites: ${error.message}`);
     }
-
-    const favoriteItemRef = getFavoriteItemRef();
-    const newFavoriteItemRef = push(favoriteItemRef);
-    await set(newFavoriteItemRef, favoriteItem);
-    console.log('Item added to favorites');
   }
 
   async function isItemFavorite(label: string): Promise<boolean> {
-    if (!user.value || !label) return false;
+    try {
+      if (!user.value || !label) {
+        console.error('Invalid user or label');
+        return false;
+      }
 
-    const favoriteItemRef = getFavoriteItemRef();
-    const snapshot = await get(favoriteItemRef);
+      const favoriteItemRef = getFavoriteItemRef();
+      const snapshot = await get(favoriteItemRef);
 
-    if (!snapshot.exists()) return false;
+      if (!snapshot.exists()) return false;
 
-    const favorites = snapshot.val() as { [key: string]: IItem };
+      const favorites = snapshot.val() as { [key: string]: IItem };
+      const isFavorite = Object.values(favorites).some((item) => item.label === label);
 
-    const isFavorite = Object.values(favorites).some((item) => item.label === label);
+      return isFavorite;
+    } catch (error: any) {
+      console.error(`Error in isItemFavorite: ${error.message}`);
+      return false;
+    }
+  }
+  async function deleteFavoriteUserItemData(favoriteItem: IItem) {
+    try {
+      if (!user.value || !favoriteItem || !favoriteItem.label) {
+        console.error('Invalid item or user not authenticated');
+        return;
+      }
 
-    return isFavorite;
+      const favoriteItemRef = getFavoriteItemRef();
+      const snapshot = await get(favoriteItemRef);
+
+      if (!snapshot.exists()) {
+        console.log('No favorite items to delete');
+        return;
+      }
+
+      const favorites = snapshot.val() as { [key: string]: IItem };
+
+      // Find the key of the item to delete based on the label
+      const favoriteItemKey = Object.keys(favorites).find(
+        (key) => favorites[key].label === favoriteItem.label
+      );
+
+      if (favoriteItemKey) {
+        const favoriteItemToDeleteRef = ref(
+          $database,
+          `users/${user.value.uid}/favoriteItems/${favoriteItemKey}`
+        );
+        await remove(favoriteItemToDeleteRef);
+        console.log('Favorite item deleted');
+      } else {
+        console.log('Item not found in favorites');
+      }
+    } catch (error: any) {
+      console.error(`Error deleting favorite item: ${error.message}`);
+    }
   }
 
-  return { writeFavoriteUserItemData, isItemFavorite } as const;
+  return {
+    writeFavoriteUserItemData,
+    isItemFavorite,
+    deleteFavoriteUserItemData,
+  } as const;
 }
