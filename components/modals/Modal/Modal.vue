@@ -5,6 +5,10 @@ const { isModalOpen, closeModal } = useModal();
 
 // Compute `isOpen` by calling `isModalOpen` with the modalName, ensuring a boolean result
 const isOpen = computed(() => isModalOpen(props.modalName!));
+
+useCloseElementOnEscape(() => {
+  if (isOpen.value) closeModal();
+});
 </script>
 
 <template>
