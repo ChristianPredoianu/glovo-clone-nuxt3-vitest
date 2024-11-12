@@ -18,6 +18,7 @@ const isFavorite = ref<boolean>(false);
 
 async function toggleFavorite() {
   if (!user.value) {
+    console.log(!user.value);
     openModal('signin');
     return;
   }
