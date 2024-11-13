@@ -5,4 +5,5 @@ export const navLinks: INavLinks[] = [
   { title: 'Cart', link: '', icon: ['fas', 'cart-shopping'] },
   { title: 'Dashboard', link: '', icon: ['fas', 'user-tie'] },
   { title: 'My Account', link: '', icon: ['fas', 'face-smile'] },
+  { title: 'Sign in', link: '', icon: ['fas', 'right-to-bracket'] },
 ];
