@@ -36,6 +36,7 @@ const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange 
 
 <template>
   <div class="container mx-auto px-4 py-4">
+    <BackBtn :page="'/'" />
     <section
       class="flex flex-col gap-y-4 items-center md:gap-y-6 lg:flex-row lg:justify-between bg-white p-4 rounded-xl"
     >
