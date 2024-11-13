@@ -42,7 +42,7 @@ function onKeyDown(e: KeyboardEvent) {
         name="email"
         autocomplete="username"
         required
-        class="w-full border-0 border-b-2 border-gray-300 py-2 mt-1"
+        class="w-full border-0 border-b-2 border-gray-300 py-2 px-1 mt-1"
         placeholder="email@example.com"
         @blur="validateEmail(userEmail)"
       />
@@ -59,7 +59,7 @@ function onKeyDown(e: KeyboardEvent) {
         name="password"
         autocomplete="current-password"
         required
-        class="w-full border-0 border-b-2 border-gray-300 py-2 mt-1"
+        class="w-full border-0 border-b-2 border-gray-300 py-2 px-1 mt-1"
         placeholder="At least 6 characters"
         @blur="validatePassword(userPassword)"
       />
