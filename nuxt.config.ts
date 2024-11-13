@@ -8,6 +8,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['composables', 'composables/auth', 'composables/ui'],
   },
+
   runtimeConfig: {
     public: {
       apiKeyLocationReverse: process.env.NUXT_API_KEY_LOCATION_REVERSE,
@@ -27,7 +28,6 @@ export default defineNuxtConfig({
   },
 
   devtools: { enabled: true },
-
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts'],
 
   googleFonts: {
@@ -52,4 +52,6 @@ export default defineNuxtConfig({
     { path: '@/components/modals', extensions: ['vue'] },
     { path: '@/components/counters', extensions: ['vue'] },
   ],
+
+  compatibilityDate: '2024-11-13',
 });
