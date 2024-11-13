@@ -11,9 +11,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiKeyLocationReverse: process.env.NUXT_API_KEY_LOCATION_REVERSE,
+      apiKeyLocationReverse: process.env.NUXT_PUBLIC_API_KEY_LOCATION_REVERSE,
       edamamAppId: process.env.NUXT_PUBLIC_EDAMAM_APP_ID,
       edamamAppKey: process.env.NUXT_PUBLIC_EDAMAM_APP_KEY,
+
       firebase: {
         apiKey: process.env.FIREBASE_API_KEY,
         authDomain: process.env.FIREBASE_AUTH_DOMAIN,
