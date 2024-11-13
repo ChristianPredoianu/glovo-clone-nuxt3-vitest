@@ -35,7 +35,7 @@ const shouldShowNavItems = computed(() => {
     </div>
     <p
       v-if="props.title === 'Cart' && shouldShowNavItems"
-      class="ml-1 bg-green-600 text-white rounded-full p-2 w-6 h-6 flex items-center justify-center text-xs font-semibold"
+      class="hidden ml-1 bg-green-600 text-white rounded-full p-2 w-6 h-6 sm:flex items-center justify-center text-xs font-semibold"
     >
       {{ numberOfCartProducts }}
     </p>
