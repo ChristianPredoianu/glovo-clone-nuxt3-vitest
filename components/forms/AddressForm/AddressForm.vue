@@ -22,18 +22,18 @@ const emits = defineEmits(['emitInput', 'emitOption', 'emitLocation']);
 
 let locationAdress: ILocationAdress | null = null;
 
-const inputText = useState<string>('inputRef', () => '');
+const inputText = ref<string>('');
 
 const locationIconRef = ref<HTMLInputElement | null>(null);
 const locationTextRef = ref<HTMLSpanElement | null>(null);
 
 const { latitude, longitude, getLocation } = useGeolocation();
 const { isLoaded } = useIsLoaded();
-const runtimeConfig = useRuntimeConfig();
+const { locationReverseEndpoint } = useEndpoints();
 
 const { data } = await useFetch<ILocationAdress>(
   () =>
-    `${runtimeConfig.public.apiReverse}pk.a75cdfe1cc307b34218d8021f4122dc6&q&lat=${latitude.value}&lon=${longitude.value}&format=json&`
+    `${locationReverseEndpoint.value}&q&lat=${latitude.value}&lon=${longitude.value}&format=json`
 );
 
 function handleInputElements() {
