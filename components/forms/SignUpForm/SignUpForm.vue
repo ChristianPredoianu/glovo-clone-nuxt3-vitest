@@ -65,7 +65,7 @@ function onKeyDown(e: KeyboardEvent) {
         name="password"
         autocomplete="current-password"
         required
-        class="border-0 border-b-2 border-gray-300 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+        class="border-0 border-b-2 border-gray-300 py-2 px-1 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500"
         placeholder="At least 6 characters"
         @blur="validatePassword(userPassword)"
       />
@@ -88,7 +88,7 @@ function onKeyDown(e: KeyboardEvent) {
         name="password"
         autocomplete="current-password"
         required
-        class="border-0 border-b-2 border-gray-300 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+        class="border-0 border-b-2 border-gray-300 py-2 px-1 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500"
         placeholder="At least 6 characters "
         @blur="validateRepeatedPassword(userPassword, repeatedUserPassword)"
       />
