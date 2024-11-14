@@ -22,6 +22,8 @@ const totalPages = computed(() => Math.ceil(props.totalItems / props.itemsPerPag
 
 const currentPage = ref(props.currentPage);
 
+const { isLoaded } = useIsLoaded();
+
 function goToPage(page: number) {
   if (page < 1 || page > totalPages.value) return;
   currentPage.value = page;
@@ -37,7 +39,7 @@ function goToPage(page: number) {
       :disabled="currentPage === 1"
       class="px-2 py-1 md:px-4 md:py-2 text-white bg-green-600 rounded hover:bg-green-700 disabled:opacity-50"
     >
-      <font-awesome-icon :icon="['fa', 'fa-chevron-left']" />
+      <font-awesome-icon v-if="isLoaded" :icon="['fa', 'fa-chevron-left']" />
     </button>
 
     <span v-for="page in totalPages" :key="page">
@@ -61,7 +63,7 @@ function goToPage(page: number) {
       :disabled="currentPage === totalPages"
       class="px-2 py-1 md:px-4 md:py-2 text-white bg-green-600 rounded hover:bg-green-700 disabled:opacity-50"
     >
-      <font-awesome-icon :icon="['fa', 'fa-chevron-right']" />
+      <font-awesome-icon v-if="isLoaded" :icon="['fa', 'fa-chevron-right']" />
     </button>
   </div>
 </template>
