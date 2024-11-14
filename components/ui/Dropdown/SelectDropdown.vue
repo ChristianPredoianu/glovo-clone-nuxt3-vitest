@@ -12,6 +12,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(['emitSelected']);
+
 const selectedOption = ref<string | null>(null);
 const isOpen = ref(false);
 
@@ -21,18 +23,19 @@ useClickOutside(selectDropdownRef, () => {
   isOpen.value = false;
 });
 
-const toggleDropdown = () => {
+function toggleDropdown() {
   isOpen.value = !isOpen.value;
-};
+}
 
-const closeDropdown = () => {
+function closeDropdown() {
   isOpen.value = false;
-};
+}
 
-const selectOption = (option: Record<string, any>) => {
+function selectOption(option: Record<string, any>) {
   selectedOption.value = option[props.displayKey as keyof typeof option];
   closeDropdown();
-};
+  emit('emitSelected', option.category);
+}
 </script>
 
 <template>
