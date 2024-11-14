@@ -16,12 +16,13 @@ declare module '#app' {
   }
 }
 
-export function useAuth() {
+export function useAuth(redirect: string | null = null) {
   const { $auth } = useNuxtApp();
 
   const successMessage = ref<string | null>(null);
   const authErrorMessage = ref<string | null>(null);
   const user = ref<User | null>(null);
+  const isAuthReady = ref(false);
 
   const router = useRouter();
 
@@ -32,6 +33,15 @@ export function useAuth() {
     emailError,
     repeatedPasswordError,
   } = useAuthValidation();
+
+  onMounted(() => {
+    if ($auth) {
+      onAuthStateChanged($auth, (currentUser) => {
+        user.value = currentUser;
+        isAuthReady.value = true;
+      });
+    }
+  });
 
   function validateCredentials(email: string, password: string): boolean {
     const isEmailValid = validateEmail(email);
@@ -73,7 +83,6 @@ export function useAuth() {
       setSuccessMessageWithTimeout('Successfully signed up!', DELAY);
 
       await delay(DELAY);
-
       await router.push('/dashboard');
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
@@ -85,6 +94,7 @@ export function useAuth() {
     }
   }
 
+  // Sign-in function with redirect
   async function signIn(email: string, password: string): Promise<void> {
     successMessage.value = null;
     authErrorMessage.value = null;
@@ -98,7 +108,9 @@ export function useAuth() {
       setSuccessMessageWithTimeout('Successfully signed in!', DELAY);
       await delay(DELAY);
 
-      await router.push('/dashboard');
+      // Redirect to the original route if available, or to /dashboard
+      const redirectTo = redirect || '/dashboard';
+      await router.push(redirectTo as string);
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         if (error.message === 'Firebase: Error (auth/invalid-credential).') {
@@ -123,7 +135,7 @@ export function useAuth() {
       });
   }
 
-  onMounted(() => {
+  /*   onMounted(() => {
     onAuthStateChanged($auth, (currentUser) => {
       if (currentUser) {
         user.value = currentUser;
@@ -131,7 +143,7 @@ export function useAuth() {
         user.value = null;
       }
     });
-  });
+  }); */
 
   return {
     emailError,
@@ -139,6 +151,7 @@ export function useAuth() {
     signIn,
     signUp,
     signUserOut,
+    isAuthReady,
     user,
     successMessage,
     authErrorMessage,
