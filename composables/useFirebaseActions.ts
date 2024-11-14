@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, get, remove, push } from 'firebase/database';
+import { getDatabase, ref as dbRef, set, get, remove, push } from 'firebase/database';
 
 import type { IItem } from '@/interfaces/interfaces.interface';
 
@@ -9,12 +9,14 @@ declare module '#app' {
 }
 
 export function useFirebaseActions() {
+  const fetchedFavoriteItems: Ref<IItem[]> = ref([]);
+
   const { user } = useAuth();
   const { $database } = useNuxtApp();
 
   function getFavoriteItemRef() {
     if (!user.value) throw new Error('User is not authenticated');
-    return ref($database, `users/${user.value.uid}/favoriteItems`);
+    return dbRef($database, `users/${user.value.uid}/favoriteItems`);
   }
 
   async function isLabelAlreadyFavorite(favoriteItem: IItem): Promise<boolean> {
@@ -50,10 +52,25 @@ export function useFirebaseActions() {
       const favoriteItemRef = getFavoriteItemRef();
       const newFavoriteItemRef = push(favoriteItemRef);
       await set(newFavoriteItemRef, favoriteItem);
-
-      console.log('Item added to favorites');
     } catch (error: any) {
       console.error(`Error adding item to favorites: ${error.message}`);
+    }
+  }
+
+  async function fetchFavoriteItems() {
+    try {
+      const favoriteItemRef = getFavoriteItemRef();
+      const snapshot = await get(favoriteItemRef);
+
+      if (snapshot.exists()) {
+        const favorites = snapshot.val() as { [key: string]: IItem };
+
+        fetchedFavoriteItems.value = Object.values(favorites);
+      } else {
+        fetchedFavoriteItems.value = [];
+      }
+    } catch (error: any) {
+      console.error(`Error fetching favorite items: ${error.message}`);
     }
   }
 
@@ -88,10 +105,7 @@ export function useFirebaseActions() {
       const favoriteItemRef = getFavoriteItemRef();
       const snapshot = await get(favoriteItemRef);
 
-      if (!snapshot.exists()) {
-        console.log('No favorite items to delete');
-        return;
-      }
+      if (!snapshot.exists()) return;
 
       const favorites = snapshot.val() as { [key: string]: IItem };
 
@@ -101,14 +115,11 @@ export function useFirebaseActions() {
       );
 
       if (favoriteItemKey) {
-        const favoriteItemToDeleteRef = ref(
+        const favoriteItemToDeleteRef = dbRef(
           $database,
           `users/${user.value.uid}/favoriteItems/${favoriteItemKey}`
         );
         await remove(favoriteItemToDeleteRef);
-        console.log('Favorite item deleted');
-      } else {
-        console.log('Item not found in favorites');
       }
     } catch (error: any) {
       console.error(`Error deleting favorite item: ${error.message}`);
@@ -116,7 +127,9 @@ export function useFirebaseActions() {
   }
 
   return {
+    fetchedFavoriteItems,
     writeFavoriteUserItemData,
+    fetchFavoriteItems,
     isItemFavorite,
     deleteFavoriteUserItemData,
   } as const;
