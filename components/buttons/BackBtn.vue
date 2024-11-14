@@ -9,6 +9,7 @@ const props = defineProps({
 const emit = defineEmits(['clicked']);
 
 const router = useRouter();
+const { isLoaded } = useIsLoaded();
 
 function goToPage() {
   router.push(`${props.page}`);
@@ -21,7 +22,11 @@ function goToPage() {
     @click="goToPage"
   >
     <div class="flex items-center gap-x-2">
-      <font-awesome-icon :icon="['fas', 'fa-chevron-left']" class="text-sm" />
+      <font-awesome-icon
+        v-if="isLoaded"
+        :icon="['fas', 'fa-chevron-left']"
+        class="text-sm"
+      />
       <span class="leading-none">Back</span>
     </div>
   </button>
