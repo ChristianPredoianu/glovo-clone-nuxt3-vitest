@@ -3,6 +3,7 @@ import SelectDropdown from '@/components/ui/Dropdown/SelectDropdown.vue';
 import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 import { cuisineTypes } from '@/data/productCategoriesData';
 import { fakeStoreCategories } from '@/data/productCategoriesData';
+
 const items = ref([
   { id: 1, name: 'Item 1' },
   { id: 2, name: 'Item 2' },
@@ -32,11 +33,18 @@ const mergedCategories = [
 
 const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange } =
   usePagination(items, 5);
+
+const { fetchedFavoriteItems, fetchFavoriteItems } = useFirebaseActions();
+
+onMounted(() => {
+  fetchFavoriteItems();
+});
 </script>
 
 <template>
   <div class="container mx-auto px-4 py-4">
-    <BackBtn :page="'/'" />
+    <BackBtn :page="'/'" class="mb-4" />
+    <h1 v-if="fetchedFavoriteItems">{{ fetchedFavoriteItems }}</h1>
     <section
       class="flex flex-col gap-y-4 items-center md:gap-y-6 lg:flex-row lg:justify-between bg-white p-4 rounded-xl"
     >
@@ -60,10 +68,8 @@ const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange 
       </div>
 
       <ul class="mt-4 space-y-2">
-        <!-- Loop through displayed items and render them -->
         <li v-for="item in displayedItems" :key="item.id" class="p-2 border rounded">
           {{ item.name }}
-          <!-- Display the name of the item -->
         </li>
       </ul>
     </section>
