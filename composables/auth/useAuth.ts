@@ -34,15 +34,6 @@ export function useAuth(redirect: string | null = null) {
     repeatedPasswordError,
   } = useAuthValidation();
 
-  onMounted(() => {
-    if ($auth) {
-      onAuthStateChanged($auth, (currentUser) => {
-        user.value = currentUser;
-        isAuthReady.value = true;
-      });
-    }
-  });
-
   function validateCredentials(email: string, password: string): boolean {
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
@@ -135,15 +126,14 @@ export function useAuth(redirect: string | null = null) {
       });
   }
 
-  /*   onMounted(() => {
-    onAuthStateChanged($auth, (currentUser) => {
-      if (currentUser) {
+  watchEffect(() => {
+    if ($auth) {
+      onAuthStateChanged($auth, (currentUser) => {
         user.value = currentUser;
-      } else {
-        user.value = null;
-      }
-    });
-  }); */
+        isAuthReady.value = true;
+      });
+    }
+  });
 
   return {
     emailError,
