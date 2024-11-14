@@ -1,12 +1,14 @@
 import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
-  plugins: [
-    '~/plugins/firebase.client.ts', // Correct usage for plugins in Nuxt 3
-  ],
+  plugins: ['~/plugins/firebase.client.ts'],
 
   imports: {
     dirs: ['composables', 'composables/auth', 'composables/ui'],
+  },
+
+  routeRules: {
+    '/dashboard/**': { appMiddleware: 'auth' }, // This will apply auth middleware to all routes under /dashboard
   },
 
   runtimeConfig: {
