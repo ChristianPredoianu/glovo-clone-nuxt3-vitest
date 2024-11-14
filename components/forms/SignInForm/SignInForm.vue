@@ -10,8 +10,10 @@ const { signIn, user, successMessage, authErrorMessage } = useAuth();
 const { emailError, passwordError, validateEmail, validatePassword } =
   useAuthValidation();
 const { closeModal } = useModal();
+const router = useRouter();
+const route = useRoute();
 
-function handleSignIn(e: Event) {
+async function handleSignIn(e: Event) {
   e.preventDefault(); // Prevent default form submission
   console.log('Sign in attempt with email:', userEmail.value);
 
