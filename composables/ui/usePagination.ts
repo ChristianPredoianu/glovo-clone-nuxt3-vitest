@@ -1,7 +1,7 @@
 export function usePagination<T>(items: Ref<T[]>, numberOfItemsPerPage: number) {
   const currentPage = ref(1);
   const itemsPerPage = numberOfItemsPerPage;
-  const totalItems = items.value.length;
+  const totalItems = computed(() => items.value.length);
 
   const displayedItems = computed(() => {
     const start = (currentPage.value - 1) * itemsPerPage;
