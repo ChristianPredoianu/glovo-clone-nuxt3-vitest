@@ -70,8 +70,6 @@ export function useFirebaseActions() {
       if (snapshot.exists()) {
         const favorites = snapshot.val() as { [key: string]: IItem };
         fetchedFavoriteItems.value = Object.values(favorites);
-        console.log(fetchedFavoriteItems.value);
-        console.log('dsa');
       } else {
         fetchedFavoriteItems.value = [];
       }
