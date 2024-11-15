@@ -4,6 +4,7 @@ import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 import { replaceRecipeText } from '@/helpers/replaceRecipeText';
 import { cuisineTypes } from '@/data/productCategoriesData';
 import { fakeStoreCategories } from '@/data/productCategoriesData';
+import type { IItem } from '@/interfaces/interfaces.interface';
 
 const selectedOption = ref('');
 
@@ -29,8 +30,10 @@ const filteredItems = computed(() => {
   );
 });
 
+const filteredItemsRef = ref<IItem[]>(filteredItems.value);
+
 const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange } =
-  usePagination(filteredItems, 5);
+  usePagination(filteredItemsRef, 5);
 
 function emitSelected(option: string) {
   selectedOption.value = option;
@@ -43,6 +46,10 @@ watch(
   },
   { immediate: true }
 );
+
+watch(filteredItems, (newFilteredItems) => {
+  filteredItemsRef.value = newFilteredItems;
+});
 </script>
 
 <template>
@@ -64,6 +71,7 @@ watch(
           @emitSelected="emitSelected"
         />
         <Pagination
+          v-if="displayedItems.length > 0"
           :currentPage="currentPage"
           :totalItems="totalItems"
           :itemsPerPage="itemsPerPage"
@@ -73,7 +81,7 @@ watch(
       <h1>{{ selectedOption }}</h1>
       <ul class="mt-4 space-y-4">
         <li
-          v-for="item in filteredItems"
+          v-for="item in displayedItems"
           :key="item.id"
           class="flex items-center p-4 border-2 border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in-out"
         >
