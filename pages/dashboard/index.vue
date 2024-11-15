@@ -4,11 +4,11 @@ import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 import { replaceRecipeText } from '@/helpers/replaceRecipeText';
 import { cuisineTypes } from '@/data/productCategoriesData';
 import { fakeStoreCategories } from '@/data/productCategoriesData';
-import type { IItem } from '@/interfaces/interfaces.interface';
 
 const selectedOption = ref('');
 
 const mergedCategories = [
+  { category: 'All Categories' },
   ...cuisineTypes.map(({ cuisineType }) => ({
     category: capitalizeFirstLetter(cuisineType),
   })),
@@ -17,40 +17,18 @@ const mergedCategories = [
   })),
 ];
 
-console.log(mergedCategories);
-
-const items = ref([
-  { id: 1, name: 'Item 1' },
-  { id: 2, name: 'Item 2' },
-  { id: 3, name: 'Item 3' },
-  { id: 4, name: 'Item 4' },
-  { id: 5, name: 'Item 5' },
-  { id: 6, name: 'Item 6' },
-  { id: 7, name: 'Item 7' },
-  { id: 8, name: 'Item 8' },
-  { id: 9, name: 'Item 9' },
-  { id: 10, name: 'Item 10' },
-  { id: 11, name: 'Item 11' },
-  { id: 12, name: 'Item 12' },
-  { id: 13, name: 'Item 13' },
-  { id: 14, name: 'Item 14' },
-  { id: 15, name: 'Item 15' },
-]);
-
 const { fetchedFavoriteItems, fetchFavoriteItems } = useFirebaseActions();
 const { isAuthReady } = useAuth();
 
 const filteredItems = computed(() => {
-  if (!selectedOption.value || selectedOption.value === 'All Categories') {
+  if (!selectedOption.value || selectedOption.value === 'All Categories')
     return fetchedFavoriteItems.value;
-  }
 
   return fetchedFavoriteItems.value.filter(
     (item) => capitalizeFirstLetter(item.category) === selectedOption.value
   );
 });
 
-console.log(filteredItems.value);
 const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange } =
   usePagination(filteredItems, 5);
 
