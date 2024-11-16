@@ -10,6 +10,7 @@ declare module '#app' {
 
 export function useFirebaseActions() {
   const fetchedFavoriteItems: Ref<IItem[]> = ref([]);
+  const isLoading = ref(false);
 
   const { user, isAuthReady } = useAuth();
   const { $database } = useNuxtApp();
@@ -59,10 +60,10 @@ export function useFirebaseActions() {
 
   async function fetchFavoriteItems() {
     if (!isAuthReady.value) {
-      console.error('Authentication state is not ready.');
       return;
     }
 
+    isLoading.value = true;
     try {
       const favoriteItemRef = getFavoriteItemRef();
       const snapshot = await get(favoriteItemRef);
@@ -75,6 +76,8 @@ export function useFirebaseActions() {
       }
     } catch (error: any) {
       console.error(`Error fetching favorite items: ${error.message}`);
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -132,6 +135,7 @@ export function useFirebaseActions() {
 
   return {
     fetchedFavoriteItems,
+    isLoading,
     writeFavoriteUserItemData,
     fetchFavoriteItems,
     isItemFavorite,
