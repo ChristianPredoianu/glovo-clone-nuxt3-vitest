@@ -18,7 +18,7 @@ const mergedCategories = [
   })),
 ];
 
-const { fetchedFavoriteItems, fetchFavoriteItems } = useFirebaseActions();
+const { fetchedFavoriteItems, isLoading, fetchFavoriteItems } = useFirebaseActions();
 const { isAuthReady } = useAuth();
 
 const filteredItems = computed(() => {
@@ -39,13 +39,19 @@ function emitSelected(option: string) {
   selectedOption.value = option;
 }
 
-watch(
-  () => isAuthReady.value,
-  (ready) => {
-    if (ready) fetchFavoriteItems();
-  },
-  { immediate: true }
-);
+onMounted(() => {
+  if (isAuthReady.value) {
+    fetchFavoriteItems();
+  } else {
+    watch(
+      () => isAuthReady.value,
+      (ready) => {
+        if (ready) fetchFavoriteItems();
+      },
+      { immediate: true }
+    );
+  }
+});
 
 watch(filteredItems, (newFilteredItems) => {
   filteredItemsRef.value = newFilteredItems;
@@ -53,54 +59,57 @@ watch(filteredItems, (newFilteredItems) => {
 </script>
 
 <template>
-  <div class="min-h-screen container mx-auto px-4 py-4">
-    <BackBtn :page="'/'" class="mb-4" />
-    <section
-      class="flex flex-col gap-y-4 items-center md:gap-y-6 lg:flex-row lg:justify-between bg-white p-4 rounded-xl"
-    >
-      <SearchBar />
-      <Profile />
-    </section>
-    <section class="p-4 mt-4">
-      <h1 class="font-semibold text-lg">Your favorites</h1>
-      <div class="flex flex-col items-center md:flex-row md:justify-between mt-4">
-        <SelectDropdown
-          :options="mergedCategories"
-          displayKey="category"
-          defaultOptionText="All Categories"
-          @emitSelected="emitSelected"
-        />
-        <Pagination
-          v-if="displayedItems.length > 0"
-          :currentPage="currentPage"
-          :totalItems="totalItems"
-          :itemsPerPage="itemsPerPage"
-          @pageChanged="handlePageChange"
-        />
-      </div>
-      <h1>{{ selectedOption }}</h1>
-      <ul class="mt-4 space-y-4">
-        <li
-          v-for="item in displayedItems"
-          :key="item.id"
-          class="flex items-center p-4 border-2 border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in-out"
-        >
-          <img
-            src="/glovo.jpg"
-            alt="Item Image"
-            class="w-32 h-32 object-cover rounded-lg mr-4"
+  <div v-if="isAuthReady">
+    <LoadingSpinner v-if="isLoading" />
+    <div class="min-h-screen container mx-auto px-4 py-4">
+      <BackBtn :page="'/'" class="mb-4" />
+      <section
+        class="flex flex-col gap-y-4 items-center md:gap-y-6 lg:flex-row lg:justify-between bg-white p-4 rounded-xl"
+      >
+        <SearchBar />
+        <Profile />
+      </section>
+      <section class="p-4 mt-4">
+        <h1 class="font-semibold text-lg">Your favorites</h1>
+        <div class="flex flex-col items-center md:flex-row md:justify-between mt-4">
+          <SelectDropdown
+            :options="mergedCategories"
+            displayKey="category"
+            defaultOptionText="All Categories"
+            @emitSelected="emitSelected"
           />
-          <div class="flex flex-col gap-y-1">
-            <p class="text-lg font-semibold text-gray-800">
-              {{ capitalizeFirstLetter(item.category) }}
-            </p>
-            <p class="text-sm text-gray-600">{{ replaceRecipeText(item.label) }}</p>
-          </div>
-        </li>
-      </ul>
-      <h2 v-if="filteredItems.length === 0" class="text-xl font-semibold text-center">
-        You don't have any favorites in this category
-      </h2>
-    </section>
+          <Pagination
+            v-if="displayedItems.length > 0"
+            :currentPage="currentPage"
+            :totalItems="totalItems"
+            :itemsPerPage="itemsPerPage"
+            @pageChanged="handlePageChange"
+          />
+        </div>
+
+        <ul class="mt-4 space-y-4">
+          <li
+            v-for="item in displayedItems"
+            :key="item.id"
+            class="flex items-center p-4 border-2 border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in-out"
+          >
+            <img
+              src="/glovo.jpg"
+              alt="Item Image"
+              class="w-32 h-32 object-cover rounded-lg mr-4"
+            />
+            <div class="flex flex-col gap-y-1">
+              <p class="text-lg font-semibold text-gray-800">
+                {{ capitalizeFirstLetter(item.category) }}
+              </p>
+              <p class="text-sm text-gray-600">{{ replaceRecipeText(item.label) }}</p>
+            </div>
+          </li>
+        </ul>
+        <h2 class="text-xl font-semibold text-center">
+          You don't have any favorites in this category
+        </h2>
+      </section>
+    </div>
   </div>
 </template>
