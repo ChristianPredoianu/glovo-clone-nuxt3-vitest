@@ -14,7 +14,7 @@ vi.mock('@/composables/useIsLoaded', () => ({
   }),
 }));
 
-describe('BackBtn.vue', () => {
+describe('BackBtn', () => {
   it('renders correctly', () => {
     const wrapper = mount(BackBtn, {
       props: {
