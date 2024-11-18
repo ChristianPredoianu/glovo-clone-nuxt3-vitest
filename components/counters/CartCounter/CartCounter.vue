@@ -6,6 +6,10 @@ const numberKey = ref(0);
 watch(numberOfCartProducts, (newCount, oldCount) => {
   if (newCount !== oldCount) numberKey.value++;
 });
+
+defineExpose({
+  numberKey,
+});
 </script>
 
 <template>
