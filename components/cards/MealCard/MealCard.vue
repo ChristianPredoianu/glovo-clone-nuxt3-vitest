@@ -25,7 +25,7 @@ const mealItem = {
       <div class="relative overflow-hidden w-full max-w-[500px]">
         <img
           :src="props.img"
-          :alt="props.label"
+          :alt="replaceRecipeText(props.label)"
           class="rounded-lg transform transition-transform duration-300 hover:scale-105 object-cover w-full h-full"
         />
       </div>
@@ -45,6 +45,7 @@ const mealItem = {
         <div class="flex items-center gap-2 py-1 px-3 bg-amber-400 rounded-md">
           <font-awesome-icon
             v-if="isLoaded"
+            data-test="fa-icon"
             :icon="['fas', 'fa-truck']"
             class="text-xs"
           />
