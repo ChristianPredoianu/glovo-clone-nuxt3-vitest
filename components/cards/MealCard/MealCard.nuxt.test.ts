@@ -8,7 +8,7 @@ vi.mock('@/helpers/replaceRecipeText', () => ({
   ),
 }));
 
-describe('ComponentName', () => {
+describe('MealCard', () => {
   it('renders meal details correctly', async () => {
     const wrapper = mount(MealCard, {
       props: {
