@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import RoundedBtn from '@/components/buttons/RoundedBtn/RoundedBtn.vue';
 
-describe('RoundedBtn.vue', () => {
+describe('RoundedBtn', () => {
   it('renders the correct icon and text based on props', () => {
     const wrapper = mount(RoundedBtn, {
       props: {
