@@ -9,13 +9,14 @@ const emits = defineEmits(['emitClick']);
 </script>
 
 <template>
-  <div class="flex flex-col gap-y-1">
+  <button class="flex flex-col gap-y-1">
     <font-awesome-icon
       :icon="['fas', props.icon]"
+      data-test="fa-icon"
       class="bg-orange-200 p-2 rounded-full text-gray-600 cursor-pointer h-4 w-4"
       :class="[props.backCol]"
       @click="emits('emitClick')"
     />
     <p class="text-center font-semibold">{{ props.text }}</p>
-  </div>
+  </button>
 </template>
