@@ -2,73 +2,71 @@ import { mount } from '@vue/test-utils';
 import { vi } from 'vitest';
 import ProductCard from '@/components/cards/ProductCard/ProductCard.vue';
 
+vi.mock('@/components/StarCounter.vue', () => ({
+  name: 'StarCounter',
+  props: ['rate', 'count'],
+  template: '<div class="star-counter"></div>', // A mock template to ensure it renders
+}));
+
 describe('ProductCard', () => {
-  const mockProduct = {
-    title: 'Awesome Product',
-    image: 'path/to/image.jpg',
+  const product = {
+    image: 'https://example.com/product-image.jpg',
+    title: 'Sample Product',
     price: 99.99,
     rating: {
       rate: 4.5,
-      count: 120,
+      count: 150,
     },
   };
 
-  it('renders product details correctly', () => {
+  it('renders the product image, title, and price correctly', () => {
     const wrapper = mount(ProductCard, {
       props: {
-        product: mockProduct,
+        product,
       },
     });
-    // Test that the product image is rendered
-    const image = wrapper.find('img');
-    expect(image.exists()).toBe(true);
-    expect(image.attributes('src')).toBe(mockProduct.image);
-    expect(image.attributes('alt')).toBe('Product image');
 
-    // Test that the product title is rendered
+    // Test the product image rendering
+    const img = wrapper.find('img');
+    expect(img.exists()).toBe(true);
+    expect(img.attributes('src')).toBe(product.image);
+    expect(img.attributes('alt')).toBe('Product image'); // Test alt attribute
+
+    // Test the product title rendering
     const title = wrapper.find('h3');
-    expect(title.text()).toBe(mockProduct.title);
+    expect(title.exists()).toBe(true);
+    expect(title.text()).toBe(product.title);
 
-    // Test that the product price is rendered
+    // Test the product price rendering
     const price = wrapper.find('p.text-lg');
-    expect(price.text()).toBe(`${mockProduct.price} $`);
-
-    // Test the number of full stars
-    const fullStars = wrapper.findAll('[data-test="fa-full-stars"]');
-    expect(fullStars.length).toBe(4);
-
-    // Test for half star
-    const halfStar = wrapper.find('[data-test="fa-half-stars"]');
-    expect(halfStar.exists()).toBe(true);
-
-    // Test the number of empty stars
-    const emptyStars = wrapper.findAll('[data-test="fa-empty-stars"]');
-    expect(emptyStars.length).toBe(0);
-
-    // Test the number of reviews
-    const reviewCount = wrapper.find('p.ml-2');
-    expect(reviewCount.text()).toBe(`(${mockProduct.rating.count} reviews)`);
-
-    // Test the 'Add to cart' button exists
-    const addToCartButton = wrapper.find('button');
-    expect(addToCartButton.exists()).toBe(true);
-    expect(addToCartButton.text()).toBe('Add to cart');
+    expect(price.exists()).toBe(true);
+    expect(price.text()).toBe(`${product.price} $`);
   });
 
-  it('handles button click', async () => {
+  it('passes correct props to the StarCounter component', () => {
     const wrapper = mount(ProductCard, {
       props: {
-        product: mockProduct,
+        product,
       },
     });
 
-    const addToCartButton = wrapper.find('button');
+    const starCounter = wrapper.findComponent({ name: 'StarCounter' });
 
-    const addToCartSpy = vi.fn();
-    addToCartButton.element.addEventListener('click', addToCartSpy);
+    // Ensure StarCounter receives the correct `rate` and `count` props
+    expect(starCounter.exists()).toBe(true);
+    expect(starCounter.props('rate')).toBe(product.rating.rate);
+    expect(starCounter.props('count')).toBe(product.rating.count);
+  });
 
-    await addToCartButton.trigger('click');
+  it('renders the "Add to cart" button', () => {
+    const wrapper = mount(ProductCard, {
+      props: {
+        product,
+      },
+    });
 
-    expect(addToCartSpy).toHaveBeenCalledTimes(1);
+    const button = wrapper.find('button');
+    expect(button.exists()).toBe(true);
+    expect(button.text()).toBe('Add to cart');
   });
 });
