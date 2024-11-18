@@ -2,10 +2,6 @@
 const props = defineProps({
   product: Object,
 });
-
-// Calculate the number of full, half, and empty stars based on the rating
-const fullStars = computed(() => Math.floor(props.product?.rating.rate)); // Full stars count
-const halfStar = computed(() => props.product?.rating.rate % 1 >= 0.5); // Half // Empty stars count
 </script>
 
 <template>
@@ -30,34 +26,7 @@ const halfStar = computed(() => props.product?.rating.rate % 1 >= 0.5); // Half 
         <p class="text-center text-lg font-semibold text-green-800">
           {{ product?.price }} $
         </p>
-        <div class="flex flex-col items-center mb-4">
-          <div class="flex text-yellow-500 mt-2 mb-2">
-            <!-- Full Stars -->
-            <font-awesome-icon
-              v-for="n in fullStars"
-              :key="'full-' + n"
-              data-test="fa-full-stars"
-              :icon="['fas', 'fa-star']"
-              class="text-xl"
-            />
-            <!-- Half Star -->
-            <font-awesome-icon
-              v-if="halfStar"
-              data-test="fa-half-stars"
-              :icon="['fas', 'fa-star-half-stroke']"
-              class="text-xl"
-            />
-            <!-- Empty Stars -->
-            <font-awesome-icon
-              v-for="n in 5 - fullStars - (halfStar ? 1 : 0)"
-              :key="'empty-' + n"
-              data-test="fa-empty-stars"
-              :icon="['fas', 'fa-star']"
-              class="text-xl text-gray-300"
-            />
-          </div>
-          <p class="ml-2 text-sm text-gray-600">({{ product?.rating.count }} reviews)</p>
-        </div>
+        <StarCounter :rate="props.product!.rating.rate" :count="product?.rating.count" />
         <div class="mt-auto w-full">
           <button
             class="w-full bg-green-500 inline text-white py-2 px-4 shadow-md hover:bg-green-600 transition duration-200"
