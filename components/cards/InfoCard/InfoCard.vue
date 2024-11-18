@@ -21,6 +21,7 @@ onMounted(() => {
       <font-awesome-icon
         v-if="isLoaded"
         :icon="['fas', props.icon]"
+        data-test="fa-icon"
         class="text-7xl text-orange-400"
       />
       <h3 class="flex-grow text-xl font-bold">{{ props.heading }}</h3>
