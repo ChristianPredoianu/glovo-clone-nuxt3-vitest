@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import InfoCard from '@/components/cards/InfoCard/InfoCard.vue'; // Replace with actual component path
 
-describe('ComponentName', () => {
+describe('InfoCard', () => {
   it('renders the icon, heading, paragraph, and span with correct values', async () => {
     const wrapper = mount(InfoCard, {
       props: {
