@@ -12,7 +12,11 @@ const halfStar = computed(() => props.rate! % 1 >= 0.5); // Half // Empty stars 
 </script>
 
 <template>
-  <div v-if="isLoaded" class="flex flex-col items-center mb-4">
+  <div
+    v-if="isLoaded"
+    data-test="star-counter-div"
+    class="flex flex-col items-center mb-4"
+  >
     <div class="flex text-yellow-500 mt-2 mb-2">
       <!-- Full Stars -->
       <font-awesome-icon
