@@ -10,7 +10,7 @@ vi.mock('@/composables/useCart', () => ({
   }),
 }));
 
-describe('CartProduct.vue', () => {
+describe('ProductCounter', () => {
   const mockProduct = {
     id: '123',
     label: 'Test Product',
