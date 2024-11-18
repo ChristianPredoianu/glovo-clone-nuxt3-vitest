@@ -36,12 +36,14 @@ const halfStar = computed(() => props.product?.rating.rate % 1 >= 0.5); // Half 
             <font-awesome-icon
               v-for="n in fullStars"
               :key="'full-' + n"
+              data-test="fa-full-stars"
               :icon="['fas', 'fa-star']"
               class="text-xl"
             />
             <!-- Half Star -->
             <font-awesome-icon
               v-if="halfStar"
+              data-test="fa-half-stars"
               :icon="['fas', 'fa-star-half-stroke']"
               class="text-xl"
             />
@@ -49,6 +51,7 @@ const halfStar = computed(() => props.product?.rating.rate % 1 >= 0.5); // Half 
             <font-awesome-icon
               v-for="n in 5 - fullStars - (halfStar ? 1 : 0)"
               :key="'empty-' + n"
+              data-test="fa-empty-stars"
               :icon="['fas', 'fa-star']"
               class="text-xl text-gray-300"
             />
