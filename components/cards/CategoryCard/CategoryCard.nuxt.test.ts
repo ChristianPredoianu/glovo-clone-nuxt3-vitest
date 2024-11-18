@@ -3,7 +3,7 @@ import { describe, it, expect, vi } from 'vitest';
 import CategoryCard from '@/components/cards/CategoryCard/CategoryCard.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
-describe('CategoryItem', () => {
+describe('CategoryCard', () => {
   it('renders the image and text correctly', () => {
     const wrapper = mount(CategoryCard, {
       props: {
