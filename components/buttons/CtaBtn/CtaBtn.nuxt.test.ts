@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import CtaBtn from '@/components/buttons/CtaBtn/CtaBtn.vue';
 
-describe('CtaBtn.vue', () => {
+describe('CtaBtn', () => {
   it('renders with the correct classes based on props', () => {
     const wrapper = mount(CtaBtn, {
       props: {
