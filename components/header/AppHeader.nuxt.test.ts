@@ -24,7 +24,8 @@ vi.mock('@/composables/ui/useScreenWidth', () => ({
 }));
 
 const mockSignUserOut = vi.fn();
-let mockUser = ref(null);
+let mockIsNavOpen = ref(false);
+let mockUser = ref<null | { name: string }>(null);
 
 vi.mock('@/composables/auth/useAuth', () => ({
   useAuth: () => ({
@@ -97,6 +98,7 @@ describe('AppHeader.vue', () => {
   beforeEach(() => {
     vi.resetAllMocks();
     mockUser = ref(null); // Reset mock user to null before each test
+    mockIsNavOpen = ref(false);
   });
 
   it('renders AppHeader component', () => {
@@ -116,7 +118,7 @@ describe('AppHeader.vue', () => {
     expect(wrapper.find('#nav-list-div').classes()).toContain('-translate-x-[50rem]');
 
     // Change isNavOpen to true to open the navigation
-    wrapper.vm.isNavOpen = true;
+    mockIsNavOpen.value = ref(true);
     await wrapper.vm.$nextTick(); // Wait for the DOM update
 
     // Now, the navigation should be visible
