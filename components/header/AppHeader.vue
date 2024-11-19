@@ -49,6 +49,7 @@ onUnmounted(() => {
           <div class="hidden md:flex items-center gap-1">
             <font-awesome-icon
               :icon="['fas', 'cart-shopping']"
+              data-test="fa-cart"
               v-if="screenWidth > 640"
               class="cursor-pointer text-xl"
               @click="openModal('cart')"
