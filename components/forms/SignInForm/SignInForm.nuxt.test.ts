@@ -6,27 +6,27 @@ import { useAuthValidation } from '@/composables/auth/useAuthValidation';
 import { useModal } from '@/composables/ui/useModal';
 
 vi.mock('@/composables/auth/useAuth', () => ({
-  useAuth: () => ({
+  useAuth: vi.fn(() => ({
     signIn: vi.fn().mockResolvedValue(null),
     user: { value: null },
     successMessage: '',
     authErrorMessage: '',
-  }),
+  })),
 }));
 
 vi.mock('@/composables/auth/useAuthValidation', () => ({
-  useAuthValidation: () => ({
+  useAuthValidation: vi.fn(() => ({
     emailError: '',
     passwordError: '',
     validateEmail: vi.fn(),
     validatePassword: vi.fn(),
-  }),
+  })),
 }));
 
 vi.mock('@/composables/ui/useModal', () => ({
-  useModal: () => ({
+  useModal: vi.fn(() => ({
     closeModal: vi.fn(),
-  }),
+  })),
 }));
 
 describe('SignInForm.vue', () => {
@@ -108,8 +108,12 @@ describe('SignInForm.vue', () => {
 
     wrapper = mount(SignInForm);
 
-    expect(wrapper.find('p.text-red-600').text()).toBe(mockEmailError);
-    expect(wrapper.find('p.text-red-600').text()).toBe(mockPasswordError);
+    const emailErrorElement = wrapper.findAll('p.text-red-600')[0];
+    expect(emailErrorElement.text()).toBe(mockEmailError);
+
+    const passwordErrorElement = wrapper.findAll('p.text-red-600')[1];
+    expect(passwordErrorElement.text()).toBe(mockPasswordError);
+
     expect(wrapper.find('p.text-red-500').text()).toBe(mockAuthErrorMessage);
   });
 });
