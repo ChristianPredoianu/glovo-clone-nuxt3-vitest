@@ -4,9 +4,10 @@ import { ref } from 'vue';
 import AppHeader from '@/components/header/AppHeader.vue';
 
 // Mock the composables
+const mockIsNavOpen = ref(false);
 vi.mock('@/composables/ui/useNav', () => ({
   useNav: () => ({
-    isNavOpen: ref(false),
+    isNavOpen: mockIsNavOpen,
     closeNav: vi.fn(),
   }),
 }));
@@ -24,7 +25,6 @@ vi.mock('@/composables/ui/useScreenWidth', () => ({
 }));
 
 const mockSignUserOut = vi.fn();
-let mockIsNavOpen = ref(false);
 let mockUser = ref<null | { name: string }>(null);
 
 vi.mock('@/composables/auth/useAuth', () => ({
@@ -97,8 +97,8 @@ vi.mock('@/components/shared/CartCounter.vue', () => ({
 describe('AppHeader.vue', () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    mockUser = ref(null); // Reset mock user to null before each test
-    mockIsNavOpen = ref(false);
+    mockUser.value = null; // Reset mock user to null before each test
+    mockIsNavOpen.value = false;
   });
 
   it('renders AppHeader component', () => {
@@ -118,7 +118,7 @@ describe('AppHeader.vue', () => {
     expect(wrapper.find('#nav-list-div').classes()).toContain('-translate-x-[50rem]');
 
     // Change isNavOpen to true to open the navigation
-    mockIsNavOpen.value = ref(true);
+    mockIsNavOpen.value = true;
     await wrapper.vm.$nextTick(); // Wait for the DOM update
 
     // Now, the navigation should be visible
