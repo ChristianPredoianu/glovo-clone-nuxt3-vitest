@@ -10,8 +10,6 @@ const { signIn, user, successMessage, authErrorMessage } = useAuth();
 const { emailError, passwordError, validateEmail, validatePassword } =
   useAuthValidation();
 const { closeModal } = useModal();
-const router = useRouter();
-const route = useRoute();
 
 async function handleSignIn(e: Event) {
   e.preventDefault(); // Prevent default form submission
@@ -40,6 +38,7 @@ function onKeyDown(e: KeyboardEvent) {
       <label for="email" class="text-sm font-medium text-gray-700">Email</label>
       <input
         v-model="userEmail"
+        data-testid="email"
         type="email"
         name="email"
         autocomplete="username"
@@ -57,6 +56,7 @@ function onKeyDown(e: KeyboardEvent) {
       <label for="password" class="text-sm font-medium text-gray-700">Password</label>
       <input
         v-model="userPassword"
+        data-testid="password"
         type="password"
         name="password"
         autocomplete="current-password"
