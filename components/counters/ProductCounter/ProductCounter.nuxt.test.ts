@@ -1,12 +1,16 @@
-import { mount } from '@vue/test-utils';
-import { describe, it, expect, vi } from 'vitest';
+import { mount, VueWrapper } from '@vue/test-utils';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ProductCounter from '@/components/counters/ProductCounter/ProductCounter.vue';
 import { useCart } from '@/composables/useCart';
 
+// Initialize mocks outside the vi.mock call
+const mockAddToCart = vi.fn();
+const mockRemoveFromCart = vi.fn();
+
 vi.mock('@/composables/useCart', () => ({
-  useCart: vi.fn().mockReturnValue({
-    addToCart: vi.fn(),
-    removeFromCart: vi.fn(),
+  useCart: () => ({
+    addToCart: mockAddToCart,
+    removeFromCart: mockRemoveFromCart,
   }),
 }));
 
@@ -19,46 +23,32 @@ describe('ProductCounter', () => {
     quantity: 2,
   };
 
-  it('renders the correct quantity', () => {
-    const wrapper = mount(ProductCounter, {
+  let wrapper: VueWrapper<any>;
+
+  beforeEach(() => {
+    wrapper = mount(ProductCounter, {
       props: {
         quantity: 5,
         product: mockProduct,
       },
     });
+  });
 
+  it('renders the correct quantity', () => {
     const quantityElement = wrapper.find('[data-test="quantity"]');
     expect(quantityElement.exists()).toBe(true);
     expect(quantityElement.text()).toBe('5');
   });
 
   it('calls removeFromCart when "-" button is clicked', async () => {
-    const { removeFromCart } = useCart();
-    const wrapper = mount(ProductCounter, {
-      props: {
-        quantity: 5,
-        product: mockProduct,
-      },
-    });
-
     const removeButton = wrapper.find('[data-test="remove-btn"]');
     await removeButton.trigger('click');
-
-    expect(removeFromCart).toHaveBeenCalledWith(mockProduct.id);
+    expect(mockRemoveFromCart).toHaveBeenCalledWith(mockProduct.id);
   });
 
   it('calls addToCart when "+" button is clicked', async () => {
-    const { addToCart } = useCart();
-    const wrapper = mount(ProductCounter, {
-      props: {
-        quantity: 5,
-        product: mockProduct,
-      },
-    });
-
     const addButton = wrapper.find('[data-test="add-btn"]');
     await addButton.trigger('click');
-
-    expect(addToCart).toHaveBeenCalledWith(mockProduct);
+    expect(mockAddToCart).toHaveBeenCalledWith(mockProduct);
   });
 });
