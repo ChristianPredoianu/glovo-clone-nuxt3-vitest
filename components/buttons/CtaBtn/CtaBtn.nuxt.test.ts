@@ -1,8 +1,15 @@
 import { mount } from '@vue/test-utils';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import CtaBtn from '@/components/buttons/CtaBtn/CtaBtn.vue';
 
 describe('CtaBtn', () => {
+  it('renders correctly without props', () => {
+    const wrapper = mount(CtaBtn);
+
+    const button = wrapper.find('button');
+    expect(button.exists()).toBe(true);
+  });
+
   it('renders with the correct classes based on props', () => {
     const wrapper = mount(CtaBtn, {
       props: {
@@ -18,7 +25,6 @@ describe('CtaBtn', () => {
     const button = wrapper.find('button');
 
     expect(button.exists()).toBe(true);
-
     expect(button.classes()).toContain('text-lg');
     expect(button.classes()).toContain('bg-red-500');
     expect(button.classes()).toContain('text-white');
@@ -31,7 +37,6 @@ describe('CtaBtn', () => {
     const wrapper = mount(CtaBtn);
 
     const button = wrapper.find('button');
-
     await button.trigger('click');
 
     expect(wrapper.emitted()).toHaveProperty('clicked');
