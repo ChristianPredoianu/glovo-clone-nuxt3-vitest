@@ -11,11 +11,6 @@ vi.mock('@/composables/ui/useNav', () => ({
   }),
 }));
 
-const mockUseAuth = {
-  user: ref<null | { name: string }>(null), // Define the correct type for `user`
-  signUserOut: vi.fn(),
-};
-
 vi.mock('@/composables/ui/useBackdrop', () => ({
   useBackdrop: () => ({
     closeBackdrop: vi.fn(),
@@ -28,10 +23,13 @@ vi.mock('@/composables/ui/useScreenWidth', () => ({
   }),
 }));
 
+const mockSignUserOut = vi.fn();
+let mockUser = ref(null);
+
 vi.mock('@/composables/auth/useAuth', () => ({
   useAuth: () => ({
-    user: ref(null), // Mock user being null (not logged in)
-    signUserOut: vi.fn(),
+    user: mockUser, // Mock user being null (not logged in)
+    signUserOut: mockSignUserOut,
   }),
 }));
 
@@ -98,12 +96,13 @@ vi.mock('@/components/shared/CartCounter.vue', () => ({
 describe('AppHeader.vue', () => {
   beforeEach(() => {
     vi.resetAllMocks();
+    mockUser = ref(null); // Reset mock user to null before each test
   });
 
   it('renders AppHeader component', () => {
     const wrapper = mount(AppHeader);
 
-    // Check if the header element is rendered
+    // Check if the header
     expect(wrapper.find('header').exists()).toBe(true);
 
     // Check for the logo component
@@ -126,7 +125,7 @@ describe('AppHeader.vue', () => {
 
   it('shows sign-in button when user is not logged in', () => {
     // Ensure mock user is null
-    mockUseAuth.user.value = null;
+    mockUser.value = null;
 
     const wrapper = mount(AppHeader);
 
@@ -138,12 +137,7 @@ describe('AppHeader.vue', () => {
 
   it('shows sign-out button when user is logged in', async () => {
     // Mock the user being logged in
-    vi.mock('@/composables/auth/useAuth', () => ({
-      useAuth: () => ({
-        user: ref({ name: 'Test User' }), // User is logged in
-        signUserOut: vi.fn(),
-      }),
-    }));
+    mockUser.value = { name: 'Test User' };
 
     const wrapper = mount(AppHeader);
     await wrapper.vm.$nextTick();
