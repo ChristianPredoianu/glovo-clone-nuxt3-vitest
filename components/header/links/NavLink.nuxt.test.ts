@@ -19,7 +19,7 @@ vi.mock('@/composables/useCart', () => ({
   }),
 }));
 
-describe('NavLink.vue', () => {
+describe('NavLink', () => {
   beforeEach(() => {
     // Reset all mocks before each test
     vi.resetAllMocks();
