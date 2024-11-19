@@ -34,7 +34,10 @@ function handleClick(selectedFilter: IFakeStoreCategories | ICuisineType) {
       class="fa-fw bg-orange-200 p-2 rounded-full text-gray-600"
       :class="{ 'bg-orange-300': isActive(getCategoryName(category)) }"
     />
-    <p :class="{ 'font-semibold': isActive(getCategoryName(category)) }">
+    <p
+      data-test="category"
+      :class="{ 'font-semibold': isActive(getCategoryName(category)) }"
+    >
       {{ getCategoryName(category) }}
     </p>
   </li>
