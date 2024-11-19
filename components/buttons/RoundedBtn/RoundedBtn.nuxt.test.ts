@@ -16,7 +16,7 @@ describe('RoundedBtn', () => {
 
     const icon = wrapper.find('[data-test="fa-icon"]');
     expect(icon.exists()).toBe(true);
-    expect(icon.attributes('class')).toContain('bg-red-500');
+    expect(icon.classes()).toContain('bg-red-500');
   });
 
   it('emits "emitClick" when the icon is clicked', async () => {
@@ -38,5 +38,12 @@ describe('RoundedBtn', () => {
     await icon.trigger('click');
 
     expect(wrapper.emitted('emitClick')).toHaveLength(1);
+  });
+
+  it('renders correctly without props', () => {
+    const wrapper = mount(RoundedBtn);
+
+    const button = wrapper.find('button');
+    expect(button.exists()).toBe(true);
   });
 });
