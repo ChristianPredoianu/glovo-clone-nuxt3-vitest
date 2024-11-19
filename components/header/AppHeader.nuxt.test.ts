@@ -3,7 +3,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ref } from 'vue';
 import AppHeader from '@/components/header/AppHeader.vue';
 
-// Mock the composables
 const mockIsNavOpen = ref(false);
 vi.mock('@/composables/ui/useNav', () => ({
   useNav: () => ({
@@ -20,7 +19,7 @@ vi.mock('@/composables/ui/useBackdrop', () => ({
 
 vi.mock('@/composables/ui/useScreenWidth', () => ({
   useScreenWidth: () => ({
-    screenWidth: ref(1024), // Mock screen width
+    screenWidth: ref(1024),
   }),
 }));
 
@@ -29,7 +28,7 @@ let mockUser = ref<null | { name: string }>(null);
 
 vi.mock('@/composables/auth/useAuth', () => ({
   useAuth: () => ({
-    user: mockUser, // Mock user being null (not logged in)
+    user: mockUser,
     signUserOut: mockSignUserOut,
   }),
 }));
@@ -41,7 +40,6 @@ vi.mock('@/composables/us/useModal', () => ({
   }),
 }));
 
-// Mock child components
 vi.mock('@/components/modals/Modal/Modal.vue', () => ({
   default: {
     name: 'Modal',
@@ -94,59 +92,52 @@ vi.mock('@/components/shared/CartCounter.vue', () => ({
   },
 }));
 
-describe('AppHeader.vue', () => {
+describe('AppHeader', () => {
   beforeEach(() => {
     vi.resetAllMocks();
-    mockUser.value = null; // Reset mock user to null before each test
+    mockUser.value = null;
     mockIsNavOpen.value = false;
   });
 
   it('renders AppHeader component', () => {
     const wrapper = mount(AppHeader);
 
-    // Check if the header
     expect(wrapper.find('header').exists()).toBe(true);
 
-    // Check for the logo component
     expect(wrapper.findComponent({ name: 'Logo' }).exists()).toBe(true);
   });
 
   it('toggles navigation display based on isNavOpen', async () => {
     const wrapper = mount(AppHeader);
 
-    // Initially, the navigation should be hidden
     expect(wrapper.find('#nav-list-div').classes()).toContain('-translate-x-[50rem]');
 
-    // Change isNavOpen to true to open the navigation
     mockIsNavOpen.value = true;
-    await wrapper.vm.$nextTick(); // Wait for the DOM update
 
-    // Now, the navigation should be visible
+    await wrapper.vm.$nextTick();
+
     expect(wrapper.find('#nav-list-div').classes()).toContain('translate-x-[0rem]');
   });
 
   it('shows sign-in button when user is not logged in', () => {
-    // Ensure mock user is null
     mockUser.value = null;
 
     const wrapper = mount(AppHeader);
 
-    // Expect the sign-in button to be rendered because user is null
     const signInButton = wrapper.findComponent({ name: 'CtaBtn' });
     expect(signInButton.exists()).toBe(true);
     expect(signInButton.text()).toBe('Sign in');
   });
 
   it('shows sign-out button when user is logged in', async () => {
-    // Mock the user being logged in
     mockUser.value = { name: 'Test User' };
 
     const wrapper = mount(AppHeader);
     await wrapper.vm.$nextTick();
-    // Check for the sign-out button
+
     const signOutButton = wrapper.findComponent({ name: 'CtaBtn' });
 
-    expect(signOutButton.exists()).toBe(true); // Ensure it exists
-    expect(signOutButton.text()).toBe('Sign out'); // Check the button text
+    expect(signOutButton.exists()).toBe(true);
+    expect(signOutButton.text()).toBe('Sign out');
   });
 });
