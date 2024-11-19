@@ -9,7 +9,8 @@ export function useFilter() {
   const route = useRoute();
 
   const isFakeStoreIndex = computed(() => {
-    return route?.query?.index && +route.query.index > 3;
+    const index = route.query.index ? Number(route.query.index) : 0;
+    return index > 3;
   });
 
   const filters = computed(() => {
