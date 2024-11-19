@@ -40,7 +40,7 @@ const sampleFakeStoreCategory = {
   icon: 'electronics-icon',
 };
 
-describe('MealCategoryFilterListItem.vue', () => {
+describe('MealCategoryFilterListItem', () => {
   it('renders cuisineType prop correctly', () => {
     const wrapper = mount(MealCategoryFilterListItem, {
       props: {
