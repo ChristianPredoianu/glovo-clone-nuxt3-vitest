@@ -42,6 +42,7 @@ describe('SignUpForm.vue', () => {
     expect(wrapper.find('form').exists()).toBe(true);
     expect(wrapper.find('input[type="email"]').exists()).toBe(true);
     expect(wrapper.find('input[type="password"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="repeat-password"]').exists()).toBe(true);
   });
 
   it('calls signUp on form submit', async () => {
@@ -63,7 +64,7 @@ describe('SignUpForm.vue', () => {
 
     await wrapper.find('input[type="email"]').setValue('test@example.com');
     await wrapper.find('input[type="password"]').setValue('password123');
-    await wrapper.find('[name="repeatPassword"]').setValue('password123');
+    await wrapper.find('[data-test="repeat-password"]').setValue('password123');
     await wrapper.find('form').trigger('submit.prevent');
 
     expect(mockSignUp).toHaveBeenCalledWith(
@@ -74,7 +75,7 @@ describe('SignUpForm.vue', () => {
     expect(mockCloseModal).not.toHaveBeenCalled();
   });
 
-  /*   it('validates email, password, and repeated password on blur', async () => {
+  it('validates email, password, and repeated password on blur', async () => {
     const mockValidateEmail = vi.fn();
     const mockValidatePassword = vi.fn();
     const mockValidateRepeatedPassword = vi.fn();
@@ -92,14 +93,14 @@ describe('SignUpForm.vue', () => {
 
     await wrapper.find('input[type="email"]').trigger('blur');
     await wrapper.find('input[type="password"]').trigger('blur');
-    await wrapper.find('[name="repeatPassword"]').trigger('blur');
+    await wrapper.find('[data-test="repeat-password"]').trigger('blur');
 
     expect(mockValidateEmail).toHaveBeenCalled();
     expect(mockValidatePassword).toHaveBeenCalled();
     expect(mockValidateRepeatedPassword).toHaveBeenCalled();
-  }); */
+  });
 
-  /*  it('displays error messages correctly', async () => {
+  it('displays error messages correctly', async () => {
     const mockAuthErrorMessage = 'Authentication failed';
     const mockEmailError = 'Invalid email';
     const mockPasswordError = 'Invalid password';
@@ -137,5 +138,5 @@ describe('SignUpForm.vue', () => {
 
     // Check authentication error message
     expect(wrapper.find('p.text-red-500').text()).toBe(mockAuthErrorMessage);
-  }); */
+  });
 });
