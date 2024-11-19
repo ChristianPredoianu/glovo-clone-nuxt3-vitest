@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import InfoCard from '@/components/cards/InfoCard/InfoCard.vue'; // Replace with actual component path
+import InfoCard from '@/components/cards/InfoCard/InfoCard.vue';
 
 describe('InfoCard', () => {
   it('renders the icon, heading, paragraph, and span with correct values', async () => {
@@ -11,7 +11,8 @@ describe('InfoCard', () => {
         span: 'Extra Info',
       },
     });
-    expect(wrapper.find('font-awesome-icon').exists()).toBe(false);
+
+    expect(wrapper.find('[data-test="fa-icon"]').exists()).toBe(false);
 
     await wrapper.vm.$nextTick();
 
