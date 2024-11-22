@@ -7,6 +7,7 @@ const { removeFromCart } = useCart();
   <ul class="w-full">
     <li
       v-for="product in cartProducts"
+      data-test="product-li"
       :key="product.id"
       class="flex flex-col gap-2 border-b border-gray-300 py-4"
     >
