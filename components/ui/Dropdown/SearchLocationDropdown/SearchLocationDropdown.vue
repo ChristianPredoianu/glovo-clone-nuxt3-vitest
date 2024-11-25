@@ -16,7 +16,7 @@ const props = defineProps({
 
 const emits = defineEmits(['emitOption', 'clearInput']);
 
-const isOpen = useState<boolean>('isOpen', () => true);
+const isOpen = ref(true);
 
 const optionsLength = computed(() => {
   return Array.isArray(props.options) ? props.options.length : 0;
@@ -79,7 +79,7 @@ watch(
 </script>
 
 <template>
-  <div class="relative z-10" @click="toggleDropdown">
+  <div data-test="dropdown" class="relative z-10" @click="toggleDropdown">
     <div
       class="absolute top-full mt-1 w-full bg-white shadow-md rounded-md"
       ref="dropdownRef"
