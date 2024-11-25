@@ -13,10 +13,10 @@ const orderText = computed(() => {
     <h3 class="text-xl font-bold">Your order</h3>
     <div
       class="flex flex-col items-center justify-center gap-10"
-      v-if="!numberOfCartProducts"
+      v-if="numberOfCartProducts === 0"
     >
       <img src="@/public/empty-cart.svg" alt="empty cart" class="max-w-xs max-h-48" />
-      <h4 class="text-lg text-center font-semibold">
+      <h4 data-test="test" class="text-lg text-center font-semibold">
         You've not added any products yet. When you do, you'll see them here!
       </h4>
     </div>
