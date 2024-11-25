@@ -2,14 +2,14 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import Backdrop from '@/components/ui/Backdrop/Backdrop.vue';
 
-// Mocking the useBackdrop composable
+const closeBackdropMock = vi.fn();
 vi.mock('@/composables/ui/useBackdrop', () => ({
   useBackdrop: vi.fn(() => ({
-    closeBackdrop: vi.fn(), // Mock the closeBackdrop function
+    closeBackdrop: closeBackdropMock,
   })),
 }));
 
-describe('Backdrop', () => {
+describe('Backdrop', async () => {
   it('renders correctly when isBackdropOpen is true', () => {
     const wrapper = mount(Backdrop, {
       props: {
@@ -17,6 +17,8 @@ describe('Backdrop', () => {
       },
       attachTo: document.body,
     });
+
+    wrapper.vm.$nextTick();
 
     const backdrop = document.body.querySelector('[data-test="backdrop"]');
     expect(backdrop).not.toBeNull();
@@ -35,34 +37,24 @@ describe('Backdrop', () => {
   });
 
   it('emits closeElement and calls closeBackdrop when clicked', async () => {
-    const closeBackdropMock = vi.fn(); // Mock the closeBackdrop function
-
-    // Mock the return value of useBackdrop to return our mock function
-    vi.mocked(useBackdrop).mockReturnValue({
-      closeBackdrop: closeBackdropMock,
-    });
+    document.body.innerHTML = '<div id="teleport-target"></div>';
 
     const wrapper = mount(Backdrop, {
       props: {
-        isBackdropOpen: true, // Ensure backdrop is visible
+        isBackdropOpen: true,
       },
-      attachTo: document.body, // Ensure it's rendered to the body
+      attachTo: '#teleport-target',
     });
 
-    // Wait for the backdrop element to be rendered
     await wrapper.vm.$nextTick();
 
-    // Query for the backdrop element rendered in the body
     const backdrop = document.body.querySelector('[data-test="backdrop"]');
-    expect(backdrop).not.toBeNull(); // Ensure backdrop exists
+    expect(backdrop).not.toBeNull();
 
-    // Trigger the click on the backdrop element
-    await backdrop!.click();
+    backdrop!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
-    // Check that the closeBackdrop mock function has been called
-    expect(closeBackdropMock).toHaveBeenCalled(); // Ensure the closeBackdrop mock was called
+    expect(closeBackdropMock).toHaveBeenCalled();
 
-    // Check if the closeElement event was emitted
-    expect(wrapper.emitted()).toHaveProperty('closeElement'); // Ensure the event was emitted
+    expect(wrapper.emitted()).toHaveProperty('closeElement');
   });
 });
