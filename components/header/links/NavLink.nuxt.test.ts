@@ -3,7 +3,6 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ref } from 'vue';
 import NavLink from '@/components/header/links/NavLink.vue';
 
-// Mock the useScreenWidth composable
 const mockScreenWidth = ref(500);
 vi.mock('@/composables/useScreenWidth', () => ({
   useScreenWidth: () => ({
@@ -11,7 +10,6 @@ vi.mock('@/composables/useScreenWidth', () => ({
   }),
 }));
 
-// Mock the useCart composable
 const mockNumberOfCartProducts = ref(3);
 vi.mock('@/composables/useCart', () => ({
   useCart: () => ({
@@ -21,7 +19,6 @@ vi.mock('@/composables/useCart', () => ({
 
 describe('NavLink', () => {
   beforeEach(() => {
-    // Reset all mocks before each test
     vi.resetAllMocks();
   });
 
@@ -34,12 +31,10 @@ describe('NavLink', () => {
       },
     });
 
-    // Check if the title is rendered
     expect(wrapper.text()).toContain('Home');
   });
 
   it('hides Cart link on large screens', () => {
-    // Set the screenWidth to a large value
     mockScreenWidth.value = 800;
 
     const wrapper = mount(NavLink, {
@@ -50,12 +45,10 @@ describe('NavLink', () => {
       },
     });
 
-    // Check if the Cart link is not rendered on large screens
     expect(wrapper.html()).not.toContain('Cart');
   });
 
   it('hides Sign in link on small screens', () => {
-    // Set the screenWidth to a small value
     mockScreenWidth.value = 500;
 
     const wrapper = mount(NavLink, {
@@ -66,7 +59,6 @@ describe('NavLink', () => {
       },
     });
 
-    // Check if the Sign in link is not rendered on small screens
     expect(wrapper.html()).not.toContain('Sign in');
   });
 });
