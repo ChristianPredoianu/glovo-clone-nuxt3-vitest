@@ -40,6 +40,7 @@ function handleDeleteFilter() {
         {{ getCategoryName(category) }}
       </p>
       <font-awesome-icon
+        data-test="fa-remove"
         v-if="isActive(getCategoryName(category))"
         @click.stop="handleDeleteFilter"
         :icon="['fas', 'close']"
