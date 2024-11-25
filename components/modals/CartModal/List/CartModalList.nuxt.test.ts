@@ -19,7 +19,7 @@ vi.mock('@/composables/useCart', () => ({
   }),
 }));
 
-describe('CartModalList.vue', () => {
+describe('CartModalList', () => {
   it('renders cart products correctly', () => {
     const wrapper = mount(CartModalList);
 
