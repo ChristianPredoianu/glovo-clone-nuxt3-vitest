@@ -1,6 +1,6 @@
 export function useProgressBar() {
   const progressWidth = useState<number>('progressWidth', () => 0);
-  const isBarActive = useState<boolean>('isBarActive', () => false);
+  const isBarActive = ref(false);
 
   let startTime: number | null = null;
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
