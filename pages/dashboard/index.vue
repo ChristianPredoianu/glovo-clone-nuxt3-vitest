@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SelectDropdown from '@/components/ui/Dropdown/SelectDropdown.vue';
+import SelectDropdown from '@/components/ui/Dropdown/SelectDropdown/SelectDropdown.vue';
 import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 import { replaceRecipeText } from '@/helpers/replaceRecipeText';
 import { cuisineTypes } from '@/data/productCategoriesData';
