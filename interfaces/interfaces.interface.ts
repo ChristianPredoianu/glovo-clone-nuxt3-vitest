@@ -44,7 +44,7 @@ export interface ICuisineType {
 }
 
 export interface IDropdownOptions {
-  id: number;
+  id: number | string;
   text: string;
 }
 
