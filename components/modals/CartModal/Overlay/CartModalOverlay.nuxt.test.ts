@@ -2,25 +2,24 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import CartModalOverlay from '@/components/modals/CartModal/Overlay/CartModalOverlay.vue';
 
-// Mock the useCart composable globally
-vi.mock('@/composables/useCart', () => ({
-  useCart: vi.fn(), // We'll customize it in each test using vi.mocked
-}));
+const mockNumberOfCartProducts = ref(2);
+const mockUpdatedTotalPrice = ref(50.0);
 
-// Import the mocked composable function
-import { useCart } from '@/composables/useCart';
+vi.mock('@/composables/useCart', () => ({
+  useCart: () => ({
+    numberOfCartProducts: mockNumberOfCartProducts,
+    updatedTotalPrice: mockUpdatedTotalPrice,
+  }),
+}));
 
 describe('CartModalOverlay', () => {
   beforeEach(() => {
-    vi.resetAllMocks(); // Reset all mocks before each test
+    vi.resetAllMocks();
   });
 
   it('renders correctly when there are products in the cart', () => {
-    // Set up mock values for this specific test
-    useCart.mockReturnValue({
-      numberOfCartProducts: { value: 2 },
-      updatedTotalPrice: { value: 50.0 },
-    });
+    mockNumberOfCartProducts.value = 2;
+    mockUpdatedTotalPrice.value = 50.0;
 
     const wrapper = mount(CartModalOverlay);
 
@@ -34,20 +33,13 @@ describe('CartModalOverlay', () => {
   });
 
   it('renders correctly when there are no products in the cart', () => {
-    // Set up mock values for an empty cart
-    useCart.mockReturnValue({
-      numberOfCartProducts: ref(0),
-      updatedTotalPrice: ref(0),
-    });
+    mockNumberOfCartProducts.value = 0;
+    mockUpdatedTotalPrice.value = 0;
 
     const wrapper = mount(CartModalOverlay);
 
-    // Print the rendered HTML to debug
-    console.log(wrapper.html());
-
-    // Use find with additional checks or findComponent for accuracy
     const emptyCartMessage = wrapper.find('h4');
-    expect(emptyCartMessage.exists()).toBe(true); // Ensure the element exists
+    expect(emptyCartMessage.exists()).toBe(true);
     expect(emptyCartMessage.text().trim()).toBe(
       "You've not added any products yet. When you do, you'll see them here!"
     );
