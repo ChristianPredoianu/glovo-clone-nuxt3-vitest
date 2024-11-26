@@ -21,16 +21,18 @@ vi.mock('@/composables/useFilter', () => ({
 }));
 
 describe('FilterModalList', () => {
-  it('renders the filters correctly', () => {
-    const wrapper = mount(FilterModalList);
+  let wrapper: any;
 
+  beforeEach(() => {
+    wrapper = mount(FilterModalList);
+  });
+
+  it('renders the filters correctly', () => {
     expect(wrapper.findAll('li').length).toBe(2);
     expect(wrapper.find('p').text()).toBe('Category 1');
   });
 
   it('emits selectedFilter and activates filter on click', async () => {
-    const wrapper = mount(FilterModalList);
-
     const firstFilterItem = wrapper.findAll('li').at(0);
     await firstFilterItem?.trigger('click');
 
@@ -43,8 +45,6 @@ describe('FilterModalList', () => {
   });
 
   it('removes the filter when the close icon is clicked', async () => {
-    const wrapper = mount(FilterModalList);
-
     await wrapper.findAll('li').at(0)?.trigger('click');
 
     const closeIcon = wrapper.find('[data-test="fa-remove"]');
