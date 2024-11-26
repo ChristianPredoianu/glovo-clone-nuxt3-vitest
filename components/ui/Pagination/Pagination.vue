@@ -35,6 +35,7 @@ function goToPage(page: number) {
 <template>
   <div class="flex items-center justify-center space-x-2 mt-4">
     <button
+      data-test="prev-btn"
       @click="goToPage(currentPage - 1)"
       :disabled="currentPage === 1"
       class="px-2 py-1 md:px-4 md:py-2 text-white bg-green-600 rounded hover:bg-green-700 disabled:opacity-50"
