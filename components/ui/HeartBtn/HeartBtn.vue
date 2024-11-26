@@ -17,8 +17,9 @@ const { isLoaded } = useIsLoaded();
 const isFavorite = ref<boolean>(false);
 
 async function toggleFavorite() {
+  console.log('User state:', user.value);
+  console.log('isFavorite state:', isFavorite.value);
   if (!user.value) {
-    console.log(!user.value);
     openModal('signin');
     return;
   }
@@ -45,6 +46,7 @@ onMounted(() => {
 
 <template>
   <button
+    data-test="btn"
     @click.stop="toggleFavorite"
     class="cursor-pointer"
     :class="[
