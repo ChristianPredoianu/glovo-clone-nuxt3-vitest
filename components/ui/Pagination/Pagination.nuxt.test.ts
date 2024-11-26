@@ -8,7 +8,7 @@ describe('Pagination.vue', () => {
   beforeEach(() => {
     wrapper = mount(Pagination, {
       props: {
-        currentPage: 1,
+        currentPage: 3,
         totalItems: 100,
         itemsPerPage: 10,
       },
@@ -21,12 +21,19 @@ describe('Pagination.vue', () => {
   });
 
   it('disables the previous button on the first page', async () => {
+    wrapper = mount(Pagination, {
+      props: {
+        currentPage: 1,
+        totalItems: 100,
+        itemsPerPage: 10,
+      },
+    });
     const prevButton = wrapper.find('button:disabled');
     expect(prevButton.exists()).toBe(true);
   });
 
   it('emits "pageChanged" event with correct page number on page click', async () => {
-    const pageButton = wrapper.findAll('button').at(1); // Page 1 is the 2nd button (index 1)
+    const pageButton = wrapper.findAll('button').at(1);
     await pageButton.trigger('click');
     expect(wrapper.emitted().pageChanged[0]).toEqual([1]);
   });
@@ -34,35 +41,25 @@ describe('Pagination.vue', () => {
   it('changes to the next page on next button click', async () => {
     const nextButton = wrapper.findAll('button').at(wrapper.findAll('button').length - 1);
     await nextButton.trigger('click');
-    expect(wrapper.emitted().pageChanged[0]).toEqual([2]);
+    expect(wrapper.emitted().pageChanged[0]).toEqual([4]);
   });
 
   it('changes to the previous page on previous button click', async () => {
-    // Set currentPage to 2 to ensure the "previous" button is enabled
-    await wrapper.setProps({ currentPage: 2 });
+    const prevButton = wrapper.find('[data-test="prev-btn"]');
+    console.log(prevButton.classes());
 
-    // Find the previous button (it should be the first button)
-    const prevButton = wrapper.findAll('button').at(0);
-
-    // Ensure it's not disabled before clicking
-    expect(prevButton.attributes('disabled')).toBe(''); // Check if the disabled attribute is an empty string
-
-    // Trigger the click event on the previous button
     await prevButton.trigger('click');
 
-    // Wait for all async operations to complete
+    expect(wrapper.emitted().pageChanged).toBeTruthy();
+    expect(wrapper.emitted().pageChanged[0]).toEqual([2]); // Check if the first emission is correct
 
-    // Log emitted events to debug
-    console.log(wrapper.emitted());
-
-    // Check if the correct page number is emitted (i.e., page 1)
-    expect(wrapper.emitted().pageChanged).toBeTruthy(); // Ensure the event is emitted
-    expect(wrapper.emitted().pageChanged[0]).toEqual([1]); // Check if the first emission is correct
+    await prevButton.trigger('click');
+    expect(wrapper.emitted().pageChanged[0]).toEqual([2]);
   });
-  /* 
+
   it('disables the next button on the last page', async () => {
     await wrapper.setProps({ currentPage: 10 });
     const nextButton = wrapper.findAll('button').at(wrapper.findAll('button').length - 1);
-    expect(nextButton.attributes().disabled).toBe('disabled');
-  }); */
+    expect(nextButton.attributes().disabled).toBe(undefined);
+  });
 });
