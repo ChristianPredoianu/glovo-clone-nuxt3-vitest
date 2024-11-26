@@ -25,9 +25,13 @@ vi.mock('@/composables/useFilter', () => ({
 }));
 
 describe('FilterModalOverlay', () => {
-  it('renders correctly', () => {
-    const wrapper = mount(FilterModalOverlay);
+  let wrapper: any;
 
+  beforeEach(() => {
+    wrapper = mount(FilterModalOverlay);
+  });
+
+  it('renders correctly', () => {
     expect(wrapper.find('h3').text()).toBe('Types of dishes');
     expect(wrapper.findComponent({ name: 'FilterModalList' }).exists()).toBe(true);
     expect(wrapper.find('[data-test="delete-btn"]').exists()).toBe(true);
@@ -35,8 +39,6 @@ describe('FilterModalOverlay', () => {
   });
 
   it('handles delete button click', async () => {
-    const wrapper = mount(FilterModalOverlay);
-
     const deleteBtn = wrapper.find('[data-test="delete-btn"]');
     expect(deleteBtn.exists()).toBe(true);
     await deleteBtn.trigger('click');
@@ -47,15 +49,12 @@ describe('FilterModalOverlay', () => {
   });
 
   it('handles apply button click', async () => {
-    const wrapper = mount(FilterModalOverlay);
-
     await wrapper.find('[data-test="apply-btn"]').trigger('click');
     expect(wrapper.emitted('emitSelected')![0]).toEqual(['']);
     expect(wrapper.emitted('closeModal')).toBeTruthy();
   });
 
   it('closes modal on screen width change', async () => {
-    const wrapper = mount(FilterModalOverlay);
     mockScreenWidth.value = 1024;
 
     await wrapper.vm.$nextTick();
