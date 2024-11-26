@@ -31,11 +31,11 @@ vi.mock('@/composables/ui/useModal', () => ({
 }));
 
 vi.mock('@/composables/useIsLoaded', () => ({
-  useIsLoaded: () => ({ isLoaded: mockIsLoaded }),
+  default: () => ({ isLoaded: mockIsLoaded }),
 }));
 
 describe('HeartBtn', () => {
-  const mealItem = { id: 1, label: 'Meal 1' };
+  const mealItem = { category: 'american', label: 'Meal 1', img: 'http://testimage.com' };
 
   beforeEach(() => {
     mockUser.value = null;
@@ -52,7 +52,7 @@ describe('HeartBtn', () => {
     expect(mockOpenModal).toHaveBeenCalledWith('signin');
   });
 
-  /*  it('toggles favorite status when user is logged in', async () => {
+  it('toggles favorite status when user is logged in', async () => {
     mockUser.value = { id: 1, name: 'Test User' };
     mockIsItemFavorite.mockResolvedValueOnce(false);
 
@@ -63,15 +63,17 @@ describe('HeartBtn', () => {
     await wrapper.vm.$nextTick();
 
     await wrapper.find('button').trigger('click');
+    console.log('Meal Item:', mealItem); // Debugging line to check mealItem
+    console.log('Function calls:', mockWriteFavoriteUserItemData.mock.calls); // Debugging line to check mock function calls
     expect(mockWriteFavoriteUserItemData).toHaveBeenCalledWith(mealItem);
     expect(mockIsFavorite.value).toBe(true);
 
     await wrapper.find('button').trigger('click');
     expect(mockDeleteFavoriteUserItemData).toHaveBeenCalledWith(mealItem);
     expect(mockIsFavorite.value).toBe(false);
-  }); */
+  });
 
-  /* it('applies correct classes based on favorite status and user login state', async () => {
+  /*   it('applies correct classes based on favorite status and user login state', async () => {
     mockUser.value = { id: 1, name: 'Test User' };
 
     const wrapper = mount(HeartBtn, {

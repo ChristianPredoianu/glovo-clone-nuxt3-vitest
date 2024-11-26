@@ -27,6 +27,7 @@ async function toggleFavorite() {
     await deleteFavoriteUserItemData(props.mealItem);
     isFavorite.value = false;
   } else {
+    console.log('Calling writeFavoriteUserItemData with:', props.mealItem);
     await writeFavoriteUserItemData(props.mealItem);
     isFavorite.value = true;
   }
