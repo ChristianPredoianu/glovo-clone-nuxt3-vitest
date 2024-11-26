@@ -40,6 +40,8 @@ describe('HeartBtn', () => {
   beforeEach(() => {
     mockUser.value = null;
     mockIsFavorite.value = false;
+    mockWriteFavoriteUserItemData.mockClear();
+    mockDeleteFavoriteUserItemData.mockClear();
   });
 
   it('opens signin modal if user is not logged in', async () => {
@@ -62,18 +64,21 @@ describe('HeartBtn', () => {
 
     await wrapper.vm.$nextTick();
 
-    await wrapper.find('button').trigger('click');
+    // Directly call the toggleFavorite method
+    const btn = wrapper.find('button');
+    await btn.trigger('click');
+    console.log(btn.html());
     console.log('Meal Item:', mealItem); // Debugging line to check mealItem
     console.log('Function calls:', mockWriteFavoriteUserItemData.mock.calls); // Debugging line to check mock function calls
     expect(mockWriteFavoriteUserItemData).toHaveBeenCalledWith(mealItem);
     expect(mockIsFavorite.value).toBe(true);
 
-    await wrapper.find('button').trigger('click');
+    await btn.trigger('click');
     expect(mockDeleteFavoriteUserItemData).toHaveBeenCalledWith(mealItem);
     expect(mockIsFavorite.value).toBe(false);
   });
 
-  /*   it('applies correct classes based on favorite status and user login state', async () => {
+  /*  it('applies correct classes based on favorite status and user login state', async () => {
     mockUser.value = { id: 1, name: 'Test User' };
 
     const wrapper = mount(HeartBtn, {
