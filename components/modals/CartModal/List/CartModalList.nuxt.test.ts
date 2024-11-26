@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
 import CartModalList from '@/components/modals/CartModal/List/CartModalList.vue';
 
@@ -20,13 +20,17 @@ vi.mock('@/composables/useCart', () => ({
 }));
 
 describe('CartModalList', () => {
-  it('renders cart products correctly', () => {
-    const wrapper = mount(CartModalList);
+  let wrapper: any;
 
+  beforeEach(() => {
+    wrapper = mount(CartModalList);
+  });
+
+  it('renders cart products correctly', () => {
     const items = wrapper.findAll('[data-test="product-li"]');
     expect(items).toHaveLength(2);
 
-    items.forEach((item, index) => {
+    items.forEach((item: VueWrapper, index: number) => {
       const product = cartProducts[index];
       expect(item.find('img').attributes('src')).toBe(product.img);
       expect(item.find('.text-lg').text()).toBe(`${product.quantity}x`);
@@ -36,8 +40,6 @@ describe('CartModalList', () => {
   });
 
   it('calls removeFromCart when clicking the remove button', async () => {
-    const wrapper = mount(CartModalList);
-
     await wrapper.find('[data-test="product-li"] p:last-child').trigger('click');
     expect(removeFromCartMock).toHaveBeenCalledWith(1);
   });
