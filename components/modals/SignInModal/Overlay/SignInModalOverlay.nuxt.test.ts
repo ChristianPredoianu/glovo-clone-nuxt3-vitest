@@ -5,9 +5,13 @@ import SignInForm from '@/components/forms/SignInForm/SignInForm.vue';
 import SignUpForm from '@/components/forms/SignUpForm/SignUpForm.vue';
 
 describe('SignInModalOverlay', () => {
-  it('renders SignIn form by default', () => {
-    const wrapper = mount(SignInModalOverlay);
+  let wrapper: any;
 
+  beforeEach(() => {
+    wrapper = mount(SignInModalOverlay);
+  });
+
+  it('renders SignIn form by default', () => {
     expect(wrapper.findComponent(SignInForm).exists()).toBe(true);
     expect(wrapper.find('h3').text()).toBe('Sign In');
     expect(wrapper.find('h4').text()).toContain("Don't have an account?");
@@ -15,8 +19,6 @@ describe('SignInModalOverlay', () => {
   });
 
   it('toggles to SignUp form when Sign up is clicked', async () => {
-    const wrapper = mount(SignInModalOverlay);
-
     await wrapper.find('span').trigger('click');
 
     expect(wrapper.findComponent(SignUpForm).exists()).toBe(true);
@@ -26,8 +28,6 @@ describe('SignInModalOverlay', () => {
   });
 
   it('toggles back to SignIn form when Sign in is clicked', async () => {
-    const wrapper = mount(SignInModalOverlay);
-
     await wrapper.find('span').trigger('click');
 
     await wrapper.find('span').trigger('click');
