@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi } from 'vitest';
-import { ref } from 'vue';
 import SearchBar from '@/components/ui/SearchBar/SearchBar.vue';
 
 describe('SearchBar', () => {
