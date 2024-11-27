@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFilter } from '@/composables/useFilter';
 import type {
   IFakeStoreCategories,
   ICuisineType,
