@@ -29,7 +29,7 @@ vi.mock('@/composables/ui/useModal', () => ({
   })),
 }));
 
-describe('SignInForm.vue', () => {
+describe('SignInForm', () => {
   let wrapper: any;
 
   beforeEach(() => {
