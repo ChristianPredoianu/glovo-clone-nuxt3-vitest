@@ -10,7 +10,7 @@ vi.mock('@/composables/useCart', () => ({
   }),
 }));
 
-describe('CartCounter.vue', () => {
+describe('CartCounter', () => {
   let wrapper: VueWrapper<any>;
 
   beforeEach(() => {
