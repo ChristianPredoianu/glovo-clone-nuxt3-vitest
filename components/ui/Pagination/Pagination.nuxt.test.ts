@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import Pagination from '@/components/ui/Pagination/Pagination.vue';
 
-describe('Pagination.vue', () => {
+describe('Pagination', () => {
   let wrapper: any;
 
   beforeEach(() => {
