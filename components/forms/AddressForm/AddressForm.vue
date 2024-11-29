@@ -87,7 +87,7 @@ watch(
       <font-awesome-icon v-if="isLoaded" :icon="['fas', 'location']" />
     </span>
     <input
-      data-testid="input"
+      data-test="input-t"
       type="text"
       placeholder="What's your address?"
       class="py-3 px-12 w-full rounded-md"
