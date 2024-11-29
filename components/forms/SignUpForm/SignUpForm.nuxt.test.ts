@@ -31,7 +31,7 @@ vi.mock('@/composables/ui/useModal', () => ({
   })),
 }));
 
-describe('SignUpForm.vue', () => {
+describe('SignUpForm', () => {
   let wrapper: any;
 
   beforeEach(() => {
