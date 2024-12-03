@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import SelectDropdown from '@/components/ui/Dropdown/SelectDropdown/SelectDropdown.vue';
 import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
-import { replaceRecipeText } from '@/helpers/replaceRecipeText';
 import { cuisineTypes } from '@/data/productCategoriesData';
 import { fakeStoreCategories } from '@/data/productCategoriesData';
 import type { IItem } from '@/interfaces/interfaces.interface';
+import DashboardFavoriteItemList from '~/components/lists/DashboardFavoriteItemList/DashboardFavoriteItemList.vue';
 
 const selectedOption = ref('');
 
@@ -86,26 +86,7 @@ watch(filteredItems, (newFilteredItems) => {
             @pageChanged="handlePageChange"
           />
         </div>
-
-        <ul class="mt-4 space-y-4">
-          <li
-            v-for="item in displayedItems"
-            :key="item.id"
-            class="flex items-center p-4 border-2 border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in-out"
-          >
-            <img
-              src="/glovo.jpg"
-              alt="Item Image"
-              class="w-32 h-32 object-cover rounded-lg mr-4"
-            />
-            <div class="flex flex-col gap-y-1">
-              <p class="text-lg font-semibold text-gray-800">
-                {{ capitalizeFirstLetter(item.category) }}
-              </p>
-              <p class="text-sm text-gray-600">{{ replaceRecipeText(item.label) }}</p>
-            </div>
-          </li>
-        </ul>
+        <DashboardFavoriteItemList :displayedItems="displayedItems" />
         <h2 v-if="!displayedItems" class="text-xl font-semibold text-center">
           You don't have any favorites in this category
         </h2>
