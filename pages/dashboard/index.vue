@@ -87,7 +87,7 @@ watch(filteredItems, (newFilteredItems) => {
           />
         </div>
         <DashboardFavoriteItemList :displayedItems="displayedItems" />
-        <h2 v-if="!displayedItems" class="text-xl font-semibold text-center">
+        <h2 v-if="displayedItems.length === 0" class="text-xl font-semibold text-center">
           You don't have any favorites in this category
         </h2>
       </section>
