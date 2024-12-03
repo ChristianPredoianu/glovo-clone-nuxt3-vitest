@@ -113,6 +113,13 @@ export interface ICartProduct {
   quantity?: number;
 }
 
+export interface IMealProps {
+  category: string;
+  label: string;
+  img: string;
+  price: number;
+}
+
 export interface IItem {
   id: number;
   label: string;
