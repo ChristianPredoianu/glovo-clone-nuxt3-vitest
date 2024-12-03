@@ -106,7 +106,7 @@ watch(filteredItems, (newFilteredItems) => {
             </div>
           </li>
         </ul>
-        <h2 class="text-xl font-semibold text-center">
+        <h2 v-if="!displayedItems" class="text-xl font-semibold text-center">
           You don't have any favorites in this category
         </h2>
       </section>
