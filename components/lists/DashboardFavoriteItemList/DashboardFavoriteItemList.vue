@@ -1,4 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
+import { replaceRecipeText } from '@/helpers/replaceRecipeText';
+import type { IItem } from '@/interfaces/interfaces.interface';
+
+const props = defineProps({
+  displayedItems: {
+    type: Array as PropType<IItem[]>,
+    required: true,
+  },
+});
+</script>
 
 <template>
   <ul class="mt-4 space-y-4">
@@ -8,7 +19,7 @@
       class="flex items-center p-4 border-2 border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200 ease-in-out"
     >
       <img
-        src="/glovo.jpg"
+        src="../../../public/glovo.jpg"
         alt="Item Image"
         class="w-32 h-32 object-cover rounded-lg mr-4"
       />
