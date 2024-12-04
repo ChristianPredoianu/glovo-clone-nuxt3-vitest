@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import type { ICartProduct } from '@/interfaces/interfaces.interface';
 
-const props = defineProps<{
-  quantity: number;
-  product: ICartProduct;
-}>();
+const props = defineProps({
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  product: {
+    type: Object as PropType<ICartProduct>,
+    required: true,
+  },
+});
 
 const { addToCart, removeFromCart } = useCart();
 </script>
