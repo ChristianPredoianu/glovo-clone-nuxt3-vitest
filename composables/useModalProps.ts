@@ -27,6 +27,7 @@ export function useModalProps() {
         label: item.recipe.label,
         img: item.recipe.image,
         ingredients: item.recipe.ingredients || [],
+        price: item.price,
       };
       productModalProps.value = null;
     } else {
@@ -34,6 +35,7 @@ export function useModalProps() {
         id: item.id,
         label: item.title!,
         img: item.image,
+        price: item.price,
       };
       mealModalProps.value = null;
     }
