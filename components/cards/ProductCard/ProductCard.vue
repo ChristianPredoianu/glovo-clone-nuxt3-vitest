@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import type { IProduct } from '@/interfaces/interfaces.interface';
+
 const props = defineProps({
-  product: Object,
+  product: {
+    type: Object as PropType<IProduct>,
+    required: true,
+  },
 });
 </script>
 
