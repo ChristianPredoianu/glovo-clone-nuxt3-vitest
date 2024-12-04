@@ -29,6 +29,7 @@ const props = defineProps({
         </p>
         <p class="text-sm text-gray-600">{{ replaceRecipeText(item.label) }}</p>
       </div>
+      <p>{{ item }}</p>
     </li>
   </ul>
 </template>
