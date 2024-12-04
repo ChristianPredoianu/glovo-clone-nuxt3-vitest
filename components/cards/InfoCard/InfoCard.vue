@@ -1,9 +1,16 @@
 <script setup lang="ts">
+interface IInfoCard {
+  icon: string;
+  heading: string;
+  paragraph: string;
+  span: string;
+}
+
 const props = defineProps({
-  icon: String,
-  heading: String,
-  paragraph: String,
-  span: String,
+  card: {
+    type: Object as PropType<IInfoCard>,
+    required: true,
+  },
 });
 
 const isLoaded = ref(false);
@@ -20,15 +27,15 @@ onMounted(() => {
     >
       <font-awesome-icon
         v-if="isLoaded"
-        :icon="['fas', props.icon]"
+        :icon="['fas', props.card.icon]"
         data-test="fa-icon"
         class="text-7xl text-orange-400"
       />
-      <h3 class="flex-grow text-xl font-bold">{{ props.heading }}</h3>
+      <h3 class="flex-grow text-xl font-bold">{{ props.card.heading }}</h3>
       <p class="flex-grow lg:px-10">
-        {{ props.paragraph
+        {{ props.card.paragraph
         }}<span class="bg-orange-400 font-medium rounded-md px-2 py-1">{{
-          props.span
+          props.card.span
         }}</span>
       </p>
     </article>
