@@ -1,5 +1,5 @@
 export function useNav() {
-  const isNavOpen = useState<boolean>('isNavOpen', () => false);
+  const isNavOpen = ref(false);
 
   function openNav() {
     isNavOpen.value = true;
