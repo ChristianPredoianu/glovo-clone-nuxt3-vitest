@@ -12,7 +12,7 @@ const { emailError, passwordError, validateEmail, validatePassword } =
 const { closeModal } = useModal();
 
 async function handleSignIn(e: Event) {
-  e.preventDefault(); // Prevent default form submission
+  e.preventDefault();
   console.log('Sign in attempt with email:', userEmail.value);
 
   signIn(userEmail.value, userPassword.value).then(() => {
