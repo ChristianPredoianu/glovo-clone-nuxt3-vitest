@@ -34,17 +34,22 @@ export function useAuth(redirect: string | null = null) {
     repeatedPasswordError,
   } = useAuthValidation();
 
+  watchEffect(() => {
+    if ($auth) {
+      onAuthStateChanged($auth, (currentUser) => {
+        user.value = currentUser;
+        isAuthReady.value = true;
+      });
+    }
+  });
+
   function validateCredentials(email: string, password: string): boolean {
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
 
-    if (!isEmailValid) {
-      throw new Error('Invalid email format');
-    }
+    if (!isEmailValid) throw new Error('Invalid email format');
 
-    if (!isPasswordValid) {
-      throw new Error('Invalid password');
-    }
+    if (!isPasswordValid) throw new Error('Invalid password');
 
     return true;
   }
@@ -85,7 +90,6 @@ export function useAuth(redirect: string | null = null) {
     }
   }
 
-  // Sign-in function with redirect
   async function signIn(email: string, password: string): Promise<void> {
     successMessage.value = null;
     authErrorMessage.value = null;
@@ -99,7 +103,6 @@ export function useAuth(redirect: string | null = null) {
       setSuccessMessageWithTimeout('Successfully signed in!', DELAY);
       await delay(DELAY);
 
-      // Redirect to the original route if available, or to /dashboard
       const redirectTo = redirect || '/dashboard';
       await router.push(redirectTo as string);
     } catch (error: unknown) {
@@ -125,15 +128,6 @@ export function useAuth(redirect: string | null = null) {
         authErrorMessage.value = error.message;
       });
   }
-
-  watchEffect(() => {
-    if ($auth) {
-      onAuthStateChanged($auth, (currentUser) => {
-        user.value = currentUser;
-        isAuthReady.value = true;
-      });
-    }
-  });
 
   return {
     emailError,
