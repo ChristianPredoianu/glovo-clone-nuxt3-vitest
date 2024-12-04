@@ -1,8 +1,4 @@
 export function useCloseElementOnEscape(callback: () => void) {
-  function handleEscapeKey(event: KeyboardEvent) {
-    if (event.key === 'Escape') callback();
-  }
-
   onMounted(() => {
     document.addEventListener('keydown', handleEscapeKey);
   });
@@ -10,4 +6,8 @@ export function useCloseElementOnEscape(callback: () => void) {
   onUnmounted(() => {
     document.removeEventListener('keydown', handleEscapeKey);
   });
+
+  function handleEscapeKey(event: KeyboardEvent) {
+    if (event.key === 'Escape') callback();
+  }
 }
