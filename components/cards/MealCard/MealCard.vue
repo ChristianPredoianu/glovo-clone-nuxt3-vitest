@@ -1,21 +1,33 @@
 <script setup lang="ts">
-import type { IItem } from '@/interfaces/interfaces.interface';
 import { replaceRecipeText } from '@/helpers/replaceRecipeText';
+import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
 
-interface IMealProps {
-  category: string;
-  label: string;
-  img: string;
+interface IMealCardProps {
+  recipe: {
+    cuisineType: string[];
+    label: string;
+    image: string;
+    category?: string;
+  };
+  price: number;
 }
 
-const props = defineProps<IMealProps>();
+const props = defineProps({
+  index: Number,
+  price: Number,
+  meal: {
+    type: Object as PropType<IMealCardProps>,
+    required: true,
+  },
+});
 
 const { isLoaded } = useIsLoaded();
 
 const mealItem = {
-  category: props.category,
-  label: props.label,
-  img: props.img,
+  category: props.meal.recipe.cuisineType[0],
+  label: props.meal.recipe.label,
+  img: props.meal.recipe.image,
+  price: props.meal.price,
 };
 </script>
 
@@ -24,8 +36,8 @@ const mealItem = {
     <div class="relative">
       <div class="relative overflow-hidden w-full max-w-[500px]">
         <img
-          :src="props.img"
-          :alt="replaceRecipeText(props.label)"
+          :src="props.meal.recipe.image"
+          :alt="replaceRecipeText(props.meal.recipe.label)"
           class="rounded-lg transform transition-transform duration-300 hover:scale-105 object-cover w-full h-full"
         />
       </div>
@@ -33,12 +45,12 @@ const mealItem = {
         class="absolute bottom-2 left-2 px-2 py-1 text-sm font-semibold tracking-wide text-gray-100 bg-opacity-50 rounded-md"
         :style="{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }"
       >
-        {{ props.category.charAt(0).toUpperCase() + props.category.slice(1) }}
+        {{ capitalizeFirstLetter(props.meal.recipe.cuisineType[0]) }}
       </p>
     </div>
     <div class="flex flex-col h-full">
       <h3 class="font-bold text-sm mt-1 flex-1">
-        {{ replaceRecipeText(label) }}
+        {{ replaceRecipeText(props.meal.recipe.label) }}
       </h3>
 
       <div class="relative flex justify-between items-center mt-4">
@@ -52,9 +64,10 @@ const mealItem = {
           <p class="text-xs font-semibold">Free</p>
         </div>
         <div class="absolute right-0 z-50">
-          <HeartBtn :mealItem="mealItem as IItem" />
+          <HeartBtn :mealItem="mealItem" />
         </div>
       </div>
+      <p>{{ props.price }}</p>
     </div>
   </article>
 </template>
