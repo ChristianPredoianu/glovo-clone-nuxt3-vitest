@@ -1,5 +1,5 @@
 <script setup lang="ts">
-interface IInfoCard {
+interface IInfoCardProps {
   icon: string;
   heading: string;
   paragraph: string;
@@ -8,7 +8,7 @@ interface IInfoCard {
 
 const props = defineProps({
   card: {
-    type: Object as PropType<IInfoCard>,
+    type: Object as PropType<IInfoCardProps>,
     required: true,
   },
 });
