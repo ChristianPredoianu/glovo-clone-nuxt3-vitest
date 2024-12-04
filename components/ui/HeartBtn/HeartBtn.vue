@@ -8,13 +8,22 @@ const props = defineProps({
   },
 });
 
+const isFavorite = ref<boolean>(false);
+
 const { user } = useAuth();
 const { writeFavoriteUserItemData, deleteFavoriteUserItemData, isItemFavorite } =
   useFirebaseActions();
 const { openModal } = useModal();
 const { isLoaded } = useIsLoaded();
 
-const isFavorite = ref<boolean>(false);
+onMounted(() => {
+  watchEffect(async () => {
+    if (user.value && props.mealItem && props.mealItem.label) {
+      const favoriteStatus = await isItemFavorite(props.mealItem.label);
+      isFavorite.value = favoriteStatus;
+    }
+  });
+});
 
 async function toggleFavorite() {
   console.log('User state:', user.value);
@@ -33,15 +42,6 @@ async function toggleFavorite() {
     isFavorite.value = true;
   }
 }
-
-onMounted(() => {
-  watchEffect(async () => {
-    if (user.value && props.mealItem && props.mealItem.label) {
-      const favoriteStatus = await isItemFavorite(props.mealItem.label);
-      isFavorite.value = favoriteStatus;
-    }
-  });
-});
 </script>
 
 <template>
