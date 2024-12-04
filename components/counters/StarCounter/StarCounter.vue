@@ -1,7 +1,13 @@
 <script setup lang="ts">
 const props = defineProps({
-  rate: Number,
-  count: Number,
+  rate: {
+    type: Number,
+    required: true,
+  },
+  count: {
+    type: Number,
+    required: true,
+  },
 });
 
 const { isLoaded } = useIsLoaded();
