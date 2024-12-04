@@ -54,6 +54,7 @@ export default defineNuxtConfig({
     { path: '@/components/filters', extensions: ['vue'] },
     { path: '@/components/modals', extensions: ['vue'] },
     { path: '@/components/counters', extensions: ['vue'] },
+    { path: '@/components/lists', extensions: ['vue'] },
   ],
 
   compatibilityDate: '2024-11-13',
