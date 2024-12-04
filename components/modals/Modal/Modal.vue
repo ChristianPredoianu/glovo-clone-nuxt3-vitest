@@ -1,5 +1,10 @@
 <script setup lang="ts">
-const props = defineProps({ modalName: String });
+const props = defineProps({
+  modalName: {
+    type: String,
+    required: true,
+  },
+});
 
 const { isModalOpen, closeModal } = useModal();
 
