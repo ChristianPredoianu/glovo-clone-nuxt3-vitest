@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// Declare the props for the Backdrop component
 const props = defineProps({
   isBackdropOpen: {
     type: Boolean,
+    required: true,
   },
 });
 const emits = defineEmits(['closeElement']);
