@@ -15,6 +15,13 @@ const userSelectedFilter = useState<IFakeStoreCategories | ICuisineType | string
 const { clearActive } = useIsActive();
 const { isFakeStoreIndex } = useFilter();
 
+watch(
+  () => screenWidth.value,
+  () => {
+    if (screenWidth.value >= 1024) emits('closeModal');
+  }
+);
+
 function handleDelete() {
   clearActive();
   userSelectedFilter.value = '';
@@ -31,13 +38,6 @@ function handleApply() {
 function setSelectedFilter(selectedFilter: IFakeStoreCategories | ICuisineType) {
   userSelectedFilter.value = selectedFilter;
 }
-
-watch(
-  () => screenWidth.value,
-  () => {
-    if (screenWidth.value >= 1024) emits('closeModal');
-  }
-);
 </script>
 
 <template>
