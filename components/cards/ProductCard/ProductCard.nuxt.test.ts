@@ -10,6 +10,8 @@ vi.mock('@/components/StarCounter.vue', () => ({
 
 describe('ProductCard', () => {
   const product = {
+    id: 1,
+    category: 'Electronics',
     image: 'https://example.com/product-image.jpg',
     title: 'Sample Product',
     price: 99.99,
