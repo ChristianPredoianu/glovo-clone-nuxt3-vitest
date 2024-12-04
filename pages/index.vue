@@ -1,29 +1,18 @@
 <script setup lang="ts">
 import Modal from '@/components/modals/Modal/Modal.vue';
 import type {
-  IProduct,
   ISingleMeal,
   ILocationsData,
   ILocationAdress,
   ICountriesData,
   IMeals,
   IDropdownOptions,
-  IItem,
 } from '@/interfaces/interfaces.interface';
 import { productCategories, dishTypes } from '@/data/productCategoriesData';
 import { generateRandomPrice } from '@/helpers/randomPrice';
 import { infoCardsData } from '@/data/infocardsData';
 
-const emittedInput = useState<string>('emmitedInput', () => '');
-const emittedOption = useState<IDropdownOptions>('emittedOption', () => {
-  return { id: 0, text: '' };
-});
-
-const emittedLocation = useState<ILocationAdress>('emittedLocation', () => {
-  return { address: { road: '', postcode: '', town: '', country: '' } };
-});
-
-let dropdownOptions: IDropdownOptions[] = [];
+const emittedInput = ref<string>('');
 
 const { locationEndpoint, indexMealDataEndpoint, restCountriesEndpoint } = useEndpoints(
   undefined,
@@ -31,20 +20,27 @@ const { locationEndpoint, indexMealDataEndpoint, restCountriesEndpoint } = useEn
   undefined
 );
 
+const { data: mealData } = await useFetch<IMeals>(() => `${indexMealDataEndpoint.value}`);
+const { data: locationData } = await useFetch<ILocationsData[]>(
+  () => `${locationEndpoint.value}`
+);
+const { data: countriesData } = await useFetch<ICountriesData[]>(
+  () => `${restCountriesEndpoint}`
+);
+
+const mealPrices = ref<number[]>([]);
+const selectedMeal = ref<(ISingleMeal & { price: number }) | null>(null);
+const emittedOption = ref<IDropdownOptions>({ id: 0, text: '' });
+const emittedLocation = ref<ILocationAdress>({
+  address: { road: '', postcode: '', town: '', country: '' },
+});
+
+let dropdownOptions: IDropdownOptions[] = [];
+
 const { convertToDropdownOptions } = useConvertToDropdownOptions<ILocationsData>();
 const { currentModalProps, setModalProps } = useModalProps();
 const { openModal, closeModal } = useModal();
 const { isLoaded } = useIsLoaded();
-
-const { data: locationData } = await useFetch<ILocationsData[]>(
-  () => `${locationEndpoint.value}`
-);
-
-const { data: mealData } = await useFetch<IMeals>(() => `${indexMealDataEndpoint.value}`);
-
-const { data: countriesData } = await useFetch<ICountriesData[]>(
-  () => `${restCountriesEndpoint}`
-);
 
 function handleEmittedSearchQuery(searchQuery: string) {
   emittedInput.value = searchQuery;
@@ -71,10 +67,17 @@ function checkLocationOutput() {
     : emittedOption.value.text;
 }
 
-function handleMealCardClick(item: ISingleMeal | IProduct) {
-  setModalProps(item);
+function handleMealCardClick(meal: ISingleMeal, price: number) {
+  console.log(price);
+  selectedMeal.value = { ...meal, price };
+  setModalProps(selectedMeal.value);
   openModal('productModal');
 }
+
+watchEffect(() => {
+  if (mealData.value?.hits)
+    mealPrices.value = mealData.value.hits.map(() => +generateRandomPrice());
+});
 
 watch(
   () => locationData.value,
@@ -96,10 +99,7 @@ watch(
 <template>
   <!-- Product Modal -->
   <Modal modalName="productModal"
-    ><ProductModalOverlay
-      :productModalProps="currentModalProps"
-      :price="+generateRandomPrice()"
-      @closeModal="closeModal"
+    ><ProductModalOverlay :productModalProps="currentModalProps" @closeModal="closeModal"
   /></Modal>
   <section class="bg-amber-400 text-gray-800 min-h-screen md:min-h-min">
     <div
@@ -142,9 +142,7 @@ watch(
           v-for="(productCategory, index) in productCategories"
           :key="productCategory.text"
           :index="index"
-          :img="productCategory.img"
-          :text="productCategory.text"
-          :category="productCategory.category"
+          :productCategory="productCategory"
         />
       </div>
     </div>
@@ -165,12 +163,11 @@ watch(
         class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-8 mt-8"
       >
         <MealCard
-          v-for="meal in mealData.hits"
+          v-for="(meal, index) in mealData.hits"
           :key="meal.recipe.label"
-          :category="meal.recipe.cuisineType[0]"
-          :label="meal.recipe.label"
-          :img="meal.recipe.image"
-          @click="handleMealCardClick(meal)"
+          :meal="meal"
+          :price="mealPrices[index]"
+          @click="handleMealCardClick(meal, mealPrices[index])"
         />
       </div>
     </section>
@@ -203,14 +200,7 @@ watch(
     <h3 class="text-center text-4xl font-bold pb-20">Anything delivered</h3>
     <section class="flex flex-col items-center">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <InfoCard
-          v-for="(card, index) in infoCardsData"
-          :key="index"
-          :icon="card.icon"
-          :heading="card.heading"
-          :paragraph="card.paragraph"
-          :span="card.span"
-        />
+        <InfoCard v-for="(card, index) in infoCardsData" :key="index" :card="card" />
       </div>
       <div class="pt-20">
         <CtaBtn backCol="bg-green-500" textCol="text-gray-100"
