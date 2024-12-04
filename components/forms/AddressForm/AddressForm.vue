@@ -23,7 +23,6 @@ const emits = defineEmits(['emitInput', 'emitOption', 'emitLocation']);
 let locationAdress: ILocationAdress | null = null;
 
 const inputText = ref<string>('');
-
 const locationIconRef = ref<HTMLInputElement | null>(null);
 const locationTextRef = ref<HTMLSpanElement | null>(null);
 
@@ -34,6 +33,16 @@ const { locationReverseEndpoint } = useEndpoints();
 const { data } = await useFetch<ILocationAdress>(
   () =>
     `${locationReverseEndpoint.value}&q&lat=${latitude.value}&lon=${longitude.value}&format=json`
+);
+
+watch(
+  () => data.value,
+  (newValue: ILocationAdress | null) => {
+    if (newValue) {
+      locationAdress = newValue;
+      emits('emitLocation', locationAdress);
+    }
+  }
 );
 
 function handleInputElements() {
@@ -66,16 +75,6 @@ function handleOnChange() {
   handleInputElements();
   emits('emitInput', inputText.value);
 }
-
-watch(
-  () => data.value,
-  (newValue: ILocationAdress | null) => {
-    if (newValue) {
-      locationAdress = newValue;
-      emits('emitLocation', locationAdress);
-    }
-  }
-);
 </script>
 
 <template class="dsadsadas">
