@@ -2,7 +2,7 @@
 import { replaceRecipeText } from '@/helpers/replaceRecipeText';
 import type { ModalProps, IMealModalProps } from '@/interfaces/interfaces.interface';
 
-const props = defineProps<{ productModalProps: ModalProps | null; price: number }>();
+const props = defineProps<{ productModalProps: ModalProps | null }>();
 
 const emits = defineEmits(['closeModal']);
 
@@ -16,7 +16,7 @@ const product = computed(() => {
     id: props.productModalProps.id,
     label: props.productModalProps.label,
     img: props.productModalProps.img,
-    price: props.price,
+    price: props.productModalProps.price,
   };
 });
 
@@ -40,7 +40,9 @@ const isMealModalProps = (props: ModalProps | null): props is IMealModalProps =>
     <h3 class="text-xl font-semibold text-gray-700 py-4">
       {{ replaceRecipeText(props.productModalProps!.label) }}
     </h3>
-    <h4 class="text-red-500 font-semibold text-2xl mb-8">{{ props.price }} $</h4>
+    <h4 class="text-red-500 font-semibold text-2xl mb-8">
+      {{ productModalProps.price }} $
+    </h4>
     <div
       v-if="isMealModalProps(props.productModalProps)"
       class="mt-2 mb-8 gap-2 text-gray-500"
@@ -48,7 +50,7 @@ const isMealModalProps = (props: ModalProps | null): props is IMealModalProps =>
       <ProductModalList :ingredients="props.productModalProps!.ingredients" />
     </div>
     <CtaBtn :textCol="'text-gray-200'" @click="addToCart(product)"
-      >Add to cart {{ price }} $</CtaBtn
+      >Add to cart {{ props.productModalProps!.price }} $</CtaBtn
     >
     <div class="h-4">
       <transition name="fade" mode="out-in">
