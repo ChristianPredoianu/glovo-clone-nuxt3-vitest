@@ -2,7 +2,15 @@ export function useKeyDown(
   optionsLength: Ref<number>,
   callback: (index: number) => void
 ) {
-  const selectedIndex = useState<number>(() => 0);
+  const selectedIndex = ref(0);
+
+  onMounted(() => {
+    document.addEventListener('keydown', handleKeyDown);
+  });
+
+  onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeyDown);
+  });
 
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowDown') {
@@ -16,14 +24,6 @@ export function useKeyDown(
       selectedIndex.value !== -1 && callback(selectedIndex.value);
     }
   }
-
-  onMounted(() => {
-    document.addEventListener('keydown', handleKeyDown);
-  });
-
-  onUnmounted(() => {
-    document.removeEventListener('keydown', handleKeyDown);
-  });
 
   return {
     selectedIndex,
