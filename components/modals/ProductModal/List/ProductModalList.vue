@@ -2,8 +2,8 @@
 import type { IIngredient } from '@/interfaces/interfaces.interface.ts';
 
 const props = defineProps({
-  foodId: String,
-  text: String,
+  foodId: { type: String, required: true },
+  text: { type: String, required: true },
   ingredients: {
     type: Array as () => IIngredient[],
   },
