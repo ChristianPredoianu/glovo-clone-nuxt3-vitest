@@ -13,6 +13,12 @@ import { generateRandomPrice } from '@/helpers/randomPrice';
 import { infoCardsData } from '@/data/infocardsData';
 
 const emittedInput = ref<string>('');
+const defaultMealPrice = 23.62;
+const selectedMeal = ref<(ISingleMeal & { price: number }) | null>(null);
+const emittedOption = ref<IDropdownOptions>({ id: 0, text: '' });
+const emittedLocation = ref<ILocationAdress>({
+  address: { road: '', postcode: '', town: '', country: '' },
+});
 
 const { locationEndpoint, indexMealDataEndpoint, restCountriesEndpoint } = useEndpoints(
   undefined,
@@ -21,6 +27,11 @@ const { locationEndpoint, indexMealDataEndpoint, restCountriesEndpoint } = useEn
 );
 
 const { data: mealData } = await useFetch<IMeals>(() => `${indexMealDataEndpoint.value}`);
+
+const mealPrices = ref<number[]>(
+  new Array(mealData.value!.hits.length).fill(defaultMealPrice)
+);
+
 const { data: locationData } = await useFetch<ILocationsData[]>(
   () => `${locationEndpoint.value}`
 );
@@ -28,19 +39,33 @@ const { data: countriesData } = await useFetch<ICountriesData[]>(
   () => `${restCountriesEndpoint}`
 );
 
-const mealPrices = ref<number[]>([]);
-const selectedMeal = ref<(ISingleMeal & { price: number }) | null>(null);
-const emittedOption = ref<IDropdownOptions>({ id: 0, text: '' });
-const emittedLocation = ref<ILocationAdress>({
-  address: { road: '', postcode: '', town: '', country: '' },
-});
-
 let dropdownOptions: IDropdownOptions[] = [];
 
 const { convertToDropdownOptions } = useConvertToDropdownOptions<ILocationsData>();
 const { currentModalProps, setModalProps } = useModalProps();
 const { openModal, closeModal } = useModal();
 const { isLoaded } = useIsLoaded();
+
+watch(
+  () => locationData.value,
+  (newValue: ILocationsData[] | null) => {
+    newValue
+      ? (dropdownOptions = convertToDropdownOptions(newValue))
+      : (dropdownOptions = []);
+  }
+);
+
+watch(
+  () => emittedOption.value,
+  (newValue: IDropdownOptions | null) => {
+    if (newValue !== null) emittedLocation.value.address.road = '';
+  }
+);
+
+onMounted(() => {
+  if (mealData.value?.hits)
+    mealPrices.value = mealData.value.hits.map(() => +generateRandomPrice());
+});
 
 function handleEmittedSearchQuery(searchQuery: string) {
   emittedInput.value = searchQuery;
@@ -73,27 +98,6 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
   setModalProps(selectedMeal.value);
   openModal('productModal');
 }
-
-watchEffect(() => {
-  if (mealData.value?.hits)
-    mealPrices.value = mealData.value.hits.map(() => +generateRandomPrice());
-});
-
-watch(
-  () => locationData.value,
-  (newValue: ILocationsData[] | null) => {
-    newValue
-      ? (dropdownOptions = convertToDropdownOptions(newValue))
-      : (dropdownOptions = []);
-  }
-);
-
-watch(
-  () => emittedOption.value,
-  (newValue: IDropdownOptions | null) => {
-    if (newValue !== null) emittedLocation.value.address.road = '';
-  }
-);
 </script>
 
 <template>
