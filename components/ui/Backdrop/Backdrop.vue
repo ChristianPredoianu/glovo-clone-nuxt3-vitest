@@ -2,7 +2,6 @@
 const props = defineProps({
   isBackdropOpen: {
     type: Boolean,
-    required: true,
   },
 });
 const emits = defineEmits(['closeElement']);
