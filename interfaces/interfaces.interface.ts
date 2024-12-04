@@ -25,6 +25,7 @@ export interface ICountriesData {
 }
 
 export interface IMeal {
+  price: number;
   recipe: {
     cuisineType: string[];
     label: string;
@@ -49,6 +50,7 @@ export interface IDropdownOptions {
 }
 
 export interface IProductCategories {
+  index: number;
   category: string;
   text: string;
   img: string;
@@ -59,6 +61,7 @@ export interface IProduct {
   category: string;
   description?: string;
   image: string;
+  price: number;
   rating: {
     count: number;
     rate: number;
@@ -72,6 +75,7 @@ export interface IIngredient {
 }
 
 export interface ISingleMeal {
+  price: number;
   recipe: {
     cuisineType: string[];
     label: string;
@@ -98,6 +102,7 @@ export interface IProductModalProps {
   id: string | number;
   label: string;
   img: string;
+  price: number;
 }
 
 export interface IMealModalProps extends IProductModalProps {
@@ -121,11 +126,11 @@ export interface IMealProps {
 }
 
 export interface IItem {
-  id: number;
-  label: string;
+  id?: number;
   category: string;
+  label: string;
   img: string;
-  dishType?: string;
+  price: number;
 }
 
 export interface ISelectedCategory {
