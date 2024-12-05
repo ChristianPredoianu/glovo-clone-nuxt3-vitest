@@ -50,7 +50,7 @@ export interface IDropdownOptions {
 }
 
 export interface IProductCategories {
-  index: number;
+  index?: number;
   category: string;
   text: string;
   img: string;
