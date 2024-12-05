@@ -15,10 +15,13 @@ const props = defineProps({
       class="bg-white p-x-6 rounded-xl shadow-lg overflow-hidden flex flex-col items-center justify-center w-full h-full"
     >
       <div class="h-40 p-4 w-full">
-        <img
+        <NuxtImg
           :src="product?.image"
           alt="Product image"
           class="mx-auto rounded-lg transform transition-transform duration-300 hover:scale-105 object-contain h-full"
+          format="webp"
+          loading="lazy"
+          fit="contain"
         />
       </div>
       <div class="flex flex-col flex-grow p-6">
