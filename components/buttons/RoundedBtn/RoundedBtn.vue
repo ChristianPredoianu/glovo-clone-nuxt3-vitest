@@ -5,12 +5,15 @@ const props = defineProps({
   backCol: String,
 });
 
+const { isLoaded } = useIsLoaded();
+
 const emits = defineEmits(['emitClick']);
 </script>
 
 <template>
   <button class="flex flex-col gap-y-1">
     <font-awesome-icon
+      v-if="isLoaded"
       :icon="['fas', props.icon]"
       data-test="fa-icon"
       class="bg-orange-200 p-2 rounded-full text-gray-600 cursor-pointer h-4 w-4"
