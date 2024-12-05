@@ -60,7 +60,7 @@ watch(filteredItems, (newFilteredItems) => {
 </script>
 
 <template>
-  <div v-if="isAuthReady">
+  <div v-if="isAuthReady" class="min-h-screen">
     <LoadingSpinner v-if="isLoading" />
     <div class="min-h-screen container mx-auto px-4 py-4">
       <BackBtn :page="'/'" class="mb-4" />
