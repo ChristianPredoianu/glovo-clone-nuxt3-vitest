@@ -6,6 +6,7 @@ const { closeBackdrop } = useBackdrop();
 const { screenWidth } = useScreenWidth();
 const { user, signUserOut } = useAuth();
 const { openModal, closeModal } = useModal();
+const { isLoaded } = useIsLoaded();
 
 onMounted(() => {
   window.addEventListener('resize', closeNavigationDialog);
@@ -50,7 +51,7 @@ function signOut() {
             <font-awesome-icon
               :icon="['fas', 'cart-shopping']"
               data-test="fa-cart"
-              v-if="screenWidth > 640"
+              v-if="screenWidth > 640 && isLoaded"
               class="cursor-pointer text-xl"
               @click="openModal('cart')"
             />
