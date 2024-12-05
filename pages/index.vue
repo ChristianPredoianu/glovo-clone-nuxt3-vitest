@@ -102,9 +102,13 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
 
 <template>
   <!-- Product Modal -->
-  <Modal modalName="productModal"
-    ><ProductModalOverlay :productModalProps="currentModalProps" @closeModal="closeModal"
-  /></Modal>
+  <transition name="modal-fade" mode="out-in">
+    <Modal modalName="productModal">
+      ><ProductModalOverlay
+        :productModalProps="currentModalProps"
+        @closeModal="closeModal" /></Modal
+  ></transition>
+
   <section class="bg-amber-400 text-gray-800 min-h-screen md:min-h-min">
     <div
       class="container px-4 pt-28 mx-auto flex flex-col items-center justify-center gap-8 p-10 md:flex-row"
@@ -229,3 +233,20 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
     </div>
   </section>
 </template>
+
+<style scoped>
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 1.3s ease, transform 0.3s ease;
+}
+
+.modal-fade-enter, .modal-fade-leave-to /* .modal-fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+  transform: scale(0.15); /* Modal starts small */
+}
+
+.modal-fade-enter-to, .modal-fade-leave /* .modal-fade-enter-active in <2.1.8 */ {
+  opacity: 1;
+  transform: scale(1); /* Modal scales to full size */
+}
+</style>
