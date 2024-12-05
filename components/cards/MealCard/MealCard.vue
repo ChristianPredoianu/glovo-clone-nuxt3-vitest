@@ -35,10 +35,14 @@ const mealItem = {
   <article class="flex shadow-lg p-6 flex-col relative cursor-pointer rounded-md">
     <div class="relative">
       <div class="relative overflow-hidden w-full max-w-[500px]">
-        <img
+        <NuxtImg
           :src="props.meal.recipe.image"
           :alt="replaceRecipeText(props.meal.recipe.label)"
           class="rounded-lg transform transition-transform duration-300 hover:scale-105 object-cover w-full h-full"
+          format="webp"
+          loading="lazy"
+          height="auto"
+          fit="cover"
         />
       </div>
       <p
