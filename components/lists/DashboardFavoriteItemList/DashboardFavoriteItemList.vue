@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
-import { replaceRecipeText } from '@/helpers/replaceRecipeText';
+import { capitalizeFirstLetter, replaceRecipeText } from '@/helpers/helpers';
 import type { IItem } from '@/interfaces/interfaces.interface';
 
 const props = defineProps({
