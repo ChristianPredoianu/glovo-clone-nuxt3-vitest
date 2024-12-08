@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
+import { generateRandomPrice, capitalizeFirstLetter } from '@/helpers/helpers';
 import { fetchData } from '@/helpers/fetchGenericData';
-import { generateRandomPrice } from '@/helpers/randomPrice';
 import { useIsMealData } from '@/composables/useIsMealData';
 import type {
   IMeals,
