@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { handleKeyDown } from '@/helpers/keyDown';
+import { handleKeyDown } from '@/helpers/helpers';
 
 const userEmail = ref('');
 const userPassword = ref('');
