@@ -8,7 +8,7 @@ import {
 } from 'firebase/auth';
 import type { User, Auth } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
-import { delay } from '@/helpers/delay';
+import { delay } from '@/helpers/helpers';
 
 declare module '#app' {
   interface NuxtApp {
