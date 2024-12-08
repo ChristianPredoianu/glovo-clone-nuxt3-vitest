@@ -1,5 +1,5 @@
 import { cuisineTypes, fakeStoreCategories } from '@/data/productCategoriesData';
-import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
+import { capitalizeFirstLetter } from '@/helpers/helpers';
 import type {
   IFakeStoreCategories,
   ICuisineType,
