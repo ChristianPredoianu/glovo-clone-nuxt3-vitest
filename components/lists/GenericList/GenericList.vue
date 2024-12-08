@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { GenericListProps } from '@/interfaces/interfaces.interface';
-import { capitalizeFirstLetter } from '@/helpers/capitalizeFirstLetter';
+import { capitalizeFirstLetter } from '@/helpers/helpers';
 
 interface Item {
   [key: string]: any;
