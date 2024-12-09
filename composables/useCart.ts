@@ -1,7 +1,14 @@
 import type { ICartProduct } from '@/interfaces/interfaces.interface';
+import { watch } from 'vue';
 
 export function useCart() {
-  const cartProducts = useState<ICartProduct[]>('cartProducts', () => []);
+  // Initialize cart state from local storage
+  const cartProducts = useState<ICartProduct[]>('cartProducts', () => {
+    const storedCart = localStorage.getItem('cartProducts');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
+
+  const { startProgressBar } = useProgressBar();
 
   function addToCart(product: ICartProduct | null) {
     if (product !== null) {
@@ -9,11 +16,11 @@ export function useCart() {
       const existingProduct = cartProducts.value.find((p) => p.id === product.id);
 
       // If product already in the cart, increase quantity
-      /* If existingProduct.quantity is truthy (i.e., it has a value that is not null, undefined, 0, false, or an empty string), 
-        then that value will be used. else // New product, add to the cart with quantity 1*/
       existingProduct
         ? (existingProduct.quantity = (existingProduct.quantity || 1) + 1)
         : cartProducts.value.push({ ...product, quantity: 1 });
+
+      startProgressBar();
     }
   }
 
@@ -43,6 +50,15 @@ export function useCart() {
       return total + (product.quantity || 0); //If product.quantity is undefined or null, we fall back to 0
     }, 0);
   });
+
+  // Watch for changes in cartProducts and update local storage
+  watch(
+    cartProducts,
+    (newCart) => {
+      localStorage.setItem('cartProducts', JSON.stringify(newCart));
+    },
+    { deep: true }
+  );
 
   return {
     cartProducts,
