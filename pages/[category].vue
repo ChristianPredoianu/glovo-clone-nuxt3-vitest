@@ -79,10 +79,8 @@ function handleCategoryClick() {
 watch(emittedFilter, fetchDataAndUpdate);
 
 onBeforeRouteLeave((to, from, next) => {
-  console.log('Route is being left'); // Add this to verify execution
   emittedFilter.value = '';
-  console.log('Updated emittedFilter:', emittedFilter.value);
-  next(); // Proceed with navigation
+  next();
 });
 </script>
 
