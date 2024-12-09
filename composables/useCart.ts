@@ -3,8 +3,6 @@ import type { ICartProduct } from '@/interfaces/interfaces.interface';
 export function useCart() {
   const cartProducts = useState<ICartProduct[]>('cartProducts', () => []);
 
-  const { startProgressBar } = useProgressBar();
-
   function addToCart(product: ICartProduct | null) {
     if (product !== null) {
       // Check if existing product
@@ -16,8 +14,6 @@ export function useCart() {
       existingProduct
         ? (existingProduct.quantity = (existingProduct.quantity || 1) + 1)
         : cartProducts.value.push({ ...product, quantity: 1 });
-
-      startProgressBar();
     }
   }
 
