@@ -16,7 +16,7 @@ interface FetchResult<T> {
   isLoading: boolean;
 }
 
-const emittedFilter = useState<string>('emmitedFilter', () => '');
+const emittedFilter = ref('');
 const filteredData = useState<FetchResult<IMeals | IProduct[] | null>>(
   'filteredData',
   () => ({ data: null, isLoading: false })
@@ -72,11 +72,17 @@ const renderType = computed(() => {
   return null;
 });
 
+function handleCategoryClick() {
+  emittedFilter.value = '';
+}
+
 watch(emittedFilter, fetchDataAndUpdate);
 
 onBeforeRouteLeave((to, from, next) => {
+  console.log('Route is being left'); // Add this to verify execution
   emittedFilter.value = '';
-  next();
+  console.log('Updated emittedFilter:', emittedFilter.value);
+  next(); // Proceed with navigation
 });
 </script>
 
@@ -114,6 +120,7 @@ onBeforeRouteLeave((to, from, next) => {
           :key="productCategory.text"
           :index="index"
           :productCategory="{ ...productCategory, index }"
+          @click="handleCategoryClick"
         />
       </div>
     </section>
