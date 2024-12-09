@@ -2,6 +2,7 @@
 import { generateRandomPrice, capitalizeFirstLetter } from '@/helpers/helpers';
 import { fetchData } from '@/helpers/fetchGenericData';
 import { useIsMealData } from '@/composables/useIsMealData';
+import { productCategories } from '@/data/productCategoriesData';
 import type {
   IMeals,
   ISingleMeal,
@@ -92,7 +93,7 @@ onBeforeRouteLeave((to, from, next) => {
       @closeModal="closeModal"
     />
   </Modal>
-  <div class="container mx-auto px-4 min-h-screen">
+  <div class="container mx-auto px-4">
     <section
       v-if="screenWidth <= 1024"
       class="mt-10 flex justify-center items-center gap-4"
@@ -104,8 +105,19 @@ onBeforeRouteLeave((to, from, next) => {
         icon="fa-filter"
       />
     </section>
-
-    <section class="flex justify-between">
+    <section class="container mx-auto px-4 mt-10 md:mt-28">
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 lg:px-20 md:grid-cols-4 lg:grid-cols-8 gap-y-4 text-center text-green-900"
+      >
+        <CategoryCard
+          v-for="(productCategory, index) in productCategories"
+          :key="productCategory.text"
+          :index="index"
+          :productCategory="{ ...productCategory, index }"
+        />
+      </div>
+    </section>
+    <section class="container mx-auto px-4 flex justify-between">
       <div v-if="screenWidth >= 1024" class="mt-20">
         <CategoryFilter @emitSelected="handleEmitSelected" />
       </div>
