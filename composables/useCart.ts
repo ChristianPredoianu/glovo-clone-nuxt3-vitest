@@ -10,6 +10,15 @@ export function useCart() {
 
   const { startProgressBar } = useProgressBar();
 
+  // Watch for changes in cartProducts and update local storage
+  watch(
+    cartProducts,
+    (newCart) => {
+      localStorage.setItem('cartProducts', JSON.stringify(newCart));
+    },
+    { deep: true }
+  );
+
   function addToCart(product: ICartProduct | null) {
     if (product !== null) {
       // Check if existing product
@@ -50,15 +59,6 @@ export function useCart() {
       return total + (product.quantity || 0); //If product.quantity is undefined or null, we fall back to 0
     }, 0);
   });
-
-  // Watch for changes in cartProducts and update local storage
-  watch(
-    cartProducts,
-    (newCart) => {
-      localStorage.setItem('cartProducts', JSON.stringify(newCart));
-    },
-    { deep: true }
-  );
 
   return {
     cartProducts,
