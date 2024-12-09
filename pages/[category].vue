@@ -107,7 +107,7 @@ onBeforeRouteLeave((to, from, next) => {
 
     <section class="flex justify-between">
       <div v-if="screenWidth >= 1024" class="mt-20">
-        <MealCategoryFilter @emitSelected="handleEmitSelected" />
+        <CategoryFilter @emitSelected="handleEmitSelected" />
       </div>
 
       <div class="w-full lg:w-4/5">
