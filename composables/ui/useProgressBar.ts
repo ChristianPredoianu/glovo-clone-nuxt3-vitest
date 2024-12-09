@@ -5,7 +5,7 @@ export function useProgressBar() {
   let intervalId: ReturnType<typeof setInterval> | null = null;
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  function startProgressBar(step = 10, intervalDuration = 50) {
+  function startProgressBar(step = 20, intervalDuration = 50) {
     if (intervalId !== null) clearInterval(intervalId);
     if (timeoutId !== null) clearTimeout(timeoutId);
 
