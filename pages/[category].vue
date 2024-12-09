@@ -140,9 +140,7 @@ onBeforeRouteLeave((to, from, next) => {
             <MealCard
               v-for="(meal, index) in (renderType === 'meals' ? (data as IMeals).hits : (filteredData.data as IMeals).hits)"
               :key="renderType === 'meals' ? meal.recipe.label : `meal-${index}`"
-              :category="meal.recipe.cuisineType[0]"
-              :label="meal.recipe.label"
-              :img="meal.recipe.image"
+              :meal="meal"
               @click="handleMealCardClick(meal)"
             />
           </template>
