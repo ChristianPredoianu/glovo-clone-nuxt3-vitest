@@ -22,7 +22,6 @@ const product = computed(() => {
 
 function handleAddToCart(product: IMealModalProps) {
   addToCart(product);
-  startProgressBar();
 }
 
 const isMealModalProps = (props: ModalProps | null): props is IMealModalProps => {
