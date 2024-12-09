@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { replaceRecipeText } from '@/helpers/helpers';
+
 const { cartProducts } = useCart();
 const { removeFromCart } = useCart();
 </script>
@@ -14,7 +16,7 @@ const { removeFromCart } = useCart();
       <div class="flex flex-col gap-4 justify-around items-center md:flex-row">
         <img :src="product.img" alt="product image" class="w-12 h-12 rounded-xl" />
         <p class="text-lg font-bold ml-1">{{ product.quantity }}x</p>
-        <p class="text-sm text-center w-1/2">{{ product.label }}</p>
+        <p class="text-sm text-center w-1/2">{{ replaceRecipeText(product.label) }}</p>
         <p class="font-semibold">{{ product.price.toFixed(2) }} $</p>
         <p @click="removeFromCart(product.id)">x</p>
       </div>
