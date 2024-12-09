@@ -1,31 +1,29 @@
 export function useProgressBar() {
-  const progressWidth = useState<number>('progressWidth', () => 0);
+  const progressWidth = ref(0);
   const isBarActive = ref(false);
 
-  let startTime: number | null = null;
+  let intervalId: ReturnType<typeof setInterval> | null = null;
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  function startProgressBar() {
+  function startProgressBar(step = 10, intervalDuration = 50) {
+    if (intervalId !== null) clearInterval(intervalId);
+    if (timeoutId !== null) clearTimeout(timeoutId);
+
     progressWidth.value = 0;
     isBarActive.value = true;
-    startTime = null;
 
-    const interval = setInterval(() => {
+    intervalId = setInterval(() => {
       if (progressWidth.value < 100) {
-        progressWidth.value += 100;
+        progressWidth.value += step;
       } else {
-        clearInterval(interval);
+        if (intervalId !== null) clearInterval(intervalId);
         progressWidth.value = 100;
-
-        if (timeoutId) {
-          clearTimeout(timeoutId);
-        }
 
         timeoutId = setTimeout(() => {
           isBarActive.value = false;
         }, 500);
       }
-    }, 10);
+    }, intervalDuration);
   }
 
   return { startProgressBar, isBarActive, progressWidth } as const;
