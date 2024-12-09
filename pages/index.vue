@@ -102,7 +102,6 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
 
 <template>
   <!-- Product Modal -->
-
   <Modal modalName="productModal">
     ><ProductModalOverlay :productModalProps="currentModalProps" @closeModal="closeModal"
   /></Modal>
@@ -148,7 +147,7 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
           v-for="(productCategory, index) in productCategories"
           :key="productCategory.text"
           :index="index"
-          :productCategory="productCategory"
+          :productCategory="{ ...productCategory, index }"
         />
       </div>
     </div>
