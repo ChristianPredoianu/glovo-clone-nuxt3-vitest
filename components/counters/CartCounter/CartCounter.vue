@@ -1,14 +1,10 @@
 <script setup lang="ts">
-const numberKey = ref(0);
-
 const { numberOfCartProducts } = useCart();
+
+const numberKey = useState('numberKey', () => 0);
 
 watch(numberOfCartProducts, (newCount, oldCount) => {
   if (newCount !== oldCount) numberKey.value++;
-});
-
-defineExpose({
-  numberKey,
 });
 </script>
 
