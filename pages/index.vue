@@ -27,7 +27,7 @@ const { locationEndpoint, indexMealDataEndpoint, restCountriesEndpoint } = useEn
 );
 
 const { data: mealData } = await useFetch<IMeals>(() => `${indexMealDataEndpoint.value}`);
-
+console.log(mealData.value);
 const mealPrices = ref<number[]>(
   new Array(mealData.value!.hits.length).fill(defaultMealPrice)
 );
