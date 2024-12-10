@@ -70,7 +70,7 @@ const mealItem = {
           <HeartBtn :mealItem="mealItem" />
         </div>
       </div>
-      <p>{{ props.price }}</p>
+      <p>{{ props.price }} $</p>
     </div>
   </article>
 </template>
