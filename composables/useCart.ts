@@ -1,30 +1,17 @@
 import type { ICartProduct } from '@/interfaces/interfaces.interface';
-import { watch } from 'vue';
+import { computed } from 'vue';
 
 export function useCart() {
-  // Initialize cart state from local storage
-  const cartProducts = useState<ICartProduct[]>('cartProducts', () => {
-    const storedCart = localStorage.getItem('cartProducts');
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
+  const cartProducts = useState<ICartProduct[]>('cartProducts', () => []);
 
   const { startProgressBar } = useProgressBar();
 
-  // Watch for changes in cartProducts and update local storage
-  watch(
-    cartProducts,
-    (newCart) => {
-      localStorage.setItem('cartProducts', JSON.stringify(newCart));
-    },
-    { deep: true }
-  );
-
   function addToCart(product: ICartProduct | null) {
     if (product !== null) {
-      // Check if existing product
+      // Check if the product already exists in the cart
       const existingProduct = cartProducts.value.find((p) => p.id === product.id);
 
-      // If product already in the cart, increase quantity
+      // If the product is already in the cart, increase its quantity
       existingProduct
         ? (existingProduct.quantity = (existingProduct.quantity || 1) + 1)
         : cartProducts.value.push({ ...product, quantity: 1 });
@@ -41,6 +28,7 @@ export function useCart() {
     if (productIndex !== -1) {
       const product = cartProducts.value[productIndex];
 
+      // Decrease quantity or remove the product if quantity reaches zero
       product.quantity && product.quantity > 1
         ? product.quantity--
         : cartProducts.value.splice(productIndex, 1);
@@ -56,7 +44,7 @@ export function useCart() {
 
   const numberOfCartProducts = computed(() => {
     return cartProducts.value.reduce((total, product) => {
-      return total + (product.quantity || 0); //If product.quantity is undefined or null, we fall back to 0
+      return total + (product.quantity || 0); // Default to 0 if undefined or null
     }, 0);
   });
 
