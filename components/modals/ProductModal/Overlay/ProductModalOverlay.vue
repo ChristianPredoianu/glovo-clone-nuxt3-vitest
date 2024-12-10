@@ -7,7 +7,7 @@ const props = defineProps<{ productModalProps: ModalProps | null }>();
 const emits = defineEmits(['closeModal']);
 
 const { addToCart } = useCart();
-const { progressWidth, isBarActive, startProgressBar } = useProgressBar();
+const { progressWidth, isBarActive } = useProgressBar();
 
 const product = computed(() => {
   if (!props.productModalProps) return null;
