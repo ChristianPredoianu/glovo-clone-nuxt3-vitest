@@ -9,11 +9,9 @@ import type {
   IDropdownOptions,
 } from '@/interfaces/interfaces.interface';
 import { productCategories, dishTypes } from '@/data/productCategoriesData';
-import { generateRandomPrice } from '@/helpers/helpers';
 import { infoCardsData } from '@/data/infocardsData';
 
 const emittedInput = ref<string>('');
-const defaultMealPrice = 23.62;
 const selectedMeal = ref<(ISingleMeal & { price: number }) | null>(null);
 const emittedOption = ref<IDropdownOptions>({ id: 0, text: '' });
 const emittedLocation = ref<ILocationAdress>({
@@ -27,10 +25,6 @@ const { locationEndpoint, indexMealDataEndpoint, restCountriesEndpoint } = useEn
 );
 
 const { data: mealData } = await useFetch<IMeals>(() => `${indexMealDataEndpoint.value}`);
-console.log(mealData.value);
-const mealPrices = ref<number[]>(
-  new Array(mealData.value!.hits.length).fill(defaultMealPrice)
-);
 
 const { data: locationData } = await useFetch<ILocationsData[]>(
   () => `${locationEndpoint.value}`
@@ -45,6 +39,7 @@ const { convertToDropdownOptions } = useConvertToDropdownOptions<ILocationsData>
 const { currentModalProps, setModalProps } = useModalProps();
 const { openModal, closeModal } = useModal();
 const { isLoaded } = useIsLoaded();
+const { prices: mealPrices } = usePrices(mealData.value?.hits.length || 0);
 
 watch(
   () => locationData.value,
@@ -61,11 +56,6 @@ watch(
     if (newValue !== null) emittedLocation.value.address.road = '';
   }
 );
-
-onMounted(() => {
-  if (mealData.value?.hits)
-    mealPrices.value = mealData.value.hits.map(() => +generateRandomPrice());
-});
 
 function handleEmittedSearchQuery(searchQuery: string) {
   emittedInput.value = searchQuery;
@@ -93,7 +83,6 @@ function checkLocationOutput() {
 }
 
 function handleMealCardClick(meal: ISingleMeal, price: number) {
-  console.log(price);
   selectedMeal.value = { ...meal, price };
   setModalProps(selectedMeal.value);
   openModal('productModal');
