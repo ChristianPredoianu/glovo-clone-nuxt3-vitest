@@ -55,6 +55,7 @@ export default defineNuxtConfig({
     { path: '@/components/modals', extensions: ['vue'] },
     { path: '@/components/counters', extensions: ['vue'] },
     { path: '@/components/lists', extensions: ['vue'] },
+    { path: '@/components/menus', extensions: ['vue'] },
   ],
 
   compatibilityDate: '2024-11-13',
