@@ -144,3 +144,10 @@ export interface GenericListProps {
   items: Array<Record<string, any>>;
   field: string;
 }
+
+export interface IMenuItem {
+  id: number;
+  icon: string[];
+  menuText: string;
+  component: string;
+}
