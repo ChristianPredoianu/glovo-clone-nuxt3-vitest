@@ -7,7 +7,7 @@ const props = defineProps<{ productModalProps: ModalProps | null }>();
 const emits = defineEmits(['closeModal']);
 
 const { addToCart } = useCart();
-const { progressWidth, isBarActive } = useProgressBar();
+const { startProgressBar, progressWidth, isBarActive } = useProgressBar();
 
 const product = computed(() => {
   if (!props.productModalProps) return null;
@@ -21,6 +21,7 @@ const product = computed(() => {
 });
 
 function handleAddToCart(product: IMealModalProps) {
+  startProgressBar();
   addToCart(product);
 }
 
