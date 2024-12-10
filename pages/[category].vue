@@ -28,6 +28,7 @@ const { screenWidth } = useScreenWidth();
 const { isMealData } = useIsMealData();
 const { currentModalProps, setModalProps } = useModalProps();
 const { openModal, closeModal } = useModal();
+
 const { initialFetchEndpoint, selectedApiEndpoint } = useEndpoints(
   route.params.category,
   emittedFilter,
@@ -71,6 +72,23 @@ const renderType = computed(() => {
   }
   return null;
 });
+
+// Generate prices based on the number of items
+const itemCount = computed(() => {
+  if (filteredData.value.data) {
+    return isMealData(filteredData.value.data)
+      ? (filteredData.value.data as IMeals).hits.length
+      : (filteredData.value.data as IProduct[]).length;
+  }
+  if (data.value) {
+    return isMealData(data.value)
+      ? (data.value as IMeals).hits.length
+      : (data.value as IProduct[]).length;
+  }
+  return 0;
+});
+
+const { prices } = usePrices(itemCount.value);
 
 function handleCategoryClick() {
   emittedFilter.value = '';
@@ -158,15 +176,17 @@ onBeforeRouteLeave((to, from, next) => {
               v-for="(meal, index) in (renderType === 'meals' ? (data as IMeals).hits : (filteredData.data as IMeals).hits)"
               :key="renderType === 'meals' ? meal.recipe.label : `meal-${index}`"
               :meal="meal"
+              :price="prices[index]"
               @click="handleMealCardClick(meal)"
             />
           </template>
 
           <template v-if="renderType === 'products' || renderType === 'filteredProducts'">
             <ProductCard
-              v-for="product in (renderType === 'products' ? (data as IProduct[]) : (filteredData.data as IProduct[]))"
+              v-for="(product, index) in (renderType === 'products' ? (data as IProduct[]) : (filteredData.data as IProduct[]))"
               :key="product.id"
               :product="product"
+              :price="prices[index]"
               @click="handleMealCardClick(product)"
             />
           </template>
