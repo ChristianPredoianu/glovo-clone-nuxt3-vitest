@@ -55,7 +55,6 @@ onMounted(() => {
 
 watch(filteredItems, (newFilteredItems) => {
   filteredItemsRef.value = newFilteredItems;
-  console.log(filteredItems.value);
 });
 </script>
 
