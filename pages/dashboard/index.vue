@@ -66,8 +66,8 @@ watch(filteredItems, (newFilteredItems) => {
       <section
         class="flex flex-col gap-y-4 items-center md:gap-y-6 lg:flex-row lg:justify-between bg-white p-4 rounded-xl"
       >
-        <SearchBar />
         <Profile />
+        <SearchBar />
       </section>
       <section class="p-4 mt-4">
         <h1 class="font-semibold text-lg">Your favorites</h1>
