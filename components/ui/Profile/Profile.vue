@@ -4,9 +4,7 @@ const { isLoaded } = useIsLoaded();
 </script>
 
 <template>
-  <div
-    class="inline-flex py-4 flex-col items-center justify-end md:flex-row gap-x-10 w-auto"
-  >
+  <div class="inline-flex py-4 flex-col items-center md:flex-row gap-x-10 w-auto">
     <div
       class="flex items-center justify-center bg-gray-200 rounded-full w-12 h-12 lg:w-16 lg:h-16"
     >
