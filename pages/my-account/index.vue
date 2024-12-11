@@ -22,9 +22,11 @@ function handleChangeComponent(menuComponent: string) {
 
 <template>
   <section
-    class="container mx-auto px-4 sm:flex sm:flex-col py-10 sm:items-center lg:items-start"
+    class="container mx-auto px-4 sm:flex sm:flex-col sm:items-center lg:items-start pt-5 pb-10"
   >
-    <Profile />
+    <div class="w-full justify-self-center">
+      <Profile />
+    </div>
     <AccountMenu @changeComponent="handleChangeComponent" />
   </section>
 
