@@ -1,2 +1,2 @@
  
-add reafme
+add readme
