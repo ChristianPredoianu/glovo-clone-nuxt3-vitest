@@ -34,7 +34,7 @@ export function useFirebaseActions() {
 
       return isAlreadyFavorite;
     } catch (error: any) {
-      console.error(`Error in isLabelAlreadyFavorite: ${error.message}`);
+      
       return false;
     }
   }
