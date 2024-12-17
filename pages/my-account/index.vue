@@ -21,16 +21,18 @@ function handleChangeComponent(menuComponent: string) {
 </script>
 
 <template>
-  <section
-    class="container mx-auto px-4 sm:flex sm:flex-col sm:items-center lg:items-start pt-5 pb-10"
-  >
-    <div class="w-full justify-self-center">
-      <Profile />
+  <section class="container mx-auto px-4 pt-5 pb-10 flex flex-col lg:flex-row">
+    <div class="w-full lg:w-1/3 flex flex-col items-center lg:items-start">
+      <div class="w-full mb-4">
+        <Profile />
+      </div>
+      <div class="w-full lg:w-4/5">
+        <AccountMenu @changeComponent="handleChangeComponent" />
+      </div>
     </div>
-    <AccountMenu @changeComponent="handleChangeComponent" />
-  </section>
 
-  <section>
-    <component :is="currentComponent" />
+    <div class="w-full lg:w-2/3">
+      <component :is="currentComponent" />
+    </div>
   </section>
 </template>
