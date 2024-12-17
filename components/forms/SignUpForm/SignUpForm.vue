@@ -38,78 +38,38 @@ function onKeyDown(e: KeyboardEvent) {
     @keydown="onKeyDown"
     class="flex flex-col gap-7 p-4"
   >
-    <!-- Email -->
-    <div class="flex flex-col">
-      <label for="email" class="text-sm font-medium text-gray-700">Email</label>
-      <input
-        v-model="userEmail"
-        type="email"
-        name="email"
-        autocomplete="username"
-        required
-        class="w-full border-0 border-b-2 border-gray-300 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-        placeholder="email@example.com"
-        @blur="validateEmail(userEmail)"
-      />
-      <p class="text-red-600 text-xs mt-1 h-4" :class="{ invisible: !emailError }">
-        {{ emailError || '' }}
-      </p>
-    </div>
+    <TextInput
+      label="Email"
+      name="email"
+      type="email"
+      v-model="userEmail"
+      placeholder="email@example.com"
+      :errorMessage="emailError || undefined"
+      autocomplete="email"
+      @blur="validateEmail(userEmail)"
+    />
 
-    <!-- Password -->
-    <div class="flex flex-col">
-      <label for="password" class="text-sm font-medium text-gray-700">Password</label>
-      <input
-        v-model="userPassword"
-        type="password"
-        name="password"
-        autocomplete="current-password"
-        required
-        class="border-0 border-b-2 border-gray-300 py-2 px-1 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-        placeholder="At least 6 characters"
-        @blur="validatePassword(userPassword)"
-      />
-      <p
-        class="text-red-600 text-xs w-full mt-1 h-4"
-        :class="{ invisible: !passwordError }"
-      >
-        {{ passwordError || '' }}
-      </p>
-    </div>
+    <PasswordInput
+      label="Password"
+      name="password"
+      v-model="userPassword"
+      placeholder="At least 6 characters"
+      :errorMessage="passwordError"
+      autocomplete="current-password"
+      @blur="validatePassword(userPassword)"
+    />
 
-    <!-- Repeated Password -->
-    <div class="flex flex-col">
-      <label for="repeatPassword" class="text-sm font-medium text-gray-700"
-        >Repeat Password</label
-      >
-      <input
-        v-model="repeatedUserPassword"
-        type="password"
-        name="repeat-assword"
-        data-test="repeat-password"
-        autocomplete="current-password"
-        required
-        class="border-0 border-b-2 border-gray-300 py-2 px-1 mt-1 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-        placeholder="At least 6 characters "
-        @blur="validateRepeatedPassword(userPassword, repeatedUserPassword)"
-      />
-      <p
-        class="text-red-600 text-xs mt-1 h-4"
-        :class="{ invisible: !repeatedPasswordError }"
-      >
-        {{ repeatedPasswordError || '' }}
-      </p>
-    </div>
+    <PasswordInput
+      label="Repeat Password"
+      name="repeated-password"
+      v-model="repeatedUserPassword"
+      placeholder="At least 6 characters"
+      :errorMessage="repeatedPasswordError"
+      autocomplete="current-password"
+      @blur="validateRepeatedPassword(userPassword, repeatedUserPassword)"
+    />
 
-    <!-- Submit Button -->
-    <div class="w-full">
-      <FormSubmitBtn>Sign up</FormSubmitBtn>
-      <p
-        class="mt-2 text-sm font-semibold"
-        :class="authErrorMessage ? 'text-red-500' : 'text-green-500'"
-      >
-        {{ authErrorMessage ? authErrorMessage : successMessage }}
-      </p>
-    </div>
+    <FormSubmitBtn>Sign up</FormSubmitBtn>
+    <AuthMessage :authErrorMessage="authErrorMessage" :successMessage="successMessage" />
   </form>
 </template>
