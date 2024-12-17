@@ -30,6 +30,7 @@ function onKeyDown(e: KeyboardEvent) {
 </script>
 
 <template>
+  <h1 class="text-2xl font-semibold text-gray-800 my-5">Personal info</h1>
   <form
     @submit.prevent="handleUpdatePersonal"
     @keydown="onKeyDown"
