@@ -21,21 +21,24 @@ function handleChangeComponent(menuComponent: string) {
 </script>
 
 <template>
-  <section
-    class="container lg:mt-20 mx-auto px-4 min-h-screen pt-5 pb-10 flex flex-col lg:flex-row"
-  >
-    <div class="w-full lg:w-1/3 flex flex-col items-center lg:items-start">
-      <div class="w-full mb-4">
-        <Profile />
+  <div class="min-h-screen flex justify-center items-center mx-auto px-4">
+    <section class="w-full lg:w-4/5 xl:w-3/5 flex flex-col lg:flex-row gap-10">
+      <!-- Left Column: Profile and Account Menu -->
+      <div class="w-full lg:w-1/3 flex flex-col items-center lg:items-start">
+        <div class="w-full mb-4">
+          <Profile />
+        </div>
+        <div class="w-full lg:w-4/5">
+          <AccountMenu @changeComponent="handleChangeComponent" />
+        </div>
       </div>
-      <div class="w-full lg:w-4/5">
-        <AccountMenu @changeComponent="handleChangeComponent" />
-      </div>
-    </div>
 
-    <div class="w-full lg:w-2/3">
-      <h1 class="text-lg font-semibold my-10">Personal info</h1>
-      <component :is="currentComponent" class="w-full" />
-    </div>
-  </section>
+      <!-- Right Column: Personal Info and Dynamic Component -->
+      <div
+        class="w-full lg:w-2/3 flex flex-col px-4 lg:px-8 py-4 bg-white shadow-lg rounded-lg"
+      >
+        <component :is="currentComponent" />
+      </div>
+    </section>
+  </div>
 </template>
