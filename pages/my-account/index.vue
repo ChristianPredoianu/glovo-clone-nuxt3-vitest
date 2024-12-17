@@ -21,7 +21,9 @@ function handleChangeComponent(menuComponent: string) {
 </script>
 
 <template>
-  <section class="container mx-auto px-4 pt-5 pb-10 flex flex-col lg:flex-row">
+  <section
+    class="container lg:mt-20 mx-auto px-4 min-h-screen pt-5 pb-10 flex flex-col lg:flex-row"
+  >
     <div class="w-full lg:w-1/3 flex flex-col items-center lg:items-start">
       <div class="w-full mb-4">
         <Profile />
