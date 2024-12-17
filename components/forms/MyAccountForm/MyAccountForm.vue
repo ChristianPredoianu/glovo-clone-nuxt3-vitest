@@ -51,7 +51,7 @@ function onKeyDown(e: KeyboardEvent) {
       type="email"
       v-model="userEmail"
       placeholder="email@example.com"
-      :errorMessage="emailError"
+      :errorMessage="emailError || undefined"
       autocomplete="username"
       @blur="validateEmail(userEmail)"
     />
