@@ -16,9 +16,8 @@ const emit = defineEmits(['update:modelValue', 'blur']);
 
 function handleInput(event: Event) {
   const target = event.target as HTMLInputElement;
-  if (target) {
-    emit('update:modelValue', target.value);
-  }
+
+  if (target) emit('update:modelValue', target.value);
 }
 </script>
 
