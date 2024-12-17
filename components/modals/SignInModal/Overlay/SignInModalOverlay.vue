@@ -30,7 +30,7 @@ defineExpose({
       </h3>
       <img src="@/public/sign-in.svg" alt="sign in" class="mx-auto mb-8 w-24 h-24" />
       <component :is="currentComponent" @reset-component="" />
-      <h4 class="-mt-8 ml-4">
+      <h4 class="-mt-10 ml-4">
         {{ isSignIn ? "Don't have an account?" : 'Already have an account?' }}
         <span class="text-yellow-600 font-semibold cursor-pointer" @click="toggleForm">{{
           isSignIn ? 'Sign up' : 'Sign in'
