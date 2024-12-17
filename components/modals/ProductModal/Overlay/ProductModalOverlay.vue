@@ -31,9 +31,9 @@ const isMealModalProps = (props: ModalProps | null): props is IMealModalProps =>
 </script>
 
 <template>
-  <section
+  <article
     v-if="productModalProps"
-    class="container relative mx-auto p-10 flex flex-col overflow-auto"
+    class="container h-full relative mx-auto p-10 flex flex-col flex-grow overflow-auto"
   >
     <div class="mx-auto relative overflow-hidden w-full max-w-[500px] aspect-[16/9]">
       <img
@@ -45,9 +45,9 @@ const isMealModalProps = (props: ModalProps | null): props is IMealModalProps =>
     <h3 class="text-xl font-semibold text-gray-700 py-4">
       {{ replaceRecipeText(props.productModalProps!.label) }}
     </h3>
-    <h4 class="text-red-500 font-semibold text-2xl mb-8">
+    <p class="mb-4 text-lg font-semibold text-green-800">
       {{ productModalProps.price }} $
-    </h4>
+    </p>
     <div
       v-if="isMealModalProps(props.productModalProps)"
       class="mt-2 mb-8 gap-2 text-gray-500"
@@ -66,5 +66,5 @@ const isMealModalProps = (props: ModalProps | null): props is IMealModalProps =>
         </div>
       </transition>
     </div>
-  </section>
+  </article>
 </template>
