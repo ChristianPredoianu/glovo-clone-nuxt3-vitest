@@ -14,7 +14,7 @@ function handleClick(menuItem: IMenuItem) {
 </script>
 
 <template>
-  <ul class="w-full lg:w-2/5 flex flex-col gap-y-1">
+  <ul class="flex flex-col gap-y-1">
     <li
       class="bg-gray-300 py-2 cursor-pointer"
       v-for="menuItem in menuData"
