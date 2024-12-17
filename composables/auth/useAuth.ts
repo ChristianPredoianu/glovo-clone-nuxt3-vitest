@@ -27,9 +27,8 @@ export function useAuth(redirect: string | null = null) {
   const router = useRouter();
 
   const {
-    validateEmail,
-    validatePassword,
     validateRepeatedPassword,
+    validateCredentials,
     emailError,
     repeatedPasswordError,
   } = useAuthValidation();
@@ -42,17 +41,6 @@ export function useAuth(redirect: string | null = null) {
       });
     }
   });
-
-  function validateCredentials(email: string, password: string): boolean {
-    const isEmailValid = validateEmail(email);
-    const isPasswordValid = validatePassword(password);
-
-    if (!isEmailValid) throw new Error('Invalid email format');
-
-    if (!isPasswordValid) throw new Error('Invalid password');
-
-    return true;
-  }
 
   function setSuccessMessageWithTimeout(message: string, duration: number) {
     successMessage.value = message;
