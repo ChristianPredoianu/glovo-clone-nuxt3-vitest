@@ -32,7 +32,8 @@ function handleChangeComponent(menuComponent: string) {
     </div>
 
     <div class="w-full lg:w-2/3">
-      <component :is="currentComponent" />
+      <h1 class="text-lg font-semibold my-10">Personal info</h1>
+      <component :is="currentComponent" class="w-full" />
     </div>
   </section>
 </template>
