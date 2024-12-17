@@ -70,12 +70,7 @@ function onKeyDown(e: KeyboardEvent) {
       </p>
     </div>
     <div class="w-full">
-      <button
-        type="submit"
-        class="w-full bg-green-600 text-gray-100 py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-300 ease-in-out transform hover:scale-105"
-      >
-        Sign In
-      </button>
+      <FormSubmitBtn>Sign In</FormSubmitBtn>
       <p
         class="mt-2 text-sm font-semibold"
         :class="authErrorMessage ? 'text-red-500' : 'text-green-500'"
