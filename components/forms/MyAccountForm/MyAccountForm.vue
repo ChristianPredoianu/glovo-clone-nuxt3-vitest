@@ -57,6 +57,6 @@ function onKeyDown(e: KeyboardEvent) {
       @blur="validateEmail(userEmail)"
     />
 
-    <FormSubmitBtn>Update</FormSubmitBtn>
+    <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
 </template>
