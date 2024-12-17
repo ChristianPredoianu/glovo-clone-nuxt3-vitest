@@ -34,23 +34,16 @@ function onKeyDown(e: KeyboardEvent) {
     @keydown="onKeyDown"
     class="flex flex-col gap-7 p-4"
   >
-    <div class="flex flex-col">
-      <label for="email" class="text-sm font-medium text-gray-700">Email</label>
-      <input
-        v-model="userEmail"
-        data-testid="email"
-        type="email"
-        name="email"
-        autocomplete="username"
-        required
-        class="w-full border-0 border-b-2 border-gray-300 py-2 px-1 mt-1"
-        placeholder="email@example.com"
-        @blur="validateEmail(userEmail)"
-      />
-      <p class="text-red-600 text-xs mt-1 h-4" :class="{ invisible: !emailError }">
-        {{ emailError || '' }}
-      </p>
-    </div>
+    <TextInput
+      label="Email"
+      name="email"
+      type="email"
+      v-model="userEmail"
+      placeholder="email@example.com"
+      :errorMessage="emailError"
+      autocomplete="email"
+      @blur="validateEmail(userEmail)"
+    />
 
     <div class="flex flex-col">
       <label for="password" class="text-sm font-medium text-gray-700">Password</label>
@@ -69,14 +62,13 @@ function onKeyDown(e: KeyboardEvent) {
         {{ passwordError || '' }}
       </p>
     </div>
-    <div class="w-full">
-      <FormSubmitBtn>Sign In</FormSubmitBtn>
-      <p
-        class="mt-2 text-sm font-semibold"
-        :class="authErrorMessage ? 'text-red-500' : 'text-green-500'"
-      >
-        {{ authErrorMessage ? authErrorMessage : successMessage }}
-      </p>
-    </div>
+
+    <FormSubmitBtn>Sign In</FormSubmitBtn>
+    <p
+      class="mt-2 text-sm font-semibold"
+      :class="authErrorMessage ? 'text-red-500' : 'text-green-500'"
+    >
+      {{ authErrorMessage ? authErrorMessage : successMessage }}
+    </p>
   </form>
 </template>
