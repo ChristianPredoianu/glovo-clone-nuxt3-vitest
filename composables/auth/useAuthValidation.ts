@@ -1,6 +1,7 @@
 const MIN_PASSWORD_LENGTH = 6;
 
 export function useAuthValidation() {
+  const userNameError = ref('');
   const emailError = ref<string | null>(null);
   const passwordError = ref<string | null>(null);
   const repeatedPasswordError = ref<string | null>(null);
@@ -41,6 +42,18 @@ export function useAuthValidation() {
     return true;
   }
 
+  function validateUserName(name: string): void {
+    if (!name.trim()) {
+      userNameError.value = 'Username is required.';
+    } else if (name.length < 3) {
+      userNameError.value = 'Username must be at least 3 characters.';
+    } else if (!/^[a-zA-Z\s]+$/.test(name)) {
+      userNameError.value = 'Username can only contain letters and spaces.';
+    } else {
+      userNameError.value = '';
+    }
+  }
+
   function validateCredentials(email: string, password: string): boolean {
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
@@ -56,6 +69,8 @@ export function useAuthValidation() {
     emailError,
     passwordError,
     repeatedPasswordError,
+    userNameError,
+    validateUserName,
     validateEmail,
     validatePassword,
     validateRepeatedPassword,
