@@ -40,35 +40,22 @@ function onKeyDown(e: KeyboardEvent) {
       type="email"
       v-model="userEmail"
       placeholder="email@example.com"
-      :errorMessage="emailError"
+      :errorMessage="emailError || undefined"
       autocomplete="email"
       @blur="validateEmail(userEmail)"
     />
 
-    <div class="flex flex-col">
-      <label for="password" class="text-sm font-medium text-gray-700">Password</label>
-      <input
-        v-model="userPassword"
-        data-testid="password"
-        type="password"
-        name="password"
-        autocomplete="current-password"
-        required
-        class="w-full border-0 border-b-2 border-gray-300 py-2 px-1 mt-1"
-        placeholder="At least 6 characters"
-        @blur="validatePassword(userPassword)"
-      />
-      <p class="text-red-600 text-xs mt-1 h-4" :class="{ invisible: !passwordError }">
-        {{ passwordError || '' }}
-      </p>
-    </div>
+    <PasswordInput
+      label="Password"
+      name="password"
+      v-model="userPassword"
+      placeholder="At least 6 characters"
+      :errorMessage="passwordError"
+      autocomplete="current-password"
+      @blur="validatePassword(userPassword)"
+    />
 
     <FormSubmitBtn>Sign In</FormSubmitBtn>
-    <p
-      class="mt-2 text-sm font-semibold"
-      :class="authErrorMessage ? 'text-red-500' : 'text-green-500'"
-    >
-      {{ authErrorMessage ? authErrorMessage : successMessage }}
-    </p>
+    <AuthMessage :authErrorMessage="authErrorMessage" :successMessage="successMessage" />
   </form>
 </template>
