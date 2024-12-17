@@ -8,7 +8,8 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/dashboard/**': { appMiddleware: 'auth' }, // This will apply auth middleware to all routes under /dashboard
+    '/dashboard/**': { appMiddleware: 'auth' },
+    '/my-account/**': { appMiddleware: 'auth' }, // This will apply auth middleware to all routes under /dashboard
   },
 
   runtimeConfig: {
@@ -56,6 +57,7 @@ export default defineNuxtConfig({
     { path: '@/components/counters', extensions: ['vue'] },
     { path: '@/components/lists', extensions: ['vue'] },
     { path: '@/components/menus', extensions: ['vue'] },
+    { path: '@/components/inputs', extensions: ['vue'] },
   ],
 
   compatibilityDate: '2024-11-13',
