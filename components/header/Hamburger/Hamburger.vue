@@ -1,9 +1,11 @@
 <script setup lang="ts">
-const { openNav } = useNav();
+const { openNav, isNavOpen } = useNav();
 const { openBackdrop } = useBackdrop();
 
 function openNavigation() {
+  console.log('Opening navigation');
   openNav();
+  console.log('isNavOpen:', isNavOpen.value);
   openBackdrop();
 }
 </script>
