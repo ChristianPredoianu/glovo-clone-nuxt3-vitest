@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { handleKeyDown } from '@/helpers/helpers';
 
-const { user } = useAuth();
-
 const userName = ref('');
 const userEmail = ref('');
 const currentPassword = ref('');
@@ -78,5 +76,8 @@ function onKeyDown(e: KeyboardEvent) {
 
     <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
-  <p>{{ authErrorMessage }}</p>
+  <div class="mt-4 min-h-[60px]">
+    <p v-if="authErrorMessage" class="text-red-500">{{ authErrorMessage }}</p>
+    <p v-if="successMessage" class="text-green-500">{{ successMessage }}</p>
+  </div>
 </template>
