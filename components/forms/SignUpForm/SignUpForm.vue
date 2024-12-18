@@ -54,7 +54,7 @@ function onKeyDown(e: KeyboardEvent) {
       name="password"
       v-model="userPassword"
       placeholder="At least 6 characters"
-      :errorMessage="passwordError"
+      :errorMessage="passwordError || undefined"
       autocomplete="current-password"
       @blur="validatePassword(userPassword)"
     />
@@ -64,12 +64,15 @@ function onKeyDown(e: KeyboardEvent) {
       name="repeated-password"
       v-model="repeatedUserPassword"
       placeholder="At least 6 characters"
-      :errorMessage="repeatedPasswordError"
+      :errorMessage="repeatedPasswordError || undefined"
       autocomplete="current-password"
       @blur="validateRepeatedPassword(userPassword, repeatedUserPassword)"
     />
 
     <FormSubmitBtn>Sign up</FormSubmitBtn>
-    <AuthMessage :authErrorMessage="authErrorMessage" :successMessage="successMessage" />
+    <AuthMessage
+      :authErrorMessage="authErrorMessage || undefined"
+      :successMessage="successMessage || undefined"
+    />
   </form>
 </template>
