@@ -5,6 +5,10 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
+  updateEmail,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from 'firebase/auth';
 import type { User, Auth } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
@@ -106,6 +110,7 @@ export function useAuth(redirect: string | null = null) {
 
   function signUserOut() {
     authErrorMessage.value = null;
+
     signOut($auth)
       .then(() => {
         console.log('User signed out successfully.');
@@ -117,14 +122,71 @@ export function useAuth(redirect: string | null = null) {
       });
   }
 
+  async function updateUserProfile(
+    userName: string,
+    userEmail: string,
+    currentPassword: string
+  ) {
+    authErrorMessage.value = null;
+    successMessage.value = null;
+    try {
+      if (user.value) {
+        // Check if email needs to be updated
+        const needsReauthentication = userEmail !== user.value.email;
+
+        if (needsReauthentication) {
+          if (!currentPassword) {
+            authErrorMessage.value =
+              'Please enter your current password to update your email.';
+            return;
+          }
+
+          // Reauthenticate the user
+          const credential = EmailAuthProvider.credential(
+            user.value.email as string,
+            currentPassword
+          );
+
+          try {
+            await reauthenticateWithCredential(user.value, credential);
+            console.log('Reauthentication successful');
+          } catch (error) {
+            console.error('Error during reauthentication:', error);
+            authErrorMessage.value =
+              'Reauthentication failed. Please check your current password and try again.';
+            return;
+          }
+        }
+
+        // Update the display name
+        if (userName !== user.value.displayName) {
+          await updateProfile(user.value, { displayName: userName });
+          console.log('Display name updated:', userName);
+        }
+
+        // Update the email
+        if (needsReauthentication) {
+          await updateEmail(user.value, userEmail);
+          console.log('Email updated:', userEmail);
+        }
+
+        successMessage.value = 'Profile updated successfully!';
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      authErrorMessage.value = `Updating email failed. You need to verify you new email before changing it. We have sent you an email to ${userEmail}`;
+    }
+  }
+
   return {
-    emailError,
-    repeatedPasswordError,
+    isAuthReady,
+    user,
     signIn,
     signUp,
     signUserOut,
-    isAuthReady,
-    user,
+    updateUserProfile,
+    emailError,
+    repeatedPasswordError,
     successMessage,
     authErrorMessage,
   } as const;
