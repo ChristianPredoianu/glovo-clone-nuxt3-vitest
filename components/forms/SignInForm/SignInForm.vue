@@ -50,12 +50,15 @@ function onKeyDown(e: KeyboardEvent) {
       name="password"
       v-model="userPassword"
       placeholder="At least 6 characters"
-      :errorMessage="passwordError"
+      :errorMessage="passwordError || undefined"
       autocomplete="current-password"
       @blur="validatePassword(userPassword)"
     />
 
     <FormSubmitBtn>Sign In</FormSubmitBtn>
-    <AuthMessage :authErrorMessage="authErrorMessage" :successMessage="successMessage" />
+    <AuthMessage
+      :authErrorMessage="authErrorMessage || undefined"
+      :successMessage="successMessage || undefined"
+    />
   </form>
 </template>
