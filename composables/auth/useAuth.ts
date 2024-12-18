@@ -9,6 +9,7 @@ import {
   updateEmail,
   reauthenticateWithCredential,
   EmailAuthProvider,
+  sendEmailVerification,
 } from 'firebase/auth';
 import type { User, Auth } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
@@ -129,52 +130,116 @@ export function useAuth(redirect: string | null = null) {
   ) {
     authErrorMessage.value = null;
     successMessage.value = null;
+
     try {
       if (user.value) {
-        // Check if email needs to be updated
         const needsReauthentication = userEmail !== user.value.email;
 
+        //  Reauthentication if the email is changing
         if (needsReauthentication) {
           if (!currentPassword) {
             authErrorMessage.value =
               'Please enter your current password to update your email.';
             return;
           }
-
-          // Reauthenticate the user
-          const credential = EmailAuthProvider.credential(
-            user.value.email as string,
-            currentPassword
-          );
-
-          try {
-            await reauthenticateWithCredential(user.value, credential);
-            console.log('Reauthentication successful');
-          } catch (error) {
-            console.error('Error during reauthentication:', error);
-            authErrorMessage.value =
-              'Reauthentication failed. Please check your current password and try again.';
-            return;
-          }
+          await reauthenticate(currentPassword);
         }
 
-        // Update the display name
+        await updateUserEmail(userEmail);
+        await sendUserEmailVerification();
+
         if (userName !== user.value.displayName) {
-          await updateProfile(user.value, { displayName: userName });
-          console.log('Display name updated:', userName);
+          await updateUserName(userName);
         }
 
-        // Update the email
-        if (needsReauthentication) {
-          await updateEmail(user.value, userEmail);
-          console.log('Email updated:', userEmail);
-        }
-
-        successMessage.value = 'Profile updated successfully!';
+        successMessage.value = successMessage.value || 'Profile updated successfully!';
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      authErrorMessage.value = `Updating email failed. You need to verify you new email before changing it. We have sent you an email to ${userEmail}`;
+      authErrorMessage.value =
+        'An error occurred while updating your profile. Please try again later.';
+    }
+  }
+
+  async function reauthenticate(currentPassword: string) {
+    // Reauthenticate the user using their current password
+    const credential = EmailAuthProvider.credential(
+      user.value?.email as string,
+      currentPassword
+    );
+    if (user.value) {
+      try {
+        await reauthenticateWithCredential(user.value, credential);
+        console.log('Reauthentication successful');
+      } catch (error) {
+        console.error('Error during reauthentication:', error);
+        authErrorMessage.value =
+          'Wrong password. Please check your current password and try again.';
+        return;
+      }
+    }
+  }
+
+  async function updateUserEmail(userEmail: string) {
+    if (user.value) {
+      try {
+        await updateEmail(user.value, userEmail);
+        console.log('Email updated:', userEmail);
+
+        successMessage.value = 'Your email has been successfully updated!';
+
+        await delay(DELAY);
+      } catch (error) {
+        console.error('Error updating email:', error);
+        authErrorMessage.value =
+          'Failed to update email. Please ensure the new email is valid and try again.';
+        return;
+      }
+    }
+  }
+
+  async function sendUserEmailVerification() {
+    if (user.value) {
+      if (user.value.emailVerified) {
+        successMessage.value =
+          'Your email is already verified. No need to send a verification email again.';
+        return;
+      } else {
+        try {
+          await sendEmailVerification(user.value);
+          console.log('Verification email sent to new address.');
+
+          successMessage.value =
+            'A verification email has been sent to your new email address. Please verify it to complete the update.';
+
+          await delay(DELAY);
+        } catch (error: any) {
+          console.error('Error sending email verification:', error);
+          console.log(error.message);
+          authErrorMessage.value = `Failed to send verification email to your new email address. Please try again.${
+            error.message === 'Firebase: Error (auth/too-many-requests).'
+              ? ' Too many requests'
+              : ''
+          }`;
+          return;
+        }
+      }
+    }
+  }
+
+  async function updateUserName(userName: string) {
+    if (user.value) {
+      try {
+        await updateProfile(user.value, { displayName: userName });
+        console.log('Display name updated:', userName);
+        successMessage.value = 'Your display name has been successfully updated!';
+
+        await delay(DELAY);
+      } catch (error) {
+        console.error('Error updating display name:', error);
+        authErrorMessage.value = 'Failed to update display name. Please try again later.';
+        return;
+      }
     }
   }
 
