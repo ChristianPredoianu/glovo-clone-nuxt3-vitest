@@ -1,19 +1,27 @@
 <script setup lang="ts">
 import { handleKeyDown } from '@/helpers/helpers';
 
+const { user } = useAuth();
+
 const userName = ref('');
 const userEmail = ref('');
+const currentPassword = ref('');
 
-const { validateEmail, emailError, validateUserName, userNameError } =
-  useAuthValidation();
+const { updateUserProfile, successMessage, authErrorMessage } = useAuth();
+const {
+  validateEmail,
+  emailError,
+  validateUserName,
+  validatePassword,
+  passwordError,
+  userNameError,
+} = useAuthValidation();
 
-function handleUpdatePersonal(e: Event) {
+async function handleUpdateProfile(e: Event) {
   e.preventDefault();
+
   if (validateForm()) {
-    console.log('Form Submitted:', {
-      userName: userName.value,
-      userEmail: userEmail.value,
-    });
+    updateUserProfile(userName.value, userEmail.value, currentPassword.value);
   }
 }
 
@@ -25,14 +33,14 @@ function validateForm(): boolean {
 }
 
 function onKeyDown(e: KeyboardEvent) {
-  handleKeyDown(e, handleUpdatePersonal);
+  handleKeyDown(e, handleUpdateProfile);
 }
 </script>
 
 <template>
   <h1 class="text-2xl font-semibold text-gray-800 my-5">Personal info</h1>
   <form
-    @submit.prevent="handleUpdatePersonal"
+    @submit.prevent="handleUpdateProfile"
     @keydown="onKeyDown"
     class="flex flex-col gap-2"
   >
@@ -57,6 +65,18 @@ function onKeyDown(e: KeyboardEvent) {
       @blur="validateEmail(userEmail)"
     />
 
+    <TextInput
+      label="Current Password"
+      name="currentPassword"
+      type="password"
+      v-model="currentPassword"
+      placeholder="Your current password"
+      :errorMessage="passwordError || undefined"
+      autocomplete="current-password"
+      @blur="validatePassword(currentPassword)"
+    />
+
     <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
+  <p>{{ authErrorMessage }}</p>
 </template>
