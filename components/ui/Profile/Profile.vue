@@ -17,9 +17,9 @@ const { isLoaded } = useIsLoaded();
     </div>
     <div class="flex flex-col gap-y-1 mt-4">
       <p v-if="user?.email" data-test="email-element" class="font-semibold text-sm">
-        {{ user.email }}
+        {{ user.displayName }}
       </p>
-      <p class="text-xs">Admin</p>
+      <p v-if="user?.email" class="text-xs">{{ user.email }}</p>
     </div>
   </div>
 </template>
