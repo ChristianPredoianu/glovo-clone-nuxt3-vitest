@@ -1,5 +1,5 @@
 export function useBackdrop() {
-  const isBackdropOpen = ref(false);
+  const isBackdropOpen = useState('isBackdropOpen', () => false);
 
   function openBackdrop() {
     isBackdropOpen.value = true;
