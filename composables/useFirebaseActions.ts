@@ -1,6 +1,21 @@
-import { getDatabase, ref as dbRef, set, get, remove, push } from 'firebase/database';
+import {
+  getDatabase,
+  ref as dbRef,
+  set,
+  get,
+  remove,
+  push,
+  update,
+} from 'firebase/database';
 
 import type { IItem } from '@/interfaces/interfaces.interface';
+
+interface Address {
+  streetAndHouseNumber: string | undefined;
+  zipCode: string | undefined;
+  city: string | undefined;
+  country: string | undefined;
+}
 
 declare module '#app' {
   interface NuxtApp {
@@ -20,6 +35,11 @@ export function useFirebaseActions() {
     return dbRef($database, `users/${user.value.uid}/favoriteItems`);
   }
 
+  function getAddressRef() {
+    if (!user.value) throw new Error('User is not authenticated');
+    return dbRef($database, `users/${user.value.uid}/address`);
+  }
+
   async function isLabelAlreadyFavorite(favoriteItem: IItem): Promise<boolean> {
     try {
       const favoriteItemRef = getFavoriteItemRef();
@@ -34,8 +54,38 @@ export function useFirebaseActions() {
 
       return isAlreadyFavorite;
     } catch (error: any) {
-      
       return false;
+    }
+  }
+
+  async function writeAddressInfo(address: Address) {
+    try {
+      if (!user.value) {
+        console.error('User is not authenticated');
+        return;
+      }
+
+      const addressRef = getAddressRef();
+
+      const snapshot = await get(addressRef);
+
+      if (!snapshot.exists()) {
+        const newAddressRef = push(addressRef);
+        await set(newAddressRef, address);
+        console.log('New address added:', address);
+      } else {
+        const existingAddresses = snapshot.val();
+        const addressKey = Object.keys(existingAddresses)[0];
+
+        const addressToUpdateRef = dbRef(
+          $database,
+          `users/${user.value.uid}/address/${addressKey}`
+        );
+        await update(addressToUpdateRef, address);
+        console.log('Address updated at key:', addressKey);
+      }
+    } catch (error: any) {
+      console.error(`Error writing address info: ${error.message}`);
     }
   }
 
@@ -55,6 +105,34 @@ export function useFirebaseActions() {
       await set(newFavoriteItemRef, favoriteItem);
     } catch (error: any) {
       console.error(`Error adding item to favorites: ${error.message}`);
+    }
+  }
+
+  async function fetchAddressInfo(address: Address) {
+    try {
+      if (!user.value) {
+        console.error('User is not authenticated');
+        return;
+      }
+
+      const addressRef = dbRef($database, `users/${user.value.uid}/address`);
+
+      const snapshot = await get(addressRef);
+
+      if (snapshot.exists()) {
+        const addressData = snapshot.val();
+        const addressKey = Object.keys(addressData)[0];
+        const fetchedAddress = addressData[addressKey];
+
+        address.streetAndHouseNumber = fetchedAddress.streetAndHouseNumber || '';
+        address.zipCode = fetchedAddress.zipCode || '';
+        address.city = fetchedAddress.city || '';
+        address.country = fetchedAddress.country || '';
+      } else {
+        console.log('No address data found');
+      }
+    } catch (error: any) {
+      console.error('Error fetching address info:', error.message);
     }
   }
 
@@ -137,6 +215,8 @@ export function useFirebaseActions() {
     fetchedFavoriteItems,
     isLoading,
     writeFavoriteUserItemData,
+    writeAddressInfo,
+    fetchAddressInfo,
     fetchFavoriteItems,
     isItemFavorite,
     deleteFavoriteUserItemData,
