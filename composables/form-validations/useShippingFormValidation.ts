@@ -1,8 +1,14 @@
 import { ref } from 'vue';
 import { capitalizeFirstLetter } from '@/helpers/helpers';
 
-// Define valid field names as a type
 type AddressField = 'streetAndHouseNumber' | 'zipCode' | 'city' | 'country';
+
+interface Address {
+  streetAndHouseNumber: string | undefined;
+  zipCode: string | undefined;
+  city: string | undefined;
+  country: string | undefined;
+}
 
 export default function useShippingFormValidation() {
   const errors = ref({
@@ -12,7 +18,6 @@ export default function useShippingFormValidation() {
     country: '',
   });
 
-  // Helper function to reset error state for all fields
   function clearErrors() {
     errors.value = {
       streetAndHouseNumber: '',
@@ -32,7 +37,8 @@ export default function useShippingFormValidation() {
 
     const trimmedValue = value.trim();
 
-    const regex = /^[a-zA-Z\s]+ \d+$/;
+    // allow letters (including accented ones), spaces, and a number at the end
+    const regex = /^[\p{L}\s]+ \d+$/u;
 
     if (!regex.test(trimmedValue)) {
       errors.value.streetAndHouseNumber =
@@ -64,7 +70,6 @@ export default function useShippingFormValidation() {
   }
 
   function validateCityOrCountry(value: string | undefined, fieldName: AddressField) {
-    // Reset the specific field's error
     errors.value[fieldName] = '';
 
     if (!value || value.trim() === '') {
@@ -86,9 +91,8 @@ export default function useShippingFormValidation() {
     return true;
   }
 
-  // Validate all fields at once
-  function validateAllFields(address) {
-    clearErrors(); // Clear previous errors
+  function validateAllFields(address: Address) {
+    clearErrors();
 
     const isStreetValid = validateStreetAndHouseNumber(address.streetAndHouseNumber);
     const isZipValid = validateEuropeanZipCode(address.zipCode);
