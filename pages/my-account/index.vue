@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import MyAccountForm from '@/components/forms/MyAccountForm/MyAccountForm.vue';
-import BillingAddressForm from '~/components/forms/BillingAddressForm/BillingAddressForm.vue';
+import ShippingAddressForm from '@/components/forms/ShippingAddressForm/ShippingAddressForm.vue';
 
-const currentComponent = ref<typeof MyAccountForm | typeof BillingAddressForm>(
+const currentComponent = ref<typeof MyAccountForm | typeof MyAccountForm>(
   markRaw(MyAccountForm)
 );
 
-const componentMap: Record<string, typeof MyAccountForm | typeof BillingAddressForm> = {
+const componentMap: Record<string, typeof MyAccountForm | typeof ShippingAddressForm> = {
   MyAccountForm: MyAccountForm,
-  BillingAddressForm: BillingAddressForm,
+  ShippingAddressForm: ShippingAddressForm,
 };
 
 function handleChangeComponent(menuComponent: string) {
