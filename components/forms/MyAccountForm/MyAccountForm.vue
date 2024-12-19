@@ -5,7 +5,8 @@ const userName = ref('');
 const userEmail = ref('');
 const currentPassword = ref('');
 
-const { updateUserProfile, successMessage, authErrorMessage } = useAuth();
+const { user, isAuthReady, updateUserProfile, successMessage, authErrorMessage } =
+  useAuth();
 const {
   validateEmail,
   emailError,
@@ -22,6 +23,17 @@ async function handleUpdateProfile(e: Event) {
     updateUserProfile(userName.value, userEmail.value, currentPassword.value);
   }
 }
+
+watch(
+  () => user.value,
+  (newUser) => {
+    if (newUser && isAuthReady) {
+      userName.value = newUser.displayName || '';
+      userEmail.value = newUser.email || '';
+    }
+  },
+  { immediate: true }
+);
 
 function validateForm(): boolean {
   validateUserName(userName.value);
