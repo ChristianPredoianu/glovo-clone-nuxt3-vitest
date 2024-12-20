@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type {
-  IFakeStoreCategories,
-  ICuisineType,
-} from '@/interfaces/interfaces.interface';
+import type { IFakeStoreCategories } from '@/types/products';
+import type { ICuisineType } from '~/types/meals';
 
 const emits = defineEmits(['emitSelected']);
 
