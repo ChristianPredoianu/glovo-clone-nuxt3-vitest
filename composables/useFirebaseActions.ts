@@ -7,15 +7,8 @@ import {
   push,
   update,
 } from 'firebase/database';
-
-import type { IItem } from '@/interfaces/interfaces.interface';
-
-interface Address {
-  streetAndHouseNumber: string | undefined;
-  zipCode: string | undefined;
-  city: string | undefined;
-  country: string | undefined;
-}
+import type { IItem } from '@/types/products';
+import type { IShippingAddress } from '@/types/locations';
 
 declare module '#app' {
   interface NuxtApp {
@@ -58,7 +51,7 @@ export function useFirebaseActions() {
     }
   }
 
-  async function writeAddressInfo(address: Address) {
+  async function writeAddressInfo(address: IShippingAddress) {
     try {
       if (!user.value) {
         console.error('User is not authenticated');
@@ -108,7 +101,7 @@ export function useFirebaseActions() {
     }
   }
 
-  async function fetchAddressInfo(address: Address) {
+  async function fetchAddressInfo(address: IShippingAddress) {
     try {
       if (!user.value) {
         console.error('User is not authenticated');
