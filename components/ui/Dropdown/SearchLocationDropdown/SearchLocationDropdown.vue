@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IDropdownOptions } from '@/interfaces/interfaces.interface';
+import type { IDropdownOptions } from '@/types/ui';
 
 const props = defineProps({
   options: {
