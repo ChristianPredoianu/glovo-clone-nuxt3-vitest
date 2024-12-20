@@ -1,8 +1,5 @@
-import type {
-  IProductCategories,
-  IFakeStoreCategories,
-} from '@/interfaces/interfaces.interface';
-import type { ICuisineType } from '@/interfaces/interfaces.interface';
+import type { IProductCategories, IFakeStoreCategories } from '@/types/products';
+import type { ICuisineType } from '@/types/meals';
 
 export const productCategories: IProductCategories[] = [
   { category: 'Breakfast', text: 'Breakfast', img: 'generic-food.jpg' },
