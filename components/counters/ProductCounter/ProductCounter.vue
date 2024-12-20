@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ICartProduct } from '@/interfaces/interfaces.interface';
+import type { ICartProduct } from '@/types/cart';
 
 const props = defineProps({
   quantity: {
