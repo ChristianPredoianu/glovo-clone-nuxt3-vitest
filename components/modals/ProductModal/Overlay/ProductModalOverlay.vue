@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { replaceRecipeText } from '@/helpers/helpers';
-import type { ModalProps, IMealModalProps } from '@/interfaces/interfaces.interface';
+import type { IMealModalProps } from '@/types/meals';
+import type { ModalProps } from '@/types/ui';
 
 const props = defineProps<{ productModalProps: ModalProps | null }>();
 
