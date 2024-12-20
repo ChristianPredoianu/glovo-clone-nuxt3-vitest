@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { menuData } from '@/data/accountMenuData';
-import type { IMenuItem } from '@/interfaces/interfaces.interface';
+import type { IMenuItem } from '@/types/menu';
 
 const emit = defineEmits(['changeComponent']);
 
