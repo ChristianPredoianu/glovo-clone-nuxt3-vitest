@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ISelectedCategory } from '@/interfaces/interfaces.interface';
+import type { ISelectedCategory } from '@/types/products';
 
 const props = defineProps({
   index: Number,
