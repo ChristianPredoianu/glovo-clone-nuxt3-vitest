@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IItem } from '@/interfaces/interfaces.interface';
+import type { IItem } from '@/types/products';
 
 const props = defineProps({
   mealItem: {
