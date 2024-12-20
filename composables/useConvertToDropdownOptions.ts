@@ -1,4 +1,4 @@
-import type { IDropdownOptions } from '@/interfaces/interfaces.interface';
+import type { IDropdownOptions } from '@/types/ui';
 
 export function useConvertToDropdownOptions<
   T extends { place_id: number; display_name: string }
