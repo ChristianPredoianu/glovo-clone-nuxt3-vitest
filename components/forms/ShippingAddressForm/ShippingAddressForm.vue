@@ -9,7 +9,10 @@ const address = reactive({
   country: '',
 });
 
-const { user, isAuthReady, successMessage, authErrorMessage } = useAuth();
+const addressUpdateMessage = ref('');
+
+const { writeAddressInfo, fetchAddressInfo } = useFirebaseActions();
+const { isAuthReady } = useAuth();
 const {
   validateStreetAndHouseNumber,
   validateEuropeanZipCode,
@@ -18,29 +21,25 @@ const {
   errors,
 } = useShippingFormValidation();
 
+onMounted(() => {
+  watch(
+    () => isAuthReady.value,
+    (ready) => {
+      if (ready) fetchAddressInfo(address);
+    },
+    { immediate: true }
+  );
+});
+
 async function handleUpdateShipping(e: Event) {
   e.preventDefault();
 
-  if (validateAllFields(address)) {
+  const isFormValid = validateAllFields(address);
+
+  if (isFormValid) {
+    writeAddressInfo(address);
+    addressUpdateMessage.value = 'Your address information has been updated';
   }
-}
-
-/* watch(
-  () => user.value,
-  (newUser) => {
-    if (newUser && isAuthReady) {
-      userName.value = newUser.displayName || '';
-      userEmail.value = newUser.email || '';
-    }
-  },
-  { immediate: true }
-); */
-
-function validateForm(): boolean {
-  /*  validateUserName(userName.value);
-  validateEmail(userEmail.value);
-
-  return !userNameError.value && !emailError.value; */
 }
 
 function onKeyDown(e: KeyboardEvent) {
@@ -105,4 +104,5 @@ function onKeyDown(e: KeyboardEvent) {
 
     <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
+  <p class="text-green-500">{{ addressUpdateMessage }}</p>
 </template>
