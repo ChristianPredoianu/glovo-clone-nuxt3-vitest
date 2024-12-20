@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import Modal from '@/components/modals/Modal/Modal.vue';
-import type {
-  ISingleMeal,
-  ILocationsData,
-  ILocationAdress,
-  ICountriesData,
-  IMeals,
-  IDropdownOptions,
-} from '@/interfaces/interfaces.interface';
 import { productCategories, dishTypes } from '@/data/productCategoriesData';
 import { infoCardsData } from '@/data/infocardsData';
+import type { ISingleMeal, IMeals } from '@/types/meals';
+import type { ILocationsData, ILocationAdress, ICountriesData } from '@/types/locations';
+import type { IDropdownOptions } from '@/types/ui';
+
+const { cartProducts } = useCart();
 
 const emittedInput = ref<string>('');
 const selectedMeal = ref<(ISingleMeal & { price: number }) | null>(null);
@@ -142,6 +139,7 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
     </div>
   </section>
   <Waves />
+  <p v-for="cartProduct in cartProducts">{{ cartProduct?.id }}</p>
   <div class="container mx-auto px-4">
     <section>
       <div class="flex items-center gap-x-2">
