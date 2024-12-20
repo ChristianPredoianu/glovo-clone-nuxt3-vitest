@@ -3,8 +3,8 @@ import SelectDropdown from '@/components/ui/Dropdown/SelectDropdown/SelectDropdo
 import { capitalizeFirstLetter } from '@/helpers/helpers';
 import { cuisineTypes } from '@/data/productCategoriesData';
 import { fakeStoreCategories } from '@/data/productCategoriesData';
-import type { IItem } from '@/interfaces/interfaces.interface';
 import DashboardFavoriteItemList from '~/components/lists/DashboardFavoriteItemList/DashboardFavoriteItemList.vue';
+import type { IItem } from '@/types/products';
 
 const selectedOption = ref('');
 
