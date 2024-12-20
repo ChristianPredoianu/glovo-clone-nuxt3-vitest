@@ -1,7 +1,6 @@
 import { mount, VueWrapper } from '@vue/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ProductCounter from '@/components/counters/ProductCounter/ProductCounter.vue';
-import { useCart } from '@/composables/useCart';
 
 // Initialize mocks outside the vi.mock call
 const mockAddToCart = vi.fn();
