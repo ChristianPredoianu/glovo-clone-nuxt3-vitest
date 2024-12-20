@@ -1,9 +1,7 @@
 import { cuisineTypes, fakeStoreCategories } from '@/data/productCategoriesData';
 import { capitalizeFirstLetter } from '@/helpers/helpers';
-import type {
-  IFakeStoreCategories,
-  ICuisineType,
-} from '@/interfaces/interfaces.interface';
+import type { IFakeStoreCategories } from '@/types/products';
+import type { ICuisineType } from '@/types/meals';
 
 export function useFilter() {
   const route = useRoute();
