@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GenericListProps } from '@/interfaces/interfaces.interface';
+import type { GenericListProps } from '@/types/common';
 import { capitalizeFirstLetter } from '@/helpers/helpers';
 
 interface Item {
