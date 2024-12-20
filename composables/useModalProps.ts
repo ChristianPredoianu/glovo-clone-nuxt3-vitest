@@ -1,11 +1,7 @@
 import { useIsMealData } from '@/composables/useIsMealData';
-import type {
-  IProduct,
-  ISingleMeal,
-  IMealModalProps,
-  IProductModalProps,
-  ModalProps,
-} from '@/interfaces/interfaces.interface';
+import type { ModalProps } from '@/types/ui';
+import type { IProduct, IProductModalProps } from '@/types/products';
+import type { ISingleMeal, IMealModalProps } from '@/types/meals';
 
 export function useModalProps() {
   const mealModalProps = ref<IMealModalProps | null>(null);
