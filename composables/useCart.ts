@@ -1,4 +1,4 @@
-import type { ICartProduct } from '@/interfaces/interfaces.interface';
+import type { ICartProduct } from '@/types/cart';
 import { computed } from 'vue';
 
 export function useCart() {
