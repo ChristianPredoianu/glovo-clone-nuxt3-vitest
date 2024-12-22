@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { handleKeyDown } from '@/helpers/helpers';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
+import {
+  fetchAddressInfo,
+  writeAddressInfo,
+} from '@/composables/firebase/database/address/firebaseAddressActions';
 
 const address = reactive({
   streetAndHouseNumber: '',
@@ -11,8 +15,9 @@ const address = reactive({
 
 const addressUpdateMessage = ref('');
 
-const { writeAddressInfo, fetchAddressInfo } = useFirebaseActions();
 const { isAuthReady } = useAuth();
+const { user } = useAuth();
+const { $database } = useNuxtApp();
 const {
   validateStreetAndHouseNumber,
   validateEuropeanZipCode,
@@ -25,7 +30,7 @@ onMounted(() => {
   watch(
     () => isAuthReady.value,
     (ready) => {
-      if (ready) fetchAddressInfo(address);
+      if (ready) fetchAddressInfo(user.value!.uid, $database, address);
     },
     { immediate: true }
   );
@@ -37,7 +42,7 @@ async function handleUpdateShipping(e: Event) {
   const isFormValid = validateAllFields(address);
 
   if (isFormValid) {
-    writeAddressInfo(address);
+    writeAddressInfo(user.value!.uid, $database, address);
     addressUpdateMessage.value = 'Your address information has been updated';
   }
 }
