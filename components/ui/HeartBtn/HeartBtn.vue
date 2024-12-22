@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { IItem } from '@/types/products';
+import {
+  writeFavoriteUserItemData,
+  deleteFavoriteUserItemData,
+} from '@/composables/firebase/database/favorite-items/firebaseFavoriteItemActions';
 
 const props = defineProps({
   mealItem: {
@@ -10,11 +14,12 @@ const props = defineProps({
 
 const isFavorite = ref<boolean>(false);
 
+const { $database } = useNuxtApp();
 const { user } = useAuth();
-const { writeFavoriteUserItemData, deleteFavoriteUserItemData, isItemFavorite } =
-  useFirebaseActions();
 const { openModal } = useModal();
 const { isLoaded } = useIsLoaded();
+
+const { isItemFavorite } = useFetchFavoriteItems();
 
 onMounted(() => {
   watchEffect(async () => {
@@ -34,11 +39,11 @@ async function toggleFavorite() {
   }
 
   if (isFavorite.value) {
-    await deleteFavoriteUserItemData(props.mealItem);
+    await deleteFavoriteUserItemData(user.value!.uid, $database, props.mealItem);
     isFavorite.value = false;
   } else {
     console.log('Calling writeFavoriteUserItemData with:', props.mealItem);
-    await writeFavoriteUserItemData(props.mealItem);
+    await writeFavoriteUserItemData(user.value!.uid, $database, props.mealItem);
     isFavorite.value = true;
   }
 }
