@@ -26,7 +26,7 @@ const mealItem = {
   category: props.meal.recipe.cuisineType[0],
   label: props.meal.recipe.label,
   img: props.meal.recipe.image,
-  price: props.meal.price,
+  price: props.price!,
 };
 </script>
 
