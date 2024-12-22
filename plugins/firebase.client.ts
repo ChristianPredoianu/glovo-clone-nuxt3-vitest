@@ -12,7 +12,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     projectId: config.public.firebase.projectId,
     storageBucket: config.public.firebase.storageBucket,
     messagingSenderId: config.public.firebase.messagingSenderId,
-    pId: config.public.firebase.appId,
+    appId: config.public.firebase.appId,
     measurementId: config.public.firebase.measurementId,
   };
 
@@ -22,9 +22,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   const auth = getAuth(app);
   const database = getDatabase(app);
 
-  nuxtApp.vueApp.provide('auth', auth);
   nuxtApp.provide('auth', auth);
-
-  nuxtApp.vueApp.provide('database', database);
   nuxtApp.provide('database', database);
 });
