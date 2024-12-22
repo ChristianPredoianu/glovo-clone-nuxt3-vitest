@@ -4,7 +4,13 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/firebase.client.ts'],
 
   imports: {
-    dirs: ['composables', 'composables/auth', 'composables/ui'],
+    dirs: [
+      'composables',
+      'composables/firebase/auth',
+      'composables/firebase/database',
+      'composables/firebase/database/favorite-items',
+      'composables/ui',
+    ],
   },
 
   routeRules: {
