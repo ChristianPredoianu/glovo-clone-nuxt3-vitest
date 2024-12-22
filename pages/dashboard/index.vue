@@ -18,7 +18,7 @@ const mergedCategories = [
   })),
 ];
 
-const { fetchedFavoriteItems, isLoading, fetchFavoriteItems } = useFirebaseActions();
+const { fetchedFavoriteItems, isLoading, fetchFavoriteItems } = useFetchFavoriteItems();
 const { isAuthReady } = useAuth();
 
 const filteredItems = computed(() => {
