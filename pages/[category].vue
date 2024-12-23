@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { generateRandomPrice, capitalizeFirstLetter } from '@/helpers/helpers';
 import { fetchData } from '@/helpers/fetchGenericData';
-import { useIsMealData } from '@/composables/useIsMealData';
+import { isMealData } from '@/composables/mealTypeGuards';
 import { productCategories } from '@/data/productCategoriesData';
 import type { IMeals, ISingleMeal, ICuisineType } from '@/types/meals';
 import type { IProduct, IFakeStoreCategories } from '@/types/products';
@@ -20,7 +20,7 @@ const filteredData = useState<FetchResult<IMeals | IProduct[] | null>>(
 const route = useRoute();
 const { isFakeStoreIndex, getCategoryName } = useFilter();
 const { screenWidth } = useScreenWidth();
-const { isMealData } = useIsMealData();
+
 const { currentModalProps, setModalProps } = useModalProps();
 const { openModal, closeModal } = useModal();
 
@@ -83,7 +83,7 @@ const itemCount = computed(() => {
   return 0;
 });
 
-const { prices } = usePrices(itemCount.value);
+const { prices } = useRandomPrices(itemCount.value);
 
 function handleCategoryClick() {
   emittedFilter.value = '';
