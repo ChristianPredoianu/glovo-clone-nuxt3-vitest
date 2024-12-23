@@ -1,4 +1,4 @@
-import { useIsMealData } from '@/composables/useIsMealData';
+import { isSingleMealData } from '@/composables/mealTypeGuards';
 import type { ModalProps } from '@/types/ui';
 import type { IProduct, IProductModalProps } from '@/types/products';
 import type { ISingleMeal, IMealModalProps } from '@/types/meals';
@@ -6,8 +6,6 @@ import type { ISingleMeal, IMealModalProps } from '@/types/meals';
 export function useModalProps() {
   const mealModalProps = ref<IMealModalProps | null>(null);
   const productModalProps = ref<IProductModalProps | null>(null);
-
-  const { isSingleMealData } = useIsMealData();
 
   function extractRecipeId(uri: string): string {
     const prefix = '#recipe_';
