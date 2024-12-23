@@ -36,7 +36,7 @@ const { convertToDropdownOptions } = useConvertToDropdownOptions<ILocationsData>
 const { currentModalProps, setModalProps } = useModalProps();
 const { openModal, closeModal } = useModal();
 const { isLoaded } = useIsLoaded();
-const { prices: mealPrices } = usePrices(mealData.value?.hits.length || 0);
+const { prices: mealPrices } = useRandomPrices(mealData.value?.hits.length || 0);
 
 watch(
   () => locationData.value,
