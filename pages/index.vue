@@ -2,7 +2,7 @@
 import Modal from '@/components/modals/Modal/Modal.vue';
 import { productCategories, dishTypes } from '@/data/productCategoriesData';
 import { infoCardsData } from '@/data/infocardsData';
-import { convertToDropdownOptions } from '@/composables/convertToDropdownOptions';
+import { convertToDropdownOptions } from '@/composables/helpers/convertToDropdownOptions';
 import type { ISingleMeal, IMeals } from '@/types/meals';
 import type { ILocationsData, ILocationAdress, ICountriesData } from '@/types/locations';
 import type { IDropdownOptions } from '@/types/ui';

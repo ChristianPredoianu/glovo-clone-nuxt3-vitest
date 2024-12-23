@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { generateRandomPrice, capitalizeFirstLetter } from '@/helpers/helpers';
-import { fetchData } from '@/helpers/fetchGenericData';
+import { fetchData } from '@/composables/helpers/fetchGenericData';
 import { isMealData } from '@/composables/mealTypeGuards';
 import { productCategories } from '@/data/productCategoriesData';
 import type { IMeals, ISingleMeal, ICuisineType } from '@/types/meals';
