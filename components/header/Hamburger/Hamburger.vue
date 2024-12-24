@@ -3,10 +3,9 @@ const { openNav, isNavOpen } = useNav();
 const { openBackdrop } = useBackdrop();
 
 function openNavigation() {
-  console.log('Opening navigation');
   openNav();
-  console.log('isNavOpen:', isNavOpen.value);
   openBackdrop();
+  console.log('Hamburger clicked, isNavOpen:', isNavOpen.value);
 }
 </script>
 
