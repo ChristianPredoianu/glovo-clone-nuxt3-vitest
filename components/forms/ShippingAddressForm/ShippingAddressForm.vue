@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
-/* import { useFirebaseAddressActions } from '@/composables/firebase/database/address/useFirebaseAddressActions'; */
+
 const address = reactive({
   streetAndHouseNumber: '',
   zipCode: '',
