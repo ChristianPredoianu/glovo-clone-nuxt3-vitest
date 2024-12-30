@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
-import {
-  fetchAddressInfo,
-  writeAddressInfo,
-} from '@/composables/firebase/database/address/firebaseAddressActions';
-
+/* import { useFirebaseAddressActions } from '@/composables/firebase/database/address/useFirebaseAddressActions'; */
 const address = reactive({
   streetAndHouseNumber: '',
   zipCode: '',
@@ -25,6 +21,7 @@ const {
   validateAllFields,
   errors,
 } = useShippingFormValidation();
+const { fetchAddressInfo, writeAddressInfo, errorMessage } = useFirebaseAddressActions();
 
 onMounted(() => {
   watch(
