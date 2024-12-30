@@ -13,11 +13,13 @@ const {
   validateEmail,
   validatePassword,
   validateRepeatedPassword,
+  validateCredentials,
 } = useAuthValidation();
 const { closeModal } = useModal();
 
 async function handleSignUserUp(e: Event) {
   e.preventDefault();
+  validateCredentials(userEmail.value, userPassword.value);
   await signUp(userEmail.value, userPassword.value, repeatedUserPassword.value).then(
     () => {
       if (user.value !== null) {
