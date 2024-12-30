@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import CategoryCard from '@/components/cards/CategoryCard/CategoryCard.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
