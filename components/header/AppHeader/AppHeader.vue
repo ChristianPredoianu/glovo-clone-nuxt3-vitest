@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Modal from '@/components/modals/Modal/Modal.vue';
 
-const { isNavOpen, closeNav, openNav } = useNav();
+const { isNavOpen, closeNav } = useNav();
 const { closeBackdrop } = useBackdrop();
 const { screenWidth } = useScreenWidth();
 const { user, signUserOut } = useAuth();
