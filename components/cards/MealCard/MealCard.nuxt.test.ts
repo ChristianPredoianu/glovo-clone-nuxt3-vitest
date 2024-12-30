@@ -12,9 +12,14 @@ describe('MealCard', () => {
   it('renders meal details correctly', async () => {
     const wrapper = mount(MealCard, {
       props: {
-        category: 'dessert',
-        label: 'Chocolate Cake recipe',
-        img: 'path/to/image.jpg',
+        meal: {
+          recipe: {
+            cuisineType: ['dessert'],
+            label: 'Chocolate Cake recipe',
+            image: 'path/to/image.jpg',
+          },
+          price: 15,
+        },
       },
     });
 
