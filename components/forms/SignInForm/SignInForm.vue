@@ -7,14 +7,19 @@ const userPassword = ref('');
 const emits = defineEmits(['emitSelected']);
 
 const { signIn, user, successMessage, authErrorMessage } = useAuth();
-const { emailError, passwordError, validateEmail, validatePassword } =
-  useAuthValidation();
+const {
+  emailError,
+  passwordError,
+  validateEmail,
+  validatePassword,
+  validateCredentials,
+} = useAuthValidation();
 const { closeModal } = useModal();
 
 async function handleSignIn(e: Event) {
   e.preventDefault();
   console.log('Sign in attempt with email:', userEmail.value);
-
+  validateCredentials(userEmail.value, userPassword.value);
   signIn(userEmail.value, userPassword.value).then(() => {
     console.log('Sign-in successful!');
     if (user.value !== null) {
