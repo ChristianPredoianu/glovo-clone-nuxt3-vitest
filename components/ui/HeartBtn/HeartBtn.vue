@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import type { IItem } from '@/types/products';
-import {
-  writeFavoriteUserItemData,
-  deleteFavoriteUserItemData,
-} from '@/composables/firebase/database/favorite-items/firebaseFavoriteItemActions';
 
 const props = defineProps({
   mealItem: {
@@ -18,7 +14,8 @@ const { $database } = useNuxtApp();
 const { user } = useAuth();
 const { openModal } = useModal();
 const { isLoaded } = useIsLoaded();
-
+const { writeFavoriteUserItemData, deleteFavoriteUserItemData } =
+  useFirebaseFavoriteItemActions();
 const { isItemFavorite } = useFetchFavoriteItems();
 
 onMounted(() => {
