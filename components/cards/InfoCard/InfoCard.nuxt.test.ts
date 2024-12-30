@@ -5,10 +5,12 @@ describe('InfoCard', () => {
   it('renders the icon, heading, paragraph, and span with correct values', async () => {
     const wrapper = mount(InfoCard, {
       props: {
-        icon: 'coffee',
-        heading: 'Heading',
-        paragraph: 'This is a paragraph',
-        span: 'Extra Info',
+        card: {
+          icon: 'coffee',
+          heading: 'Heading',
+          paragraph: 'This is a paragraph',
+          span: 'Extra Info',
+        },
       },
     });
 
