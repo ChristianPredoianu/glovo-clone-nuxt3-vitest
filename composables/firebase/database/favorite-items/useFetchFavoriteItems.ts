@@ -10,11 +10,17 @@ declare module '#app' {
 
 export function useFetchFavoriteItems() {
   const fetchedFavoriteItems: Ref<IItem[]> = ref([]);
-
   const isLoading = ref(false);
+  const errorMessage = ref<string | null>(null);
 
   const { isAuthReady, user } = useAuth();
   const { $database } = useNuxtApp();
+
+  function handleError(message: string, error: any) {
+    const errorDetails = error?.message || 'An unknown error occurred';
+    console.error(`${message}:`, errorDetails);
+    errorMessage.value = `${message}: ${errorDetails}`;
+  }
 
   function getFavoriteItemRef() {
     if (!user.value) throw new Error('User is not authenticated');
@@ -22,6 +28,8 @@ export function useFetchFavoriteItems() {
   }
 
   async function fetchFavoriteItems() {
+    errorMessage.value = null;
+
     if (!isAuthReady.value) {
       return;
     }
@@ -38,17 +46,17 @@ export function useFetchFavoriteItems() {
         fetchedFavoriteItems.value = [];
       }
     } catch (error: any) {
-      console.error(`Error fetching favorite items: ${error.message}`);
+      handleError('Error fetching favorite items', error);
     } finally {
       isLoading.value = false;
     }
   }
 
   async function isItemFavorite(label: string): Promise<boolean> {
+    errorMessage.value = null;
     try {
       if (!user.value || !label) {
-        console.error('Invalid user or label');
-        return false;
+        throw new Error('Invalid user or label');
       }
 
       const favoriteItemRef = getFavoriteItemRef();
@@ -57,11 +65,9 @@ export function useFetchFavoriteItems() {
       if (!snapshot.exists()) return false;
 
       const favorites = snapshot.val() as { [key: string]: IItem };
-      const isFavorite = Object.values(favorites).some((item) => item.label === label);
-
-      return isFavorite;
+      return Object.values(favorites).some((item) => item.label === label);
     } catch (error: any) {
-      console.error(`Error in isItemFavorite: ${error.message}`);
+      handleError('Error checking if item is favorite', error);
       return false;
     }
   }
@@ -71,5 +77,6 @@ export function useFetchFavoriteItems() {
     isLoading,
     fetchFavoriteItems,
     isItemFavorite,
+    errorMessage,
   } as const;
 }
