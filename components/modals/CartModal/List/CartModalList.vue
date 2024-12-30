@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { replaceRecipeText } from '@/helpers/helpers';
+import { replaceRecipeText } from '@/composables/helpers/replaceRecipeText';
 
 const { cartProducts } = useCart();
 const { removeFromCart } = useCart();
