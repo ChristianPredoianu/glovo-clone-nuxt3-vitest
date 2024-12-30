@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { capitalizeFirstLetter, replaceRecipeText } from '@/helpers/helpers';
+import { capitalizeFirstLetter } from '@/composables/helpers/capitalizeFirstLetter';
+import { replaceRecipeText } from '@/composables/helpers/replaceRecipeText';
 
 interface IMealCardProps {
   recipe: {
