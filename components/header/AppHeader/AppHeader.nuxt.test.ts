@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ref } from 'vue';
-import AppHeader from '~/components/header/AppHeader/AppHeader.vue';
+import AppHeader from '@/components/header/AppHeader/AppHeader.vue';
 
 const mockIsNavOpen = ref(false);
 vi.mock('@/composables/ui/useNav', () => ({
