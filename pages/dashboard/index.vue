@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SelectDropdown from '@/components/ui/Dropdown/SelectDropdown/SelectDropdown.vue';
-import { capitalizeFirstLetter } from '@/helpers/helpers';
+import { capitalizeFirstLetter } from '@/composables/helpers/capitalizeFirstLetter';
 import { cuisineTypes } from '@/data/productCategoriesData';
 import { fakeStoreCategories } from '@/data/productCategoriesData';
 import DashboardFavoriteItemList from '~/components/lists/DashboardFavoriteItemList/DashboardFavoriteItemList.vue';
