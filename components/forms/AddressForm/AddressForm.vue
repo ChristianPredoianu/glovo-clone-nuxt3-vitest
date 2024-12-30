@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { IDropdownOptions } from '@/types/ui';
 import type { ILocationAdress } from '@/types/locations';
-import SearchLocationDropdown from '~/components/ui/Dropdown/SearchLocationDropdown/SearchLocationDropdown.vue';
+import SearchLocationDropdown from '@/components/ui/Dropdown/SearchLocationDropdown/SearchLocationDropdown.vue';
 
 const props = defineProps({
   options: {
