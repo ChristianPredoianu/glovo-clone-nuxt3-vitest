@@ -1,10 +1,5 @@
 <script setup lang="ts">
-interface IInfoCardProps {
-  icon: string;
-  heading: string;
-  paragraph: string;
-  span: string;
-}
+import type { IInfoCardProps } from '@/types/ui/IInfoCardProps';
 
 const props = defineProps({
   card: {
