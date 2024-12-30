@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { generateRandomPrice, capitalizeFirstLetter } from '@/helpers/helpers';
+import { generateRandomPrice } from '@/composables/helpers/randomPrice';
+import { capitalizeFirstLetter } from '@/composables/helpers/capitalizeFirstLetter';
 import { fetchData } from '@/composables/helpers/fetchGenericData';
-import { isMealData } from '@/composables/mealTypeGuards';
+import { isMealData } from '@/composables/helpers/mealTypeGuards';
 import { productCategories } from '@/data/productCategoriesData';
 import type { IMeals, ISingleMeal, ICuisineType } from '@/types/meals';
 import type { IProduct, IFakeStoreCategories } from '@/types/products';
@@ -142,7 +143,7 @@ onBeforeRouteLeave((to, from, next) => {
 
       <div class="w-full lg:w-4/5">
         <h1 class="text-xl font-bold md:text-2xl pt-5 mt-6 lg:mt-12">
-          {{ capitalizeFirstLetter($route.params.category) }}
+          {{ capitalizeFirstLetter(route.params.category) }}
           {{ !isFakeStoreIndex ? 'meals' : '' }}
         </h1>
         <h2 v-if="emittedFilter !== ''" class="text-gray-500 text-lg font-semibold mt-1">
