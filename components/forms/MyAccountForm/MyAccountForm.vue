@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { handleKeyDown } from '@/helpers/helpers';
+import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 
 const userName = ref('');
 const userEmail = ref('');
@@ -43,7 +43,7 @@ function validateForm(): boolean {
 }
 
 function onKeyDown(e: KeyboardEvent) {
-  handleKeyDown(e, handleUpdateProfile);
+  handleEnterKey(e, handleUpdateProfile);
 }
 </script>
 
