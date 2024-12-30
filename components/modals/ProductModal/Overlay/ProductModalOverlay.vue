@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { replaceRecipeText } from '@/helpers/helpers';
+import { replaceRecipeText } from '@/composables/helpers/replaceRecipeText';
 import type { IMealModalProps } from '@/types/meals';
 import type { ModalProps } from '@/types/ui';
 
