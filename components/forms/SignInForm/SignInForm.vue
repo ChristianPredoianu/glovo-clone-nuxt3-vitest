@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { handleKeyDown } from '@/helpers/helpers';
+import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 
 const userEmail = ref('');
 const userPassword = ref('');
@@ -24,7 +24,7 @@ async function handleSignIn(e: Event) {
 }
 
 function onKeyDown(e: KeyboardEvent) {
-  handleKeyDown(e, handleSignIn);
+  handleEnterKey(e, handleSignIn);
 }
 </script>
 
