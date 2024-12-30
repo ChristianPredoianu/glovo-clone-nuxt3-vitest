@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IFakeStoreCategories } from '@/types/products';
-import type { ICuisineType } from '~/types/meals';
+import type { ICuisineType } from '@/types/meals';
 
 const emits = defineEmits(['emitSelected']);
 
