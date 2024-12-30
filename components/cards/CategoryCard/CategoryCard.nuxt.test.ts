@@ -3,14 +3,18 @@ import { describe, it, expect } from 'vitest';
 import CategoryCard from '@/components/cards/CategoryCard/CategoryCard.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
+const productCategory = {
+  index: 1,
+  img: '/path/to/image.jpg',
+  text: 'Category Name',
+  category: '/category-page',
+};
+
 describe('CategoryCard', () => {
   it('renders the image and text correctly', () => {
     const wrapper = mount(CategoryCard, {
       props: {
-        index: 1,
-        img: '/path/to/image.jpg',
-        text: 'Category Name',
-        category: '/category-page',
+        productCategory,
       },
     });
 
@@ -38,10 +42,7 @@ describe('CategoryCard', () => {
 
     const wrapper = mount(CategoryCard, {
       props: {
-        index: 1,
-        img: '/path/to/image.jpg',
-        text: 'Category Name',
-        category: '/category-page',
+        productCategory,
       },
       global: {
         plugins: [router],
