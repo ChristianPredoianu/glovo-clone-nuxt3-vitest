@@ -8,7 +8,6 @@ export default defineNuxtConfig({
       'composables',
       'composables/firebase/auth',
       'composables/firebase/database',
-      'composables/firebase/database/favorite-items',
       'composables/ui',
       'composables/helpers',
     ],
