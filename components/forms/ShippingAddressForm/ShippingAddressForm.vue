@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { handleKeyDown } from '@/helpers/helpers';
+import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
 import {
   fetchAddressInfo,
@@ -48,7 +48,7 @@ async function handleUpdateShipping(e: Event) {
 }
 
 function onKeyDown(e: KeyboardEvent) {
-  handleKeyDown(e, handleUpdateShipping);
+  handleEnterKey(e, handleUpdateShipping);
 }
 </script>
 
