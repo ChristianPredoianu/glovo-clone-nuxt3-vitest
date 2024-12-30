@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { capitalizeFirstLetter } from '@/composables/helpers/capitalizeFirstLetter';
 import { replaceRecipeText } from '@/composables/helpers/replaceRecipeText';
-
-interface IMealCardProps {
-  recipe: {
-    cuisineType: string[];
-    label: string;
-    image: string;
-    category?: string;
-  };
-  price: number;
-}
+import type { IMealCardProps } from '@/types/meals/IMealCardProps';
 
 const props = defineProps({
   index: Number,
