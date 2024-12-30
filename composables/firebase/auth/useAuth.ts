@@ -13,7 +13,7 @@ import {
 } from 'firebase/auth';
 import type { User, Auth } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
-import { delay } from '@/helpers/helpers';
+import { delay } from '@/composables/helpers/delay';
 
 declare module '#app' {
   interface NuxtApp {
