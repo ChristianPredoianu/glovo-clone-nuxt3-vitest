@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import SignUpForm from '@/components/forms/SignUpForm/SignUpForm.vue';
-import { useAuth } from '~/composables/firebase/auth/useAuth';
-import { useAuthValidation } from '~/composables/firebase/auth/useAuthValidation';
+import { useAuth } from '@/composables/firebase/auth/useAuth';
+import { useAuthValidation } from '@/composables/firebase/auth/useAuthValidation';
 import { useModal } from '@/composables/ui/useModal';
 
 vi.mock('@/composables/auth/useAuth', () => ({
