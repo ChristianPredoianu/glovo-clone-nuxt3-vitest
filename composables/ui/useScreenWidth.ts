@@ -1,5 +1,3 @@
-import { onMounted, onUnmounted } from 'vue';
-
 export function useScreenWidth() {
   const screenWidth = ref(0);
 
