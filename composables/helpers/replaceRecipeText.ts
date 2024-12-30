@@ -1,3 +1,5 @@
-export function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+export function replaceRecipeText(text: string) {
+  const replacedRecipeText = text.replace(/\brecipe\b|\brecipes\b/gi, '').trim();
+
+  return replacedRecipeText;
 }
