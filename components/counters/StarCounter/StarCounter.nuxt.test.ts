@@ -4,7 +4,6 @@ import { ref } from 'vue';
 import StarCounter from '@/components/counters/StarCounter/StarCounter.vue';
 import useIsLoaded from '@/composables/useIsLoaded';
 
-// Mocking useIsLoaded composable
 vi.mock('@/composables/useIsLoaded', () => ({
   default: vi.fn(() => ({
     isLoaded: ref(true),
@@ -12,7 +11,6 @@ vi.mock('@/composables/useIsLoaded', () => ({
 }));
 
 describe('StarCounter', () => {
-  // Reset mocks before each test to ensure a clean slate
   beforeEach(() => {
     vi.resetAllMocks();
     (useIsLoaded as ReturnType<typeof vi.fn>).mockReturnValue({
