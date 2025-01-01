@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
-
+//CHANGE TO REACTIVE
 const userEmail = ref('');
 const userPassword = ref('');
 const repeatedUserPassword = ref('');
