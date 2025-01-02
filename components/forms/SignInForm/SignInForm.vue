@@ -59,7 +59,6 @@ function onKeyDown(e: KeyboardEvent) {
       autocomplete="current-password"
       @blur="validatePassword(userPassword)"
     />
-
     <FormSubmitBtn>Sign In</FormSubmitBtn>
     <AuthMessage
       :authErrorMessage="authErrorMessage || undefined"
