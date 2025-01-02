@@ -14,7 +14,7 @@ function getItemField(item: Item, field: string): string {
   let value: any = item;
 
   for (const nestedField of nestedFields) {
-    if (value == null) return '';
+    if (value === null) return '';
     value = value[nestedField];
   }
 
