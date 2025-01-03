@@ -7,7 +7,6 @@ const cartProducts = [
   { id: 2, img: 'image2.jpg', quantity: 1, label: 'Product 2', price: 20.0 },
 ];
 
-// Mock useCart
 const removeFromCartMock = vi.fn();
 vi.mock('@/composables/useCart', () => ({
   useCart: () => ({
