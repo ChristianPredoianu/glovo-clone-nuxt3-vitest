@@ -5,8 +5,8 @@ const userName = ref('');
 const userEmail = ref('');
 const currentPassword = ref('');
 
-const { user, isAuthReady, updateUserProfile, successMessage, authErrorMessage } =
-  useAuth();
+const { user, isAuthReady, successMessage, authErrorMessage } = useAuth();
+const { updateUserProfile } = useProfile();
 const {
   validateEmail,
   emailError,
