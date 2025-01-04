@@ -6,15 +6,9 @@ const userPassword = ref('');
 const repeatedUserPassword = ref('');
 
 const { signUp, successMessage, user, authErrorMessage } = useAuth();
-const {
-  emailError,
-  passwordError,
-  repeatedPasswordError,
-  validateEmail,
-  validatePassword,
-  validateRepeatedPassword,
-  validateCredentials,
-} = useAuthValidation();
+const { validateEmail, validatePassword, validateRepeatedPassword, validateCredentials } =
+  useAuthValidation();
+const { emailError, passwordError, repeatedPasswordError } = useAuthValidation();
 const { closeModal } = useModal();
 
 async function handleSignUserUp(e: Event) {
