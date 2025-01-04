@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     dirs: [
       'composables',
       'composables/firebase/auth',
+      'composables/firebase/auth/composables',
       'composables/firebase/database',
       'composables/ui',
       'composables/helpers',
