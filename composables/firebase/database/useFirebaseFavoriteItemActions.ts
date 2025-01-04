@@ -44,13 +44,10 @@ export function useFirebaseFavoriteItemActions() {
   ) {
     errorMessage.value = null;
     try {
-      if (!userId) {
-        throw new Error('User is not authenticated');
-      }
+      if (!userId) throw new Error('User is not authenticated');
 
-      if (!favoriteItem || !favoriteItem.label) {
+      if (!favoriteItem || !favoriteItem.label)
         throw new Error('Invalid item provided for deletion');
-      }
 
       const favoriteItemRef = dbRef(database, `users/${userId}/favoriteItems`);
       const snapshot = await get(favoriteItemRef);
@@ -83,15 +80,14 @@ export function useFirebaseFavoriteItemActions() {
   ): Promise<boolean> {
     errorMessage.value = null;
     try {
-      if (!userId) {
-        throw new Error('User is not authenticated');
-      }
+      if (!userId) throw new Error('User is not authenticated');
 
       const favoriteItemsRef = dbRef(database, `users/${userId}/favoriteItems`);
       const snapshot = await get(favoriteItemsRef);
 
       if (snapshot.exists()) {
         const favoriteItems = snapshot.val() as { [key: string]: IItem };
+
         return Object.values(favoriteItems).some(
           (item) => item.label === favoriteItem.label
         );
