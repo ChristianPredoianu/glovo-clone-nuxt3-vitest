@@ -9,12 +9,17 @@ const MIN_PASSWORD_LENGTH = 6;
 
 export function useAuthValidation() {
   function validateEmail(email: string): boolean {
-    if (!email || email === '') {
+    const isEmailInvalid = !email || email === '';
+
+    if (isEmailInvalid) {
       emailError.value = 'Email is required';
       return false;
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    const isInvalidFormat = !emailRegex.test(email);
+
+    if (isInvalidFormat) {
       emailError.value = 'Please enter a valid email';
       return false;
     }
@@ -23,11 +28,15 @@ export function useAuthValidation() {
   }
 
   function validatePassword(password: string): boolean {
-    if (!password || password === '') {
+    const isPasswordEmpty = !password || password === '';
+
+    if (isPasswordEmpty) {
       passwordError.value = 'Password is required';
       return false;
     }
-    if (password.length < MIN_PASSWORD_LENGTH) {
+    const isPasswordTooShort = password.length < MIN_PASSWORD_LENGTH;
+
+    if (isPasswordTooShort) {
       passwordError.value = 'Password must be at least 6 characters long';
       return false;
     }
@@ -36,7 +45,9 @@ export function useAuthValidation() {
   }
 
   function validateRepeatedPassword(password: string, repeatedPassword: string): boolean {
-    if (password !== repeatedPassword) {
+    const arePasswordsMismatched = password !== repeatedPassword;
+
+    if (arePasswordsMismatched) {
       repeatedPasswordError.value = 'Password and repeated password do not match';
       return false;
     }
@@ -45,7 +56,9 @@ export function useAuthValidation() {
   }
 
   function validateUserName(name: string): void {
-    if (!name.trim()) {
+    const isNameEmpty = !name.trim();
+
+    if (isNameEmpty) {
       userNameError.value = 'Username is required.';
     } else if (name.length < 3) {
       userNameError.value = 'Username must be at least 3 characters.';
