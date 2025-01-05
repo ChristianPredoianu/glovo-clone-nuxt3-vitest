@@ -13,6 +13,39 @@ export function useMessageHandler() {
     }, DELAY);
   }
 
+  function setSuccessMessageWithTimeout(message: string) {
+    successMessage.value = message;
+    resetMessage(successMessage);
+  }
+
+  function setErrorMessage(error: string) {
+    authErrorMessage.value = error;
+  }
+
+  function setProfileUpdateSuccessMessage(
+    isEmailChanged: boolean,
+    isDisplayNameChanged: boolean
+  ) {
+    const message =
+      !isEmailChanged && !isDisplayNameChanged
+        ? 'No changes were made to your profile.'
+        : 'Profile updated successfully!';
+
+    successMessage.value = message;
+    resetMessage(successMessage);
+  }
+
+  function setVerificationMessageError(error: any) {
+    console.error('Error sending email verification:', error);
+
+    const errorMessage =
+      error.message === 'Firebase: Error (auth/too-many-requests).'
+        ? ' Too many requests'
+        : '';
+
+    authErrorMessage.value = `Failed to send verification email to your new email address. Please try again.${errorMessage}`;
+  }
+
   function handleAuthError(error: FirebaseError) {
     switch (error.code) {
       case 'auth/email-already-in-use':
@@ -63,39 +96,6 @@ export function useMessageHandler() {
         setErrorMessage('An unknown error occurred. Please try again later.');
         break;
     }
-  }
-
-  function setSuccessMessageWithTimeout(message: string) {
-    successMessage.value = message;
-    resetMessage(successMessage);
-  }
-
-  function setErrorMessage(error: string) {
-    authErrorMessage.value = error;
-  }
-
-  function setProfileUpdateSuccessMessage(
-    isEmailChanged: boolean,
-    isDisplayNameChanged: boolean
-  ) {
-    const message =
-      !isEmailChanged && !isDisplayNameChanged
-        ? 'No changes were made to your profile.'
-        : 'Profile updated successfully!';
-
-    successMessage.value = message;
-    resetMessage(successMessage);
-  }
-
-  function setVerificationMessageError(error: any) {
-    console.error('Error sending email verification:', error);
-
-    const errorMessage =
-      error.message === 'Firebase: Error (auth/too-many-requests).'
-        ? ' Too many requests'
-        : '';
-
-    authErrorMessage.value = `Failed to send verification email to your new email address. Please try again.${errorMessage}`;
   }
 
   return {
