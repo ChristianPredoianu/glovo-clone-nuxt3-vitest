@@ -90,7 +90,6 @@ export function useAuth(redirect: string | null = null) {
         console.log('dsasda');
         setErrorMessage('An error occurred. Please try again later.');
       }
-
       throw error;
     }
   }
