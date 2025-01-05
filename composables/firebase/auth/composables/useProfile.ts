@@ -77,11 +77,7 @@ export function useProfile() {
   ) {
     if (isChanged) {
       const isReauthenticated = await reauthenticateFn(currentPassword);
-      if (isReauthenticated) {
-        await updateFn();
-      } else {
-        throw new Error(errorMsg);
-      }
+      isReauthenticated ? await updateFn() : setErrorMessage(errorMsg);
     }
   }
 
@@ -94,9 +90,8 @@ export function useProfile() {
   }
 
   async function handleEmailChange(newEmail: string, currentPassword: string) {
-    if (!currentPassword) {
+    if (!currentPassword)
       throw new Error('Please enter your current password to update your email.');
-    }
 
     await reauthenticate(currentPassword);
     await updateUserEmail(newEmail);
