@@ -108,6 +108,19 @@ export function useAuth(redirect: string | null = null) {
       });
   }
 
+  //Check this function !!!!!!!
+  /*   async function deleteUser() {
+    if (!user.value) return;
+
+    try {
+      await user.value.delete();
+      console.log('User deleted:', user.value.email);
+      setSuccessMessageWithTimeout('Your account has been successfully deleted.');
+    } catch (error: any) {
+      handleAuthError(error.code);
+    }
+  } */
+
   return {
     isAuthReady,
     user,
