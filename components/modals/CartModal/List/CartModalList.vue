@@ -3,7 +3,6 @@ import { replaceRecipeText } from '@/composables/helpers/replaceRecipeText';
 
 const { cartProducts } = useCart();
 const { removeFromCart } = useCart();
-console.log(cartProducts.value);
 </script>
 
 <template>
@@ -15,7 +14,7 @@ console.log(cartProducts.value);
       class="flex flex-col gap-2 border-b border-gray-300 py-4"
     >
       <div class="flex flex-col gap-4 justify-around items-center md:flex-row">
-        <img :src="product.img" alt="product image" class="w-12 h-12 rounded-xl" />
+        <img :src="'/glovo.jpg'" alt="product image" class="w-12 h-12 rounded-xl" />
         <p class="text-lg font-bold ml-1">{{ product.quantity }}x</p>
         <p class="text-sm text-center w-1/2">{{ replaceRecipeText(product.label) }}</p>
         <p class="font-semibold">{{ (product.price ?? 0).toFixed(2) }} $</p>
