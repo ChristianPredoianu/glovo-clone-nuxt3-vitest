@@ -21,6 +21,8 @@ const product = computed(() => {
   };
 });
 
+console.log(product.value);
+
 function handleAddToCart(product: IMealModalProps) {
   startProgressBar();
   addToCart(product);
@@ -43,6 +45,7 @@ const isMealModalProps = (props: ModalProps | null): props is IMealModalProps =>
         class="rounded-lg object-cover w-full h-full"
       />
     </div>
+
     <h3 class="text-xl font-semibold text-gray-700 py-4">
       {{ replaceRecipeText(props.productModalProps!.label) }}
     </h3>
