@@ -54,8 +54,9 @@ function handleEmitSelected(
   filteredData.value.data = null;
 }
 
-function handleMealCardClick(item: ISingleMeal | IProduct) {
-  setModalProps(item);
+function handleMealCardClick(item: ISingleMeal | IProduct, price?: number) {
+  const finalPrice = price ?? 0;
+  setModalProps({ ...item, price: finalPrice });
   openModal('productModal');
 }
 
@@ -107,7 +108,6 @@ onBeforeRouteLeave((to, from, next) => {
   <Modal modalName="productModal">
     <ProductModalOverlay
       :productModalProps="currentModalProps"
-      :price="+generateRandomPrice()"
       @closeModal="closeModal"
     />
   </Modal>
@@ -173,7 +173,7 @@ onBeforeRouteLeave((to, from, next) => {
               :key="renderType === 'meals' ? meal.recipe.label : `meal-${index}`"
               :meal="meal"
               :price="prices[index]"
-              @click="handleMealCardClick(meal)"
+              @click="handleMealCardClick(meal, prices[index])"
             />
           </template>
 
