@@ -1,9 +1,20 @@
 <script setup lang="ts">
 const { numberOfCartProducts, updatedTotalPrice } = useCart();
 
+const { user } = useAuth();
+const { openModal, isModalOpen, closeModal } = useModal();
+
 const orderText = computed(() => {
   return `Order ${numberOfCartProducts.value} for ${updatedTotalPrice.value} $`;
 });
+
+async function placeOrder() {
+  console.log('dsa');
+  /*  if (!user.value) {
+    closeModal();
+    openModal('signin');
+  } */
+}
 </script>
 
 <template>
@@ -23,7 +34,7 @@ const orderText = computed(() => {
     <div class="w-full flex flex-col items-center justify-center gap-2" v-else>
       <CartModalList />
     </div>
-    <CtaBtn :textCol="'text-gray-200'" v-if="numberOfCartProducts">{{
+    <CtaBtn :textCol="'text-gray-200'" v-if="numberOfCartProducts" @click="placeOrder">{{
       orderText
     }}</CtaBtn>
   </section>
