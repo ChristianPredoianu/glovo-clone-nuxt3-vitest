@@ -2,21 +2,16 @@
 import MyAccountForm from '@/components/forms/MyAccountForm/MyAccountForm.vue';
 import ShippingAddressForm from '@/components/forms/ShippingAddressForm/ShippingAddressForm.vue';
 
-const currentComponent = ref<typeof MyAccountForm | typeof MyAccountForm>(
-  markRaw(MyAccountForm)
-);
-
 const componentMap: Record<string, typeof MyAccountForm | typeof ShippingAddressForm> = {
-  MyAccountForm: MyAccountForm,
-  ShippingAddressForm: ShippingAddressForm,
+  MyAccountForm,
+  ShippingAddressForm,
 };
 
-function handleChangeComponent(menuComponent: string) {
-  const component = componentMap[menuComponent];
+const { changeComponent, currentComponent } = useDynamicComponent(MyAccountForm);
 
-  if (component) {
-    currentComponent.value = markRaw(component);
-  }
+function handleChangeComponent(menuComponent: string) {
+  console.log('dsa');
+  changeComponent(menuComponent, componentMap);
 }
 </script>
 
