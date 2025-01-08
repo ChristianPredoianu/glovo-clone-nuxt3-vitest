@@ -110,7 +110,7 @@ export function useAuth(redirect: string | null = null) {
       });
   }
 
-  //Check this function !!!!!!!
+  //REMEMBER YOU NEED TO MANUALLY DELETE THE USERS DATA FROM THE DATABASE
   async function deleteUserWithReauthentication(email: string, password: string) {
     try {
       const user = $auth.currentUser;
@@ -118,11 +118,9 @@ export function useAuth(redirect: string | null = null) {
         throw new Error('No user is currently signed in.');
       }
 
-      // Reauthenticate the user
       const credential = EmailAuthProvider.credential(email, password);
       await reauthenticateWithCredential(user, credential);
 
-      // Delete the user
       await user.delete();
       console.log('User reauthenticated and deleted successfully.');
     } catch (error: any) {
