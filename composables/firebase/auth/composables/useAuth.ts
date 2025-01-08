@@ -3,6 +3,8 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
 } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import {
@@ -103,23 +105,30 @@ export function useAuth(redirect: string | null = null) {
         user.value = null;
         router.push('/');
       })
-      .catch((error) => {
+      .catch((error: FirebaseError) => {
         setErrorMessage(error.message);
       });
   }
 
   //Check this function !!!!!!!
-  /*   async function deleteUser() {
-    if (!user.value) return;
-
+  async function deleteUserWithReauthentication(email: string, password: string) {
     try {
-      await user.value.delete();
-      console.log('User deleted:', user.value.email);
-      setSuccessMessageWithTimeout('Your account has been successfully deleted.');
+      const user = $auth.currentUser;
+      if (!user) {
+        throw new Error('No user is currently signed in.');
+      }
+
+      // Reauthenticate the user
+      const credential = EmailAuthProvider.credential(email, password);
+      await reauthenticateWithCredential(user, credential);
+
+      // Delete the user
+      await user.delete();
+      console.log('User reauthenticated and deleted successfully.');
     } catch (error: any) {
-      handleAuthError(error.code);
+      console.error('Error reauthenticating or deleting user:', error.message);
     }
-  } */
+  }
 
   return {
     isAuthReady,
