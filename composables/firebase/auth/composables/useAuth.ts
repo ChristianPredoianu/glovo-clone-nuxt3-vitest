@@ -14,7 +14,6 @@ import {
   isAuthReady,
 } from '@/composables/firebase/auth/store/authStore';
 import { delay } from '@/composables/helpers/delay';
-import { error } from 'happy-dom/lib/PropertySymbol.js';
 
 const DELAY = 2000;
 
@@ -63,13 +62,7 @@ export function useAuth(redirect: string | null = null) {
       await delay(DELAY);
       await router.push('/dashboard');
     } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
-          setErrorMessage(
-            'This email is already in use. Please sign in or try another email.'
-          );
-        }
-      }
+      handleError(error);
     }
   }
 
@@ -89,34 +82,30 @@ export function useAuth(redirect: string | null = null) {
       const redirectTo = redirect || '/dashboard'; // Use existing redirect if available
       await router.push(redirectTo);
     } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        handleAuthError(error);
-        resetMessage(errorMessage);
-      } else {
-        console.log('dsasda');
-        setErrorMessage('An error occurred. Please try again later.');
-      }
-      throw error;
+      handleError(error);
     }
   }
 
   async function signUserOut() {
-    try {
-      resetMessage(errorMessage);
+    resetMessage(errorMessage);
 
+    try {
       await signOut($auth);
 
       console.log('User signed out successfully.');
       user.value = null;
       router.push('/');
     } catch (error) {
-      if (error instanceof FirebaseError) {
-        setErrorMessage(error.message);
-      } else {
-        console.error('Unexpected error during sign-out:', error);
-        setErrorMessage('An unexpected error occurred. Please try again later.');
-      }
+      handleError(error);
     }
+  }
+
+  function handleError(error: unknown) {
+    error instanceof FirebaseError
+      ? handleAuthError(error)
+      : setErrorMessage('An unexpected error occurred. Please try again later.');
+
+    throw error;
   }
 
   //REMEMBER YOU NEED TO MANUALLY DELETE THE USERS DATA FROM THE DATABASE
