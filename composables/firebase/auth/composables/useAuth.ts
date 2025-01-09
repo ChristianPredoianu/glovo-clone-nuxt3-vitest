@@ -6,7 +6,6 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential,
 } from 'firebase/auth';
-import { FirebaseError } from 'firebase/app';
 import {
   successMessage,
   errorMessage,
@@ -25,7 +24,7 @@ export function useAuth(redirect: string | null = null) {
     resetMessage,
     resetMessages,
     setErrorMessage,
-    handleAuthError,
+    handleError,
   } = useMessageHandler();
 
   const {
@@ -98,14 +97,6 @@ export function useAuth(redirect: string | null = null) {
     } catch (error) {
       handleError(error);
     }
-  }
-
-  function handleError(error: unknown) {
-    error instanceof FirebaseError
-      ? handleAuthError(error)
-      : setErrorMessage('An unexpected error occurred. Please try again later.');
-
-    throw error;
   }
 
   //REMEMBER YOU NEED TO MANUALLY DELETE THE USERS DATA FROM THE DATABASE
