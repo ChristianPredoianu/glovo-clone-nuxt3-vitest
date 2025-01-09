@@ -19,8 +19,7 @@ const DELAY = 2000;
 export function useAuth(redirect: string | null = null) {
   const { $auth } = useNuxtApp();
   const router = useRouter();
-  const { setSuccessMessageWithTimeout, resetMessage, resetMessages, handleError } =
-    useMessageHandler();
+  const { setSuccessMessageWithTimeout, resetMessage, handleError } = useMessageHandler();
 
   const {
     validateRepeatedPassword,
