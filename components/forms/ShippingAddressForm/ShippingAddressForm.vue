@@ -2,14 +2,35 @@
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
 
+onMounted(() => {
+  watch(
+    () => isAuthReady.value,
+    (ready) => {
+      if (ready) fetchAddressInfo(user.value!.uid, $database, address);
+    },
+    { immediate: true }
+  );
+});
+
+const emit = defineEmits(['submitForm', 'handleForm']);
+
+const props = defineProps({
+  successMessage: {
+    type: [String, null],
+    required: false,
+  },
+  errorMessage: {
+    type: [String, null],
+    required: false,
+  },
+});
+
 const address = reactive({
   streetAndHouseNumber: '',
   zipCode: '',
   city: '',
   country: '',
 });
-
-const addressUpdateMessage = ref('');
 
 const { isAuthReady } = useAuth();
 const { user } = useAuth();
@@ -21,41 +42,23 @@ const {
   validateAllFields,
   errors,
 } = useShippingFormValidation();
-const { fetchAddressInfo, writeAddressInfo, errorMessage } = useFirebaseAddressActions();
-
-onMounted(() => {
-  watch(
-    () => isAuthReady.value,
-    (ready) => {
-      if (ready) fetchAddressInfo(user.value!.uid, $database, address);
-    },
-    { immediate: true }
-  );
-});
-
-async function handleUpdateShipping(e: Event) {
-  e.preventDefault();
-
-  const isFormValid = validateAllFields(address);
-
-  if (isFormValid) {
-    writeAddressInfo(user.value!.uid, $database, address);
-    addressUpdateMessage.value = 'Your address information has been updated';
-  }
-}
+const { fetchAddressInfo, errorMessage } = useFirebaseAddressActions();
 
 function onKeyDown(e: KeyboardEvent) {
-  handleEnterKey(e, handleUpdateShipping);
+  handleEnterKey(e, handleSubmit);
+}
+
+function handleSubmit(e: Event) {
+  e.preventDefault();
+  const isFormValid = validateAllFields(address);
+
+  if (isFormValid) emit('submitForm', address);
 }
 </script>
 
 <template>
   <h1 class="text-2xl font-semibold text-gray-800 my-5">Shipping info</h1>
-  <form
-    @submit.prevent="handleUpdateShipping"
-    @keydown="onKeyDown"
-    class="flex flex-col gap-2"
-  >
+  <form @submit.prevent="handleSubmit" @keydown="onKeyDown" class="flex flex-col gap-2">
     <TextInput
       label="Street and house number"
       name="street"
@@ -106,5 +109,7 @@ function onKeyDown(e: KeyboardEvent) {
 
     <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
-  <p class="text-green-500">{{ addressUpdateMessage }}</p>
+  <p :class="successMessage ? 'text-green-500' : 'text-red-500'">
+    {{ successMessage ? successMessage : errorMessage }}
+  </p>
 </template>
