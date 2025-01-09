@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
+
+const emit = defineEmits(['handleForm']);
+
 //CHANGE TO RREACTIVE
 const userName = ref('');
 const userEmail = ref('');
