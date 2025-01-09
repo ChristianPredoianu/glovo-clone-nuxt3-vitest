@@ -19,13 +19,8 @@ const DELAY = 2000;
 export function useAuth(redirect: string | null = null) {
   const { $auth } = useNuxtApp();
   const router = useRouter();
-  const {
-    setSuccessMessageWithTimeout,
-    resetMessage,
-    resetMessages,
-    setErrorMessage,
-    handleError,
-  } = useMessageHandler();
+  const { setSuccessMessageWithTimeout, resetMessage, resetMessages, handleError } =
+    useMessageHandler();
 
   const {
     validateRepeatedPassword,
@@ -44,7 +39,7 @@ export function useAuth(redirect: string | null = null) {
   });
 
   async function signUp(email: string, password: string, repeatedPassword: string) {
-    resetMessages();
+    resetMessage(errorMessage);
 
     try {
       validateCredentials(email, password);
@@ -66,7 +61,7 @@ export function useAuth(redirect: string | null = null) {
   }
 
   async function signIn(email: string, password: string): Promise<void> {
-    resetMessages();
+    resetMessage(errorMessage);
 
     try {
       validateCredentials(email, password);
