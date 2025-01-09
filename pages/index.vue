@@ -92,6 +92,10 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
     ><ProductModalOverlay :productModalProps="currentModalProps" @closeModal="closeModal"
   /></Modal>
 
+  <Modal modalName="addressModal">
+    <AddressModalOverlay />
+  </Modal>
+
   <section class="bg-amber-400 text-gray-800 min-h-screen md:min-h-min">
     <div
       class="container px-4 pt-28 mx-auto flex flex-col items-center justify-center gap-8 p-10 md:flex-row"
