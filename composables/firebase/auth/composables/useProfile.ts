@@ -12,7 +12,8 @@ export function useProfile() {
   const {
     setProfileUpdateSuccessMessage,
     setSuccessMessageWithTimeout,
-    handleAuthError,
+    handleError,
+    resetMessage,
     setErrorMessage,
   } = useMessageHandler();
 
@@ -21,8 +22,7 @@ export function useProfile() {
     userEmail: string,
     currentPassword: string
   ) {
-    errorMessage.value = null;
-    successMessage.value = null;
+    resetMessage(errorMessage);
 
     if (!validateCurrentPassword(currentPassword)) return;
     if (!user.value) return;
@@ -52,7 +52,7 @@ export function useProfile() {
 
       setProfileUpdateSuccessMessage(isEmailChanged, isDisplayNameChanged);
     } catch (error: any) {
-      handleAuthError(error.code);
+      handleError(error);
     }
   }
 
@@ -62,10 +62,6 @@ export function useProfile() {
       return false;
     }
     return true;
-  }
-
-  async function reauthenticateUser(currentPassword: string) {
-    await reauthenticate(currentPassword);
   }
 
   async function handleUpdate(
@@ -114,7 +110,9 @@ export function useProfile() {
   }
 
   async function updateUserName(userName: string) {
+    console.log('dsa');
     if (user.value) {
+      console.log('dsa');
       try {
         await updateProfile(user.value, { displayName: userName });
         console.log('Display name updated:', userName);
