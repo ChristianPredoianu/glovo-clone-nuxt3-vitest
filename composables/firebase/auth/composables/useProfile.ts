@@ -1,7 +1,7 @@
 import { updateProfile, updateEmail } from 'firebase/auth';
 import {
   successMessage,
-  authErrorMessage,
+  errorMessage,
   user,
 } from '@/composables/firebase/auth/store/authStore';
 
@@ -21,7 +21,7 @@ export function useProfile() {
     userEmail: string,
     currentPassword: string
   ) {
-    authErrorMessage.value = null;
+    errorMessage.value = null;
     successMessage.value = null;
 
     if (!validateCurrentPassword(currentPassword)) return;
@@ -106,7 +106,7 @@ export function useProfile() {
         setSuccessMessageWithTimeout('Your email has been successfully updated!');
       } catch (error) {
         console.error('Error updating email:', error);
-        authErrorMessage.value =
+        errorMessage.value =
           'Failed to update email. Please ensure the new email is valid and try again.';
         return;
       }
@@ -123,7 +123,7 @@ export function useProfile() {
         await delay(DELAY);
       } catch (error) {
         console.error('Error updating display name:', error);
-        authErrorMessage.value = 'Failed to update display name. Please try again later.';
+        errorMessage.value = 'Failed to update display name. Please try again later.';
         return;
       }
     }
