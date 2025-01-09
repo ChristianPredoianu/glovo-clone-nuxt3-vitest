@@ -1,25 +1,36 @@
 import {
   successMessage,
-  authErrorMessage,
+  errorMessage,
 } from '@/composables/firebase/auth/store/authStore';
 import { FirebaseError } from 'firebase/app';
 
 const DELAY = 2000;
 
 export function useMessageHandler() {
-  function resetMessage(messageRef: { value: string | null }) {
+  function resetSuccessMessageWithTimeout(messageRef: { value: string | null }) {
     setTimeout(() => {
       messageRef.value = null;
     }, DELAY);
   }
 
+  resetMessage(errorMessage);
+
+  function resetMessage(message: globalThis.Ref<string | null, string | null>) {
+    message.value = null;
+  }
+
+  function resetMessages() {
+    successMessage.value = null;
+    errorMessage.value = null;
+  }
+
   function setSuccessMessageWithTimeout(message: string) {
     successMessage.value = message;
-    resetMessage(successMessage);
+    resetSuccessMessageWithTimeout(successMessage);
   }
 
   function setErrorMessage(error: string) {
-    authErrorMessage.value = error;
+    errorMessage.value = error;
   }
 
   function setProfileUpdateSuccessMessage(
@@ -32,18 +43,18 @@ export function useMessageHandler() {
         : 'Profile updated successfully!';
 
     successMessage.value = message;
-    resetMessage(successMessage);
+    resetSuccessMessageWithTimeout(successMessage);
   }
 
   function setVerificationMessageError(error: any) {
     console.error('Error sending email verification:', error);
 
-    const errorMessage =
+    const errMessage =
       error.message === 'Firebase: Error (auth/too-many-requests).'
         ? ' Too many requests'
         : '';
 
-    authErrorMessage.value = `Failed to send verification email to your new email address. Please try again.${errorMessage}`;
+    errorMessage.value = `Failed to send verification email to your new email address. Please try again.${errMessage}`;
   }
 
   function handleAuthError(error: FirebaseError) {
@@ -100,6 +111,7 @@ export function useMessageHandler() {
 
   return {
     resetMessage,
+    resetMessages,
     setSuccessMessageWithTimeout,
     handleAuthError,
     setErrorMessage,
