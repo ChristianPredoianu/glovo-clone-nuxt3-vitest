@@ -58,7 +58,7 @@ onMounted(() => {
 <template>
   <section class="p-4 mt-4" v-if="fetchedFavoriteItems.length > 0">
     <div class="flex flex-col items-center md:flex-row md:justify-between mt-4">
-      <SelectDropdown
+      <DropdownSelectDropdown
         :options="mergedCategories"
         displayKey="category"
         defaultOptionText="All Categories"
