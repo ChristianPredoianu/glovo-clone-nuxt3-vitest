@@ -19,11 +19,6 @@ export function useMessageHandler() {
     message.value = null;
   }
 
-  function resetMessages() {
-    successMessage.value = null;
-    errorMessage.value = null;
-  }
-
   function setSuccessMessageWithTimeout(message: string) {
     successMessage.value = message;
     resetSuccessMessageWithTimeout(successMessage);
@@ -119,7 +114,6 @@ export function useMessageHandler() {
 
   return {
     resetMessage,
-    resetMessages,
     setSuccessMessageWithTimeout,
     handleAuthError,
     handleError,
