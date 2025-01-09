@@ -8,10 +8,18 @@ const componentMap: Record<string, typeof MyAccountForm | typeof ShippingAddress
 };
 
 const { changeComponent, currentComponent } = useDynamicComponent(MyAccountForm);
+const { user } = useAuth();
+const { $database } = useNuxtApp();
+const { writeAddressInfo } = useFirebaseAddressActions();
 
 function handleChangeComponent(menuComponent: string) {
   console.log('dsa');
   changeComponent(menuComponent, componentMap);
+}
+
+function handleUpdateShipping(address) {
+  console.log('dsa');
+  writeAddressInfo(user.value!.uid, $database, address);
 }
 </script>
 
@@ -31,8 +39,14 @@ function handleChangeComponent(menuComponent: string) {
         <h2 class="text-2xl lg:text-3xl font-semibold text-gray-800 mb-6">
           Your Account
         </h2>
-
-        <component :is="currentComponent" />
+        <component
+          :is="currentComponent"
+          @="
+            currentComponent === ShippingAddressForm
+              ? { submitForm: handleUpdateShipping }
+              : {}
+          "
+        />
       </div>
     </div>
   </div>
