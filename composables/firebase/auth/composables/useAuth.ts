@@ -9,19 +9,25 @@ import {
 import { FirebaseError } from 'firebase/app';
 import {
   successMessage,
-  authErrorMessage,
+  errorMessage,
   user,
   isAuthReady,
 } from '@/composables/firebase/auth/store/authStore';
 import { delay } from '@/composables/helpers/delay';
+import { error } from 'happy-dom/lib/PropertySymbol.js';
 
 const DELAY = 2000;
 
 export function useAuth(redirect: string | null = null) {
   const { $auth } = useNuxtApp();
   const router = useRouter();
-  const { setSuccessMessageWithTimeout, resetMessage, setErrorMessage, handleAuthError } =
-    useMessageHandler();
+  const {
+    setSuccessMessageWithTimeout,
+    resetMessage,
+    resetMessages,
+    setErrorMessage,
+    handleAuthError,
+  } = useMessageHandler();
 
   const {
     validateRepeatedPassword,
@@ -40,8 +46,7 @@ export function useAuth(redirect: string | null = null) {
   });
 
   async function signUp(email: string, password: string, repeatedPassword: string) {
-    successMessage.value = null;
-    authErrorMessage.value = null;
+    resetMessages();
 
     try {
       validateCredentials(email, password);
@@ -69,8 +74,7 @@ export function useAuth(redirect: string | null = null) {
   }
 
   async function signIn(email: string, password: string): Promise<void> {
-    successMessage.value = null;
-    authErrorMessage.value = null;
+    resetMessages();
 
     try {
       validateCredentials(email, password);
@@ -87,7 +91,7 @@ export function useAuth(redirect: string | null = null) {
     } catch (error: unknown) {
       if (error instanceof FirebaseError) {
         handleAuthError(error);
-        resetMessage(authErrorMessage);
+        resetMessage(errorMessage);
       } else {
         console.log('dsasda');
         setErrorMessage('An error occurred. Please try again later.');
@@ -96,18 +100,23 @@ export function useAuth(redirect: string | null = null) {
     }
   }
 
-  function signUserOut() {
-    authErrorMessage.value = null;
+  async function signUserOut() {
+    try {
+      resetMessage(errorMessage);
 
-    signOut($auth)
-      .then(() => {
-        console.log('User signed out successfully.');
-        user.value = null;
-        router.push('/');
-      })
-      .catch((error: FirebaseError) => {
+      await signOut($auth);
+
+      console.log('User signed out successfully.');
+      user.value = null;
+      router.push('/');
+    } catch (error) {
+      if (error instanceof FirebaseError) {
         setErrorMessage(error.message);
-      });
+      } else {
+        console.error('Unexpected error during sign-out:', error);
+        setErrorMessage('An unexpected error occurred. Please try again later.');
+      }
+    }
   }
 
   //REMEMBER YOU NEED TO MANUALLY DELETE THE USERS DATA FROM THE DATABASE
@@ -137,6 +146,6 @@ export function useAuth(redirect: string | null = null) {
     emailError,
     repeatedPasswordError,
     successMessage,
-    authErrorMessage,
+    errorMessage,
   } as const;
 }
