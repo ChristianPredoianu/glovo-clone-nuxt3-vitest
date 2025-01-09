@@ -1,7 +1,7 @@
 type DynamicComponentType = any;
 
 export default function useDynamicComponent(defaultComponent: DynamicComponentType) {
-  const currentComponent = ref<DynamicComponentType>(defaultComponent);
+  const currentComponent = shallowRef<DynamicComponentType>(defaultComponent);
 
   function changeComponent(
     componentName: string,
