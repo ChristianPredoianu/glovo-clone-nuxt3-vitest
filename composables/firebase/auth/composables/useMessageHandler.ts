@@ -57,6 +57,14 @@ export function useMessageHandler() {
     errorMessage.value = `Failed to send verification email to your new email address. Please try again.${errMessage}`;
   }
 
+  function handleError(error: unknown) {
+    error instanceof FirebaseError
+      ? handleAuthError(error)
+      : setErrorMessage('An unexpected error occurred. Please try again later.');
+
+    throw error;
+  }
+
   function handleAuthError(error: FirebaseError) {
     switch (error.code) {
       case 'auth/email-already-in-use':
@@ -114,6 +122,7 @@ export function useMessageHandler() {
     resetMessages,
     setSuccessMessageWithTimeout,
     handleAuthError,
+    handleError,
     setErrorMessage,
     setProfileUpdateSuccessMessage,
     setVerificationMessageError,
