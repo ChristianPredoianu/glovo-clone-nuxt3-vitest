@@ -2,12 +2,13 @@ import { ref as dbRef, get, push, set, update } from 'firebase/database';
 import type { IShippingAddress } from '@/types/locations';
 
 export function useFirebaseAddressActions() {
-  const errorMessage = ref<string | null>(null);
+  const { setSuccessMessageWithTimeout, resetMessage, setErrorMessage, handleAuthError } =
+    useMessageHandler();
 
   function handleError(message: string, error: any) {
     const errorDetails = error?.message || 'An unknown error occurred';
     console.error(`${message}:`, errorDetails);
-    errorMessage.value = `${message}: ${errorDetails}`;
+    setErrorMessage(`${message}: ${errorDetails}`);
   }
 
   async function fetchAddressInfo(
@@ -15,7 +16,7 @@ export function useFirebaseAddressActions() {
     database: any,
     address: IShippingAddress
   ) {
-    errorMessage.value = null;
+    setErrorMessage('');
     try {
       if (!userId) {
         throw new Error('User is not authenticated');
@@ -34,7 +35,7 @@ export function useFirebaseAddressActions() {
         address.city = fetchedAddress.city || '';
         address.country = fetchedAddress.country || '';
       } else {
-        throw new Error('No address data found');
+        throw new Error('No address information found');
       }
     } catch (error: any) {
       handleError('Error fetching address info', error);
@@ -46,7 +47,7 @@ export function useFirebaseAddressActions() {
     database: any,
     address: IShippingAddress
   ) {
-    errorMessage.value = null;
+    setErrorMessage('');
     try {
       if (!userId) {
         throw new Error('User is not authenticated');
@@ -59,6 +60,7 @@ export function useFirebaseAddressActions() {
         const newAddressRef = push(addressRef);
         await set(newAddressRef, address);
         console.log('New address added:', address);
+        setSuccessMessageWithTimeout('Address information saved successfully');
       } else {
         const existingAddresses = snapshot.val();
         const addressKey = Object.keys(existingAddresses)[0];
@@ -69,11 +71,12 @@ export function useFirebaseAddressActions() {
         );
         await update(addressToUpdateRef, address);
         console.log('Address updated at key:', addressKey);
+        setSuccessMessageWithTimeout('Address information updated successfully');
       }
     } catch (error: any) {
       handleError('Error writing address info', error);
     }
   }
 
-  return { fetchAddressInfo, writeAddressInfo, errorMessage };
+  return { fetchAddressInfo, writeAddressInfo };
 }
