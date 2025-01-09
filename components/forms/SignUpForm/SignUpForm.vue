@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import {
+  successMessage,
+  errorMessage,
+} from '@/composables/firebase/auth/store/authStore';
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 //CHANGE TO REACTIVE
 const userEmail = ref('');
 const userPassword = ref('');
 const repeatedUserPassword = ref('');
 
-const { signUp, successMessage, user, authErrorMessage } = useAuth();
+const { signUp, user } = useAuth();
 const { validateEmail, validatePassword, validateRepeatedPassword, validateCredentials } =
   useAuthValidation();
 const { emailError, passwordError, repeatedPasswordError } = useAuthValidation();
@@ -66,8 +70,8 @@ function onKeyDown(e: KeyboardEvent) {
     />
 
     <FormSubmitBtn>Sign up</FormSubmitBtn>
-    <AuthMessage
-      :authErrorMessage="authErrorMessage || undefined"
+    <FormMessage
+      :errorMessage="errorMessage || undefined"
       :successMessage="successMessage || undefined"
     />
   </form>
