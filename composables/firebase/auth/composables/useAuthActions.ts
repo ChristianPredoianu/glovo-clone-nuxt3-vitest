@@ -3,20 +3,17 @@ import {
   EmailAuthProvider,
   sendEmailVerification,
 } from 'firebase/auth';
-import { FirebaseError } from 'firebase/app';
-import { user } from '@/composables/firebase/auth/store/authStore';
+import { errorMessage, user } from '@/composables/firebase/auth/store/authStore';
 
 export function useAuthActions() {
-  const {
-    setSuccessMessageWithTimeout,
-    handleAuthError,
-    setVerificationMessageError,
-    setErrorMessage,
-  } = useMessageHandler();
+  const { setSuccessMessageWithTimeout, resetMessage, handleError, setErrorMessage } =
+    useMessageHandler();
 
   async function reauthenticate(currentPassword: string) {
+    resetMessage(errorMessage);
+
     if (!user.value) {
-      setErrorMessage('User not found. Please log in again.');
+      setErrorMessage('User not found. Please sign in again.');
       return false;
     }
     // Reauthenticate the user using their current password
@@ -24,22 +21,20 @@ export function useAuthActions() {
       user.value?.email as string,
       currentPassword
     );
+
     try {
       await reauthenticateWithCredential(user.value, credential);
       console.log('Reauthentication successful');
       return true;
     } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
-        handleAuthError(error);
-      } else {
-        console.error('Unknown error during reauthentication:', error);
-        setErrorMessage('An unexpected error occurred during reauthentication.');
-      }
+      handleError(error);
       return false;
     }
   }
 
   async function sendUserEmailVerification() {
+    resetMessage(errorMessage);
+
     if (!user.value) return;
 
     if (user.value.emailVerified) {
@@ -53,7 +48,9 @@ export function useAuthActions() {
         'A verification email has been sent to your new email address. Please verify it to complete the update.'
       );
     } catch (error: any) {
-      setVerificationMessageError(error);
+      setErrorMessage(
+        'Failed to send verification email to your new email address. Please try again.'
+      );
     }
   }
   return { reauthenticate, sendUserEmailVerification };
