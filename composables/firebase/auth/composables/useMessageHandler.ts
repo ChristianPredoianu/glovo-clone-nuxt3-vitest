@@ -13,8 +13,6 @@ export function useMessageHandler() {
     }, DELAY);
   }
 
-  resetMessage(errorMessage);
-
   function resetMessage(message: globalThis.Ref<string | null, string | null>) {
     message.value = null;
   }
@@ -39,17 +37,6 @@ export function useMessageHandler() {
 
     successMessage.value = message;
     resetSuccessMessageWithTimeout(successMessage);
-  }
-
-  function setVerificationMessageError(error: any) {
-    console.error('Error sending email verification:', error);
-
-    const errMessage =
-      error.message === 'Firebase: Error (auth/too-many-requests).'
-        ? ' Too many requests'
-        : '';
-
-    errorMessage.value = `Failed to send verification email to your new email address. Please try again.${errMessage}`;
   }
 
   function handleError(error: unknown) {
@@ -119,6 +106,5 @@ export function useMessageHandler() {
     handleError,
     setErrorMessage,
     setProfileUpdateSuccessMessage,
-    setVerificationMessageError,
   };
 }
