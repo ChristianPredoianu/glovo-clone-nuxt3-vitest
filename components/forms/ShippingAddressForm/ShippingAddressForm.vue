@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
+import { errorMessage } from '@/composables/firebase/auth/store/authStore';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
 
 onMounted(() => {
@@ -42,13 +43,14 @@ const {
   validateAllFields,
   errors,
 } = useShippingFormValidation();
-const { fetchAddressInfo, errorMessage } = useFirebaseAddressActions();
+const { fetchAddressInfo } = useFirebaseAddressActions();
 
 function onKeyDown(e: KeyboardEvent) {
   handleEnterKey(e, handleSubmit);
 }
 
 function handleSubmit(e: Event) {
+  console.log('dsa');
   e.preventDefault();
   const isFormValid = validateAllFields(address);
 
@@ -106,10 +108,10 @@ function handleSubmit(e: Event) {
     <p v-if="errors.country" class="text-red-600 text-xs mt-1">
       {{ errors.country }}
     </p>
-
     <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
-  <p :class="successMessage ? 'text-green-500' : 'text-red-500'">
-    {{ successMessage ? successMessage : errorMessage }}
-  </p>
+  <FormMessage
+    :errorMessage="errorMessage || undefined"
+    :successMessage="successMessage || undefined"
+  />
 </template>
