@@ -110,14 +110,12 @@ export function useProfile() {
   }
 
   async function updateUserName(userName: string) {
-    console.log('dsa');
     if (user.value) {
-      console.log('dsa');
       try {
         await updateProfile(user.value, { displayName: userName });
         console.log('Display name updated:', userName);
-        successMessage.value = 'Your display name has been successfully updated!';
-
+        setSuccessMessageWithTimeout('Your display name has been successfully updated!');
+        console.log(successMessage.value);
         await delay(DELAY);
       } catch (error) {
         console.error('Error updating display name:', error);
