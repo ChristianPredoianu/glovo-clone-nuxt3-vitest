@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
+import { errorMessage } from '@/composables/firebase/auth/store/authStore';
 
 const emit = defineEmits(['handleForm']);
 
@@ -8,7 +9,7 @@ const userName = ref('');
 const userEmail = ref('');
 const currentPassword = ref('');
 
-const { user, isAuthReady, successMessage, authErrorMessage } = useAuth();
+const { user, isAuthReady, successMessage } = useAuth();
 const { updateUserProfile } = useProfile();
 const {
   validateEmail,
@@ -92,7 +93,9 @@ function onKeyDown(e: KeyboardEvent) {
     <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
   <div class="mt-4 min-h-[60px]">
-    <p v-if="authErrorMessage" class="text-red-500">{{ authErrorMessage }}</p>
-    <p v-if="successMessage" class="text-green-500">{{ successMessage }}</p>
+    <FormMessage
+      :errorMessage="errorMessage || undefined"
+      :successMessage="successMessage || undefined"
+    />
   </div>
 </template>
