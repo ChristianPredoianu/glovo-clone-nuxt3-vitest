@@ -2,21 +2,21 @@ import { ref as dbRef, getDatabase, get } from 'firebase/database';
 
 import type { IItem } from '@/types/products';
 
-declare module '#app' {
+/* declare module '#app' {
   interface NuxtApp {
     $database: ReturnType<typeof getDatabase>;
   }
 }
-
+ */
 export function useFetchFavoriteItems() {
-  const fetchedFavoriteItems: Ref<IItem[]> = ref([]);
-  const isLoading = ref(false);
+  /*   const fetchedFavoriteItems: Ref<IItem[]> = ref([]);
+  const isLoading = ref(false); */
   const errorMessage = ref<string | null>(null);
 
-  const { isAuthReady, user } = useAuth();
-  const { $database } = useNuxtApp();
+  /* const { isAuthReady, user } = useAuth();
+  const { $database } = useNuxtApp(); */
 
-  function handleError(message: string, error: any) {
+  /* function handleError(message: string, error: any) {
     const errorDetails = error?.message || 'An unknown error occurred';
     console.error(`${message}:`, errorDetails);
     errorMessage.value = `${message}: ${errorDetails}`;
@@ -26,8 +26,8 @@ export function useFetchFavoriteItems() {
     if (!user.value) throw new Error('User is not authenticated');
     return dbRef($database, `users/${user.value.uid}/favoriteItems`);
   }
-
-  async function fetchFavoriteItems() {
+ */
+  /*  async function fetchFavoriteItems() {
     errorMessage.value = null;
 
     if (!isAuthReady.value) {
@@ -50,9 +50,9 @@ export function useFetchFavoriteItems() {
     } finally {
       isLoading.value = false;
     }
-  }
+  } */
 
-  async function isItemFavorite(label: string): Promise<boolean> {
+  /*   async function isItemFavorite(label: string): Promise<boolean> {
     errorMessage.value = null;
     try {
       if (!user.value || !label) {
@@ -70,13 +70,13 @@ export function useFetchFavoriteItems() {
       handleError('Error checking if item is favorite', error);
       return false;
     }
-  }
+  } */
 
-  return {
+  /*  return {
     fetchedFavoriteItems,
     isLoading,
     fetchFavoriteItems,
     isItemFavorite,
     errorMessage,
-  } as const;
+  } as const; */
 }
