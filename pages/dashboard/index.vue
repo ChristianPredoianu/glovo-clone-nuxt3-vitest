@@ -3,7 +3,7 @@ import OrdersList from '~/components/lists/OrdersList/OrdersList.vue';
 
 import ItemFavoritesListSection from '~/components/sections/ItemFavoritesListSection/ItemFavoritesListSection.vue';
 
-const { isLoading, fetchFavoriteItems } = useFetchFavoriteItems();
+const { isLoading } = useFirebaseFavoriteItemActions();
 const { isAuthReady } = useAuth();
 const { closeModal } = useModal();
 const { currentModalProps } = useModalProps();
@@ -40,7 +40,6 @@ function handleChangeComponent(menuComponent: string) {
         <SearchBar />
       </section>
       <DashboardMenu @changeComponent="handleChangeComponent" />
-
       <component :is="currentComponent" />
     </div>
   </div>
