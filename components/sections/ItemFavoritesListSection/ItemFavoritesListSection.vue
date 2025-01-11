@@ -5,7 +5,7 @@ import type { IItem } from '@/types/products';
 
 const selectedOption = ref('');
 
-const { fetchedFavoriteItems, fetchFavoriteItems } = useFetchFavoriteItems();
+const { fetchedFavoriteItems, fetchFavoriteItems } = useFirebaseFavoriteItemActions();
 const { isAuthReady } = useAuth();
 
 const filteredItems = computed(() => {
@@ -44,10 +44,13 @@ onMounted(() => {
   if (isAuthReady.value) {
     fetchFavoriteItems();
   } else {
-    watch(
+    const stopWatching = watch(
       () => isAuthReady.value,
       (ready) => {
-        if (ready) fetchFavoriteItems();
+        if (ready) {
+          fetchFavoriteItems();
+          stopWatching();
+        }
       },
       { immediate: true }
     );
