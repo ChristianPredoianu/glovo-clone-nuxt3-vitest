@@ -16,11 +16,15 @@ const { openModal } = useModal();
 const { isLoaded } = useIsLoaded();
 const { writeFavoriteUserItemData, deleteFavoriteUserItemData } =
   useFirebaseFavoriteItemActions();
-const { isItemFavorite } = useFetchFavoriteItems();
+const { isItemFavorite } = useFirebaseFavoriteItemActions();
+
+const canCheckFavorite = computed(
+  () => user.value && props.mealItem && props.mealItem.label
+);
 
 onMounted(() => {
   watchEffect(async () => {
-    if (user.value && props.mealItem && props.mealItem.label) {
+    if (canCheckFavorite.value) {
       const favoriteStatus = await isItemFavorite(props.mealItem.label);
       isFavorite.value = favoriteStatus;
     }
