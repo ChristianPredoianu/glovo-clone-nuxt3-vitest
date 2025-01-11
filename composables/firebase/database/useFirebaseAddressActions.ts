@@ -18,9 +18,7 @@ export function useFirebaseAddressActions() {
   ) {
     setErrorMessage('');
     try {
-      if (!userId) {
-        throw new Error('User is not authenticated');
-      }
+      if (!userId) throw new Error('User is not authenticated');
 
       const addressRef = dbRef(database, `users/${userId}/address`);
       const snapshot = await get(addressRef);
@@ -49,9 +47,7 @@ export function useFirebaseAddressActions() {
   ) {
     setErrorMessage('');
     try {
-      if (!userId) {
-        throw new Error('User is not authenticated');
-      }
+      if (!userId) throw new Error('User is not authenticated');
 
       const addressRef = dbRef(database, `users/${userId}/address`);
       const snapshot = await get(addressRef);
