@@ -43,9 +43,8 @@ export function useAuth(redirect: string | null = null) {
     try {
       validateCredentials(email, password);
 
-      if (!validateRepeatedPassword(password, repeatedPassword)) {
+      if (!validateRepeatedPassword(password, repeatedPassword))
         throw new Error('Password and repeated password do not match');
-      }
 
       const userCredential = await createUserWithEmailAndPassword($auth, email, password);
       const user = userCredential.user;
@@ -97,9 +96,7 @@ export function useAuth(redirect: string | null = null) {
   async function deleteUserWithReauthentication(email: string, password: string) {
     try {
       const user = $auth.currentUser;
-      if (!user) {
-        throw new Error('No user is currently signed in.');
-      }
+      if (!user) throw new Error('No user is currently signed in.');
 
       const credential = EmailAuthProvider.credential(email, password);
       await reauthenticateWithCredential(user, credential);
