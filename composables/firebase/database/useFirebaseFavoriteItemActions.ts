@@ -29,9 +29,7 @@ export function useFirebaseFavoriteItemActions() {
   async function fetchFavoriteItems() {
     errorMessage.value = null;
 
-    if (!isAuthReady.value) {
-      return;
-    }
+    if (!isAuthReady.value) return;
 
     isLoading.value = true;
     try {
