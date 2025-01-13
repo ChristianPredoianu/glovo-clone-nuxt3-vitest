@@ -100,11 +100,10 @@ function handleSubmit(e: Event) {
     <p v-if="errors.country" class="text-red-600 text-xs mt-1">
       {{ errors.country }}
     </p>
-    <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
+    <FormMessage
+      :errorMessage="errorMessage || undefined"
+      :successMessage="successMessage || undefined"
+    />
+    <FormSubmitBtn class="mt-4">Update</FormSubmitBtn>
   </form>
-  <!-- <FormSubmitBtn class="mt-2">Place order</FormSubmitBtn> -->
-  <FormMessage
-    :errorMessage="errorMessage || undefined"
-    :successMessage="successMessage || undefined"
-  />
 </template>
