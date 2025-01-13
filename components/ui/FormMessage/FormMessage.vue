@@ -7,7 +7,7 @@ const props = defineProps({
 
 <template>
   <p
-    class="my-1 text-sm font-semibold"
+    class="h-10 my-1 text-sm font-semibold"
     :class="errorMessage ? 'text-red-500' : 'text-green-500'"
   >
     {{ errorMessage || successMessage }}
