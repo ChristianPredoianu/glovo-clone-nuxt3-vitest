@@ -60,6 +60,18 @@ export function useFirebaseAddressActions() {
       } else {
         const existingAddresses = snapshot.val();
         const addressKey = Object.keys(existingAddresses)[0];
+        const existingAddress = existingAddresses[addressKey];
+
+        const hasChanges = Object.keys(address).some(
+          (key) => address[key as keyof IShippingAddress] !== existingAddress[key]
+        );
+
+        if (!hasChanges) {
+          setErrorMessage(
+            'No changes detected, update the fields if you want to update your address.'
+          );
+          return;
+        }
 
         const addressToUpdateRef = dbRef(
           database,
