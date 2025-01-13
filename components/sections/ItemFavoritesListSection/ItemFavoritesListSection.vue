@@ -5,7 +5,8 @@ import type { IItem } from '@/types/products';
 
 const selectedOption = ref('');
 
-const { fetchedFavoriteItems, fetchFavoriteItems } = useFirebaseFavoriteItemActions();
+const { fetchedFavoriteItems, isLoading, fetchFavoriteItems } =
+  useFirebaseFavoriteItemActions();
 const { isAuthReady } = useAuth();
 
 const filteredItems = computed(() => {
@@ -59,6 +60,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <LoadingSpinner v-if="isLoading" />
   <section class="p-4 mt-4" v-if="fetchedFavoriteItems.length > 0">
     <div class="flex flex-col items-center md:flex-row md:justify-between mt-4">
       <DropdownSelectDropdown
