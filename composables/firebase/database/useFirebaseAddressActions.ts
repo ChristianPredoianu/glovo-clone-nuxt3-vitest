@@ -2,7 +2,7 @@ import { ref as dbRef, get, push, set, update } from 'firebase/database';
 import type { IShippingAddress } from '@/types/locations';
 
 export function useFirebaseAddressActions() {
-  const { setSuccessMessageWithTimeout, resetMessage, setErrorMessage, handleAuthError } =
+  const { setSuccessMessageWithTimeout, resetMessage, setErrorMessage } =
     useMessageHandler();
 
   function handleError(message: string, error: any) {
