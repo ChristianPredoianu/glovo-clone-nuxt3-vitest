@@ -22,8 +22,6 @@ const product = computed(() => {
   };
 });
 
-console.log(product.value);
-
 function handleAddToCart(product: IMealModalProps) {
   startProgressBar();
   addToCart(product);
