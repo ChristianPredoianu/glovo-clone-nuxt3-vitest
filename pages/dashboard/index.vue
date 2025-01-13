@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import OrdersList from '~/components/lists/OrdersList/OrdersList.vue';
-
-import ItemFavoritesListSection from '~/components/sections/ItemFavoritesListSection/ItemFavoritesListSection.vue';
+import OrdersListSection from '@/components/sections/OrdersListSection/OrdersListSection.vue';
+import ItemFavoritesListSection from '@/components/sections/ItemFavoritesListSection/ItemFavoritesListSection.vue';
 
 const { isLoading } = useFirebaseFavoriteItemActions();
 const { isAuthReady } = useAuth();
@@ -11,13 +10,16 @@ const { currentComponent, changeComponent } = useDynamicComponent(
   ItemFavoritesListSection
 );
 
-const componentMap: Record<string, typeof ItemFavoritesListSection | typeof OrdersList> =
-  {
-    ItemFavoritesListSection,
-    OrdersList,
-  };
+const componentMap: Record<
+  string,
+  typeof ItemFavoritesListSection | typeof OrdersListSection
+> = {
+  ItemFavoritesListSection,
+  OrdersListSection,
+};
 
 function handleChangeComponent(menuComponent: string) {
+  console.log(menuComponent);
   changeComponent(menuComponent, componentMap);
 }
 </script>
