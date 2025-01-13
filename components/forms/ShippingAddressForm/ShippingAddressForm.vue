@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
-import { errorMessage } from '@/composables/firebase/auth/store/authStore';
+import {
+  errorMessage,
+  successMessage,
+} from '@/composables/firebase/auth/store/authStore';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
 
 onMounted(() => {
@@ -14,17 +17,6 @@ onMounted(() => {
 });
 
 const emit = defineEmits(['submitForm', 'handleForm']);
-
-const props = defineProps({
-  successMessage: {
-    type: [String, null],
-    required: false,
-  },
-  errorMessage: {
-    type: [String, null],
-    required: false,
-  },
-});
 
 const address = reactive({
   streetAndHouseNumber: '',
@@ -110,6 +102,7 @@ function handleSubmit(e: Event) {
     </p>
     <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
+  <!-- <FormSubmitBtn class="mt-2">Place order</FormSubmitBtn> -->
   <FormMessage
     :errorMessage="errorMessage || undefined"
     :successMessage="successMessage || undefined"
