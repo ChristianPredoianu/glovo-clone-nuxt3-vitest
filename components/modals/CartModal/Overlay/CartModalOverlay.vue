@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { numberOfCartProducts, cartProducts, updatedTotalPrice } = useCart();
+const { numberOfCartProducts, updatedTotalPrice } = useCart();
 defineEmits(['closeModal']);
 
 const { user } = useAuth();
@@ -9,16 +9,11 @@ const orderText = computed(() => {
   return `Order ${numberOfCartProducts.value} for ${updatedTotalPrice.value} $`;
 });
 
-async function placeOrder() {
-  console.log('dsa');
+function placeOrder() {
   if (!user.value) {
     closeModal();
     openModal('signIn');
   } else {
-    const order = {
-      products: cartProducts.value,
-      totalPrice: updatedTotalPrice.value,
-    };
     closeModal();
     openModal('addressModal');
   }
