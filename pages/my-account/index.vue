@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import MyAccountForm from '@/components/forms/MyAccountForm/MyAccountForm.vue';
 import ShippingAddressForm from '@/components/forms/ShippingAddressForm/ShippingAddressForm.vue';
+import type { IShippingAddress } from '@/types/locations';
 
 const componentMap: Record<string, typeof MyAccountForm | typeof ShippingAddressForm> = {
   MyAccountForm,
@@ -17,8 +18,7 @@ function handleChangeComponent(menuComponent: string) {
   changeComponent(menuComponent, componentMap);
 }
 
-function handleUpdateShipping(address) {
-  console.log('dsa');
+function handleUpdateShipping(address: IShippingAddress) {
   writeAddressInfo(user.value!.uid, $database, address);
 }
 </script>
