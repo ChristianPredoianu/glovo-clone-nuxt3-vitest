@@ -102,7 +102,6 @@ export function useAuth(redirect: string | null = null) {
       await reauthenticateWithCredential(user, credential);
 
       await user.delete();
-      console.log('User reauthenticated and deleted successfully.');
     } catch (error: any) {
       console.error('Error reauthenticating or deleting user:', error.message);
     }
