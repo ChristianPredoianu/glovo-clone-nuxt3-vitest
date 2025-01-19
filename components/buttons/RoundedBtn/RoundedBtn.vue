@@ -7,7 +7,7 @@ const props = defineProps({
 
 const { isLoaded } = useIsLoaded();
 
-const emits = defineEmits(['emitClick']);
+const emit = defineEmits(['emitClick']);
 </script>
 
 <template>
@@ -18,7 +18,7 @@ const emits = defineEmits(['emitClick']);
       data-test="fa-icon"
       class="bg-orange-200 p-2 rounded-full text-gray-600 cursor-pointer h-4 w-4"
       :class="[props.backCol]"
-      @click="emits('emitClick')"
+      @click="emit('emitClick')"
     />
     <p class="text-center font-semibold">{{ props.text }}</p>
   </button>
