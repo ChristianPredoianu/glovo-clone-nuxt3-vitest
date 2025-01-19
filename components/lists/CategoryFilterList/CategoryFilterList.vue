@@ -2,7 +2,7 @@
 import type { IFakeStoreCategories } from '@/types/products';
 import type { ICuisineType } from '@/types/meals';
 
-const emits = defineEmits(['emitSelected']);
+const emit = defineEmits(['emitSelected']);
 
 const { filters } = useFilter();
 
@@ -11,7 +11,7 @@ const { getCategoryName } = useFilter();
 
 function handleClick(selectedFilter: IFakeStoreCategories | ICuisineType) {
   const categoryName = getCategoryName(selectedFilter);
-  emits('emitSelected', selectedFilter);
+  emit('emitSelected', selectedFilter);
   setActive(categoryName);
 }
 </script>
