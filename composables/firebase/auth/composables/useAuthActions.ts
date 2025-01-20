@@ -3,11 +3,16 @@ import {
   EmailAuthProvider,
   sendEmailVerification,
 } from 'firebase/auth';
-import { errorMessage, user } from '@/composables/firebase/auth/store/authStore';
+import { user } from '@/composables/firebase/auth/store/authStore';
 
 export function useAuthActions() {
-  const { setSuccessMessageWithTimeout, resetMessage, handleError, setErrorMessage } =
-    useMessageHandler();
+  const {
+    errorMessage,
+    setSuccessMessageWithTimeout,
+    resetMessage,
+    handleError,
+    setErrorMessage,
+  } = useMessageHandler();
 
   async function reauthenticate(currentPassword: string) {
     resetMessage(errorMessage);
