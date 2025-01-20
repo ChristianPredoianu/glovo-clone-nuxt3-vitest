@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import {
-  successMessage,
-  errorMessage,
-} from '@/composables/firebase/auth/store/authStore';
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 //CHANGE TO REACTIVE
 const userEmail = ref('');
@@ -18,6 +14,7 @@ const {
   validatePassword,
   validateCredentials,
 } = useAuthValidation();
+const { successMessage, errorMessage } = useMessageHandler();
 const { closeModal } = useModal();
 
 async function handleSignIn(e: Event) {
