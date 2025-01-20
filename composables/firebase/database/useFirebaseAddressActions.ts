@@ -2,8 +2,7 @@ import { ref as dbRef, get, push, set, update } from 'firebase/database';
 import type { IShippingAddress } from '@/types/locations';
 
 export function useFirebaseAddressActions() {
-  const { setSuccessMessageWithTimeout, resetMessage, setErrorMessage } =
-    useMessageHandler();
+  const { setSuccessMessageWithTimeout, setErrorMessage } = useMessageHandler();
 
   function handleError(message: string, error: any) {
     const errorDetails = error?.message || 'An unknown error occurred';
