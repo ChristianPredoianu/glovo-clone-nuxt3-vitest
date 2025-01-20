@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import {
-  successMessage,
-  errorMessage,
-} from '@/composables/firebase/auth/store/authStore';
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 //CHANGE TO REACTIVE
 const userEmail = ref('');
@@ -14,6 +10,7 @@ const { validateEmail, validatePassword, validateRepeatedPassword, validateCrede
   useAuthValidation();
 const { emailError, passwordError, repeatedPasswordError } = useAuthValidation();
 const { closeModal } = useModal();
+const { successMessage, errorMessage } = useMessageHandler();
 
 async function handleSignUserUp(e: Event) {
   e.preventDefault();
