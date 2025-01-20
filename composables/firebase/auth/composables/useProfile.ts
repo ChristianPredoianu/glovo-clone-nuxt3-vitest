@@ -1,15 +1,13 @@
 import { updateProfile, updateEmail } from 'firebase/auth';
-import {
-  successMessage,
-  errorMessage,
-  user,
-} from '@/composables/firebase/auth/store/authStore';
+import { user } from '@/composables/firebase/auth/store/authStore';
 
 const DELAY = 2000;
 
 export function useProfile() {
   const { reauthenticate, sendUserEmailVerification } = useAuthActions();
   const {
+    successMessage,
+    errorMessage,
     setProfileUpdateSuccessMessage,
     setSuccessMessageWithTimeout,
     handleError,
