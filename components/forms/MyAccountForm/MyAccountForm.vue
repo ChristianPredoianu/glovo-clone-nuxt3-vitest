@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
-import { errorMessage } from '@/composables/firebase/auth/store/authStore';
 
 const emit = defineEmits(['handleForm']);
 
@@ -19,6 +18,7 @@ const {
   passwordError,
   userNameError,
 } = useAuthValidation();
+const { errorMessage } = useMessageHandler();
 
 async function handleUpdateProfile(e: Event) {
   e.preventDefault();
