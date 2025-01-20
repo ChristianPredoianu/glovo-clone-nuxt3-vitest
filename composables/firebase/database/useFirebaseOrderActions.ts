@@ -1,17 +1,18 @@
-import { ref as dbRef, get, push, set, update } from 'firebase/database';
+import { ref as dbRef, get, push, set } from 'firebase/database';
+import {
+  fetchedOrders,
+  isLoading,
+} from '@/composables/firebase/database/store/databaseStore';
 import type { IOrder } from '@/types/cart/IOrder';
 
 export function useFirebaseOrderActions() {
-  const fetchedOrders = ref<IOrder[]>([]);
-  const isLoading = ref<boolean>(false);
-
-  const { setSuccessMessageWithTimeout, handleError, setErrorMessage, handleAuthError } =
+  const { setSuccessMessageWithTimeout, errorMessage, handleError, resetMessage } =
     useMessageHandler();
   const { isAuthReady, user } = useAuth();
   const { $database } = useNuxtApp();
 
   async function fetchOrders(): Promise<void> {
-    setErrorMessage('');
+    resetMessage(errorMessage);
 
     if (!isAuthReady.value) return;
 
@@ -31,7 +32,7 @@ export function useFirebaseOrderActions() {
 
       const orders = snapshot.val();
       fetchedOrders.value = Object.keys(orders).map((key) => ({
-        id: key, // Include the order's unique key as an `id` field
+        id: key,
         ...orders[key],
       })) as IOrder[];
 
@@ -46,7 +47,7 @@ export function useFirebaseOrderActions() {
   }
 
   async function writeOrderDetails(order: IOrder) {
-    setErrorMessage('');
+    resetMessage(errorMessage);
 
     try {
       if (!user.value) throw new Error('User is not authenticated');
