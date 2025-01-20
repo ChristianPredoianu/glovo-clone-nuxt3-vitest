@@ -1,12 +1,11 @@
-import {
-  successMessage,
-  errorMessage,
-} from '@/composables/firebase/auth/store/authStore';
 import { FirebaseError } from 'firebase/app';
 
 const DELAY = 2000;
 
 export function useMessageHandler() {
+  const successMessage = ref<string | null>(null);
+  const errorMessage = ref<string | null>(null);
+
   function resetSuccessMessageWithTimeout(messageRef: { value: string | null }) {
     setTimeout(() => {
       messageRef.value = null;
@@ -100,6 +99,8 @@ export function useMessageHandler() {
   }
 
   return {
+    successMessage,
+    errorMessage,
     resetMessage,
     setSuccessMessageWithTimeout,
     handleAuthError,
