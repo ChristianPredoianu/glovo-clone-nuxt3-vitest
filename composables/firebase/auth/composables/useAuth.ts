@@ -6,12 +6,7 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential,
 } from 'firebase/auth';
-import {
-  successMessage,
-  errorMessage,
-  user,
-  isAuthReady,
-} from '@/composables/firebase/auth/store/authStore';
+import { user, isAuthReady } from '@/composables/firebase/auth/store/authStore';
 import { delay } from '@/composables/helpers/delay';
 
 const DELAY = 2000;
@@ -19,7 +14,13 @@ const DELAY = 2000;
 export function useAuth(redirect: string | null = null) {
   const { $auth } = useNuxtApp();
   const router = useRouter();
-  const { setSuccessMessageWithTimeout, resetMessage, handleError } = useMessageHandler();
+  const {
+    successMessage,
+    errorMessage,
+    setSuccessMessageWithTimeout,
+    resetMessage,
+    handleError,
+  } = useMessageHandler();
 
   const {
     validateRepeatedPassword,
