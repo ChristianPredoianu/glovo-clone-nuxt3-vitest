@@ -8,8 +8,6 @@ declare module '#app' {
 
 export const user = ref<User | null>(null);
 export const isAuthReady = ref(false);
-export const successMessage = ref<string | null>(null);
-export const errorMessage = ref<string | null>(null);
 export const userNameError = ref('');
 export const emailError = ref<string | null>(null);
 export const passwordError = ref<string | null>(null);
