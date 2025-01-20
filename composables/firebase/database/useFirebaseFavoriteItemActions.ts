@@ -1,4 +1,8 @@
 import { ref as dbRef, get, push, set, remove, getDatabase } from 'firebase/database';
+import {
+  fetchedFavoriteItems,
+  isLoading,
+} from '@/composables/firebase/database/store/databaseStore';
 import type { IItem } from '@/types/products/IItem';
 
 declare module '#app' {
@@ -7,18 +11,17 @@ declare module '#app' {
   }
 }
 
-export function useFirebaseFavoriteItemActions() {
-  const fetchedFavoriteItems: Ref<IItem[]> = ref([]);
-  const isLoading = ref(false);
-  const errorMessage = ref<string | null>(null);
+const { setErrorMessage, resetMessage } = useMessageHandler();
 
-  const { isAuthReady, user } = useAuth();
+export function useFirebaseFavoriteItemActions() {
   const { $database } = useNuxtApp();
+  const { isAuthReady, user } = useAuth();
+  const { errorMessage } = useMessageHandler();
 
   function handleError(message: string, error: any) {
     const errorDetails = error.message || 'An unknown error occurred';
     console.error(`${message}:`, errorDetails);
-    errorMessage.value = `${message}: ${errorDetails}`;
+    setErrorMessage(`${message}: ${errorDetails}`);
   }
 
   function getFavoriteItemRef() {
@@ -27,6 +30,7 @@ export function useFirebaseFavoriteItemActions() {
   }
 
   async function fetchFavoriteItems() {
+    resetMessage(errorMessage);
     errorMessage.value = null;
 
     if (!isAuthReady.value) return;
