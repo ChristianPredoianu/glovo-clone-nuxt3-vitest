@@ -27,7 +27,7 @@ const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange 
 <template>
   <LoadingSpinner v-if="isLoading" />
 
-  <section class="p-4 mt-4" v-if="fetchedOrders.length > 0">
+  <section v-if="fetchedOrders.length > 0">
     <div class="flex flex-col items-center md:flex-row md:justify-between mt-4">
       <Pagination
         v-if="displayedItems.length > 0"
