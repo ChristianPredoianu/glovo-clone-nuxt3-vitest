@@ -23,24 +23,6 @@ const filteredItemsRef = ref<IItem[]>(filteredItems.value);
 const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange } =
   usePagination(filteredItemsRef, 5);
 
-const mergedCategories = [
-  { category: 'All Categories' },
-  ...cuisineTypes.map(({ cuisineType }) => ({
-    category: capitalizeFirstLetter(cuisineType),
-  })),
-  ...fakeStoreCategories.map(({ category }) => ({
-    category: capitalizeFirstLetter(category),
-  })),
-];
-
-function emitSelected(option: string) {
-  selectedOption.value = option;
-}
-
-watch(filteredItems, (newFilteredItems) => {
-  filteredItemsRef.value = newFilteredItems;
-});
-
 onMounted(() => {
   if (isAuthReady.value) {
     fetchFavoriteItems();
@@ -57,11 +39,29 @@ onMounted(() => {
     );
   }
 });
+
+watch(filteredItems, (newFilteredItems) => {
+  filteredItemsRef.value = newFilteredItems;
+});
+
+const mergedCategories = [
+  { category: 'All Categories' },
+  ...cuisineTypes.map(({ cuisineType }) => ({
+    category: capitalizeFirstLetter(cuisineType),
+  })),
+  ...fakeStoreCategories.map(({ category }) => ({
+    category: capitalizeFirstLetter(category),
+  })),
+];
+
+function emitSelected(option: string) {
+  selectedOption.value = option;
+}
 </script>
 
 <template>
   <LoadingSpinner v-if="isLoading" />
-  <section class="p-4 mt-4" v-if="fetchedFavoriteItems.length > 0">
+  <section v-if="fetchedFavoriteItems.length > 0">
     <div class="flex flex-col items-center md:flex-row md:justify-between mt-4">
       <DropdownSelectDropdown
         :options="mergedCategories"
