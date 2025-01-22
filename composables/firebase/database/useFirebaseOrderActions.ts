@@ -25,7 +25,6 @@ export function useFirebaseOrderActions() {
       const snapshot = await get(ordersRef);
 
       if (!snapshot.exists()) {
-        console.log('No orders found for this user.');
         fetchedOrders.value = [];
         return;
       }
@@ -35,8 +34,6 @@ export function useFirebaseOrderActions() {
         id: key,
         ...orders[key],
       })) as IOrder[];
-
-      console.log('Fetched orders:', fetchedOrders.value);
     } catch (error: any) {
       console.error('Error fetching orders:', error.message);
       handleError(`Error fetching orders: ${error.message}`);
@@ -57,7 +54,6 @@ export function useFirebaseOrderActions() {
       const newOrderRef = push(ordersRef);
       await set(newOrderRef, order);
 
-      console.log('New order added:', order);
       setSuccessMessageWithTimeout('Order information saved successfully');
     } catch (error: any) {
       console.error('Error writing order details:', error.message);
