@@ -6,7 +6,6 @@ const DELAY = 2000;
 export function useProfile() {
   const { reauthenticate, sendUserEmailVerification } = useAuthActions();
   const {
-    successMessage,
     errorMessage,
     setProfileUpdateSuccessMessage,
     setSuccessMessageWithTimeout,
