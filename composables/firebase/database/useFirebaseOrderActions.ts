@@ -10,6 +10,7 @@ export function useFirebaseOrderActions() {
     useMessageHandler();
   const { isAuthReady, user } = useAuth();
   const { $database } = useNuxtApp();
+  const { closeModal } = useModal();
 
   async function fetchOrders(): Promise<void> {
     resetMessage(errorMessage);
