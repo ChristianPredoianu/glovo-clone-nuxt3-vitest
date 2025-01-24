@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
+import {
+  successMessage,
+  errorMessage,
+} from '@/composables/firebase/store/messagehandlerStore';
 
 onMounted(() => {
   watch(
@@ -24,7 +28,6 @@ const address = reactive({
 const { isAuthReady } = useAuth();
 const { user } = useAuth();
 const { $database } = useNuxtApp();
-const { successMessage, errorMessage } = useMessageHandler();
 const {
   validateStreetAndHouseNumber,
   validateEuropeanZipCode,
