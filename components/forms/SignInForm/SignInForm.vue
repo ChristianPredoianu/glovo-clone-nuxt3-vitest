@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
+import {
+  successMessage,
+  errorMessage,
+} from '@/composables/firebase/store/messagehandlerStore';
 //CHANGE TO REACTIVE
 const userEmail = ref('');
 const userPassword = ref('');
@@ -14,18 +18,17 @@ const {
   validatePassword,
   validateCredentials,
 } = useAuthValidation();
-const { successMessage, errorMessage } = useMessageHandler();
 const { closeModal } = useModal();
 
 async function handleSignIn(e: Event) {
   e.preventDefault();
   console.log('Sign in attempt with email:', userEmail.value);
   validateCredentials(userEmail.value, userPassword.value);
+  console.log(errorMessage.value);
   signIn(userEmail.value, userPassword.value).then(() => {
     console.log('Sign-in successful!');
-    if (user.value !== null) {
-      closeModal();
-    }
+
+    if (user.value !== null) closeModal();
   });
 }
 
