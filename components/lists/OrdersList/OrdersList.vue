@@ -16,18 +16,41 @@ function toggleExpand(id: string | number) {
 </script>
 
 <template>
-  <ul>
+  <ul class="flex flex-col space-y-2">
     <li
       v-for="order in orderedItems"
       :key="order.id"
-      :class="{ expanded: expanded === order.id }"
+      class="border rounded-xl p-2 cursor-pointer font-medium overflow-hidden"
       @click="toggleExpand(order.id!)"
     >
-      {{ order.id }}
-      <div v-if="expanded === order.id" class="expanded-content">
-        <!-- Content to display when the li is expanded -->
-        More details about the order:
+      <div>
+        {{ order.id }}
       </div>
+      <transition name="expand">
+        <div v-if="expanded === order.id" class="font-normal overflow-hidden">
+          <!-- Content to display when the li is expanded -->
+          More details about the order:
+        </div>
+      </transition>
     </li>
   </ul>
 </template>
+
+<style scoped>
+.expand-enter-active,
+.expand-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+
+.expand-enter-to,
+.expand-leave-from {
+  max-height: 500px;
+  opacity: 1;
+}
+</style>
