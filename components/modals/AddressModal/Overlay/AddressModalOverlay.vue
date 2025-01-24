@@ -38,9 +38,4 @@ async function placeOrder() {
 <template>
   <ShippingAddressForm @submitForm="handleUpdateShipping" />
   <FormSubmitBtn class="mt-2" @click="placeOrder">Place order</FormSubmitBtn>
-  <FormMessage
-    :errorMessage="errorMessage || undefined"
-    :successMessage="successMessage || undefined"
-  />
-  {{ successMessage }}
 </template>
