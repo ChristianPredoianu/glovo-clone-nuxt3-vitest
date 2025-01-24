@@ -10,13 +10,9 @@ const orderText = computed(() => {
 });
 
 function placeOrder() {
-  if (!user.value) {
-    closeModal();
-    openModal('signIn');
-  } else {
-    closeModal();
-    openModal('addressModal');
-  }
+  closeModal();
+
+  !user.value ? openModal('signin') : openModal('addressModal');
 }
 </script>
 
