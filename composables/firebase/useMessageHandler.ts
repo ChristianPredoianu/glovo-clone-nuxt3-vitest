@@ -3,9 +3,6 @@ import { successMessage, errorMessage } from './store/messagehandlerStore';
 export const DELAY = 2000;
 
 export function useMessageHandler() {
-  /*   const successMessage = ref<string | null>(null);
-  const errorMessage = ref<string | null>(null); */
-
   function resetSuccessMessageWithTimeout(messageRef: { value: string | null }) {
     setTimeout(() => {
       messageRef.value = null;
