@@ -37,7 +37,9 @@ const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange 
         @pageChanged="handlePageChange"
       />
     </div>
-    <OrdersList :orderedItems="displayedItems" />
+    <div class="mt-6">
+      <OrdersList :orderedItems="displayedItems" />
+    </div>
     <h2 v-if="displayedItems.length === 0" class="text-xl font-semibold text-center">
       You don't have any favorites in this category
     </h2>
