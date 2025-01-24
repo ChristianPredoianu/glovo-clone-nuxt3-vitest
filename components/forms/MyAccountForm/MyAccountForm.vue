@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
-
+import { errorMessage } from '@/composables/firebase/store/messagehandlerStore';
 const emit = defineEmits(['handleForm']);
 
 //CHANGE TO RREACTIVE
@@ -18,7 +18,6 @@ const {
   passwordError,
   userNameError,
 } = useAuthValidation();
-const { errorMessage } = useMessageHandler();
 
 async function handleUpdateProfile(e: Event) {
   e.preventDefault();
