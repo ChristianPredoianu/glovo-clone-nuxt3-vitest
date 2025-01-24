@@ -39,7 +39,7 @@ function toggleExpand(id: string | number) {
 <style scoped>
 .expand-enter-active,
 .expand-leave-active {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in;
 }
 
 .expand-enter-from,
