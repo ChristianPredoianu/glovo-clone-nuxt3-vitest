@@ -26,7 +26,6 @@ const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange 
 
 <template>
   <LoadingSpinner v-if="isLoading" />
-
   <section v-if="fetchedOrders.length > 0">
     <div class="flex flex-col items-center md:flex-row md:justify-between mt-4">
       <Pagination
@@ -41,7 +40,7 @@ const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange 
       <OrdersList :orderedItems="displayedItems" />
     </div>
     <h2 v-if="displayedItems.length === 0" class="text-xl font-semibold text-center">
-      You don't have any favorites in this category
+      You don't have any orders.
     </h2>
   </section>
 </template>
