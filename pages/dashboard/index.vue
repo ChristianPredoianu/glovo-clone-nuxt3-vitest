@@ -4,8 +4,6 @@ import ItemFavoritesListSection from '@/components/sections/ItemFavoritesListSec
 
 const { isLoading } = useFirebaseFavoriteItemActions();
 const { isAuthReady } = useAuth();
-const { closeModal } = useModal();
-const { currentModalProps } = useModalProps();
 const { currentComponent, changeComponent } = useDynamicComponent(
   ItemFavoritesListSection
 );
@@ -25,11 +23,8 @@ function handleChangeComponent(menuComponent: string) {
 </script>
 
 <template>
-  <Modal modalName="productModal">
-    <ProductModalOverlay
-      :productModalProps="currentModalProps"
-      @closeModal="closeModal"
-    />
+  <Modal modalName="addressModal">
+    <AddressModalOverlay />
   </Modal>
   <div v-if="isAuthReady" class="min-h-screen">
     <LoadingSpinner v-if="isLoading" />
