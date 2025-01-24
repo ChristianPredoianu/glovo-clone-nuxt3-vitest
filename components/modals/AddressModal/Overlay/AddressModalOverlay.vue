@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import {
-  successMessage,
-  errorMessage,
-} from '@/composables/firebase/store/messagehandlerStore';
 import { DELAY } from '@/composables/firebase/useMessageHandler';
 import type { IShippingAddress } from '@/types/locations';
 
