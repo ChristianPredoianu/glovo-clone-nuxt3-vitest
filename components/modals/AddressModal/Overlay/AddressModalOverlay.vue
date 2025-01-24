@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import {
+  successMessage,
+  errorMessage,
+} from '@/composables/firebase/store/messagehandlerStore';
+import { DELAY } from '@/composables/firebase/useMessageHandler';
 import type { IShippingAddress } from '@/types/locations';
 
 const { user } = useAuth();
@@ -6,20 +11,26 @@ const { $database } = useNuxtApp();
 const { writeAddressInfo } = useFirebaseAddressActions();
 const { writeOrderDetails } = useFirebaseOrderActions();
 const { numberOfCartProducts, cartProducts, updatedTotalPrice } = useCart();
-const { successMessage, errorMessage } = useMessageHandler();
+const { closeModal } = useModal();
 
 function handleUpdateShipping(address: IShippingAddress) {
   writeAddressInfo(user.value!.uid, $database, address);
 }
 
-function placeOrder() {
+async function placeOrder() {
   const order = {
     products: cartProducts.value,
     totalPrice: updatedTotalPrice.value,
     numberOfProducts: numberOfCartProducts.value,
   };
 
-  writeOrderDetails(order);
+  await writeOrderDetails(order);
+
+  cartProducts.value = [];
+
+  setTimeout(() => {
+    closeModal();
+  }, DELAY);
   console.log(order);
 }
 </script>
