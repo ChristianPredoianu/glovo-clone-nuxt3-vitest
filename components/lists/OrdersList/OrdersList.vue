@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { replaceRecipeText } from '@/composables/helpers/replaceRecipeText';
 import type { IOrder } from '@/types/cart/IOrder';
 
 const props = defineProps({
@@ -10,6 +11,22 @@ const props = defineProps({
 
 const expanded = ref<string | number | null>(null);
 
+const formattedDate = computed(() => {
+  const date = new Date();
+  date.setDate(date.getDate() + 2);
+
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
+  return date.toLocaleDateString('en-US', options);
+});
+
+const { isLoaded } = useIsLoaded();
+
 function toggleExpand(id: string | number) {
   expanded.value = expanded.value === id ? null : id;
 }
@@ -20,7 +37,7 @@ function toggleExpand(id: string | number) {
     <li
       v-for="order in orderedItems"
       :key="order.id"
-      class="border border-gray-200 rounded-xl p-4 shadow-sm cursor-pointer transition-transform duration-200 hover:scale-105"
+      class="border-2 border-gray-300 rounded-xl p-4 shadow-sm cursor-pointer transition-transform duration-200"
       @click="toggleExpand(order.id!)"
     >
       <!-- Order Header -->
@@ -34,25 +51,46 @@ function toggleExpand(id: string | number) {
           v-if="expanded === order.id"
           class="border-t border-gray-200 mt-4 pt-4 space-y-4"
         >
+          <div class="flex items-center justify-between">
+            <div
+              class="inline-flex items-center gap-2 border rounded-md border-gray-200 p-2"
+            >
+              <p>Our warehouse</p>
+              <font-awesome-icon
+                :icon="['fa', 'fa-truck-fast']"
+                data-test="fa-shipping"
+                v-if="isLoaded"
+                class="cursor-pointer text-xl"
+              />
+            </div>
+            <p>Estimated arrival: {{ formattedDate }}</p>
+          </div>
           <div
             v-for="orderedProduct in order.products"
             :key="orderedProduct.id"
-            class="flex items-center space-x-4"
+            class="flex items-center border rounded-md border-gray-200 p-2"
           >
             <!-- Product Image -->
             <img
-              src="../../../public/glovo.jpg"
+              src="@/public/glovo.jpg"
               alt="Ordered Product"
               class="w-16 h-16 rounded object-cover flex-shrink-0"
             />
             <!-- Product Details -->
-            <div class="flex-1">
-              <div class="font-medium text-gray-800">{{ orderedProduct.label }}</div>
-              <div class="text-sm text-gray-500">Price: ${{ orderedProduct.price }}</div>
-              <div class="text-sm text-gray-500">
+            <div class="flex-1 pl-4">
+              <div class="font-medium text-gray-800">
+                {{ replaceRecipeText(orderedProduct.label) }}
+              </div>
+              <div class="text-sm font-medium text-gray-500">
+                Price: ${{ orderedProduct.price }}
+              </div>
+              <div class="text-sm font-medium text-gray-500">
                 Quantity: {{ orderedProduct.quantity }}
               </div>
             </div>
+          </div>
+          <div class="text-md font-medium text-gray-500 py-2 border-t border-t-gray-300">
+            Total: {{ order.totalPrice }} $
           </div>
         </div>
       </transition>
@@ -63,7 +101,8 @@ function toggleExpand(id: string | number) {
 <style scoped>
 .expand-enter-active,
 .expand-leave-active {
-  transition: all 0.5s ease-in-out;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  overflow: hidden;
 }
 
 .expand-enter-from,
