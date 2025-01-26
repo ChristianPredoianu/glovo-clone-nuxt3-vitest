@@ -1,1 +1,1 @@
-add readme
+add readme detailed
