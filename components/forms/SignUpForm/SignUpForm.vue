@@ -6,9 +6,11 @@ import {
 } from '@/composables/firebase/store/messagehandlerStore';
 
 //CHANGE TO REACTIVE
-const userEmail = ref('');
-const userPassword = ref('');
-const repeatedUserPassword = ref('');
+const userCredentials = reactive({
+  email: '',
+  password: '',
+  repeatedPassword: '',
+});
 
 const { signUp, user } = useAuth();
 const { validateEmail, validatePassword, validateRepeatedPassword, validateCredentials } =
@@ -18,14 +20,14 @@ const { closeModal } = useModal();
 
 async function handleSignUserUp(e: Event) {
   e.preventDefault();
-  validateCredentials(userEmail.value, userPassword.value);
-  await signUp(userEmail.value, userPassword.value, repeatedUserPassword.value).then(
-    () => {
-      if (user.value !== null) {
-        closeModal();
-      }
-    }
-  );
+  validateCredentials(userCredentials.email, userCredentials.password);
+  await signUp(
+    userCredentials.email,
+    userCredentials.password,
+    userCredentials.repeatedPassword
+  ).then(() => {
+    if (user.value !== null) closeModal();
+  });
 }
 
 function onKeyDown(e: KeyboardEvent) {
@@ -43,31 +45,36 @@ function onKeyDown(e: KeyboardEvent) {
       label="Email"
       name="email"
       type="email"
-      v-model="userEmail"
+      v-model="userCredentials.email"
       placeholder="email@example.com"
       :errorMessage="emailError || undefined"
       autocomplete="email"
-      @blur="validateEmail(userEmail)"
+      @blur="validateEmail(userCredentials.email)"
     />
 
     <PasswordInput
       label="Password"
       name="password"
-      v-model="userPassword"
+      v-model="userCredentials.password"
       placeholder="At least 6 characters"
       :errorMessage="passwordError || undefined"
       autocomplete="current-password"
-      @blur="validatePassword(userPassword)"
+      @blur="validatePassword(userCredentials.password)"
     />
 
     <PasswordInput
       label="Repeat Password"
       name="repeated-password"
-      v-model="repeatedUserPassword"
+      v-model="userCredentials.repeatedPassword"
       placeholder="At least 6 characters"
       :errorMessage="repeatedPasswordError || undefined"
       autocomplete="current-password"
-      @blur="validateRepeatedPassword(userPassword, repeatedUserPassword)"
+      @blur="
+        validateRepeatedPassword(
+          userCredentials.password,
+          userCredentials.repeatedPassword
+        )
+      "
     />
 
     <FormSubmitBtn>Sign up</FormSubmitBtn>
