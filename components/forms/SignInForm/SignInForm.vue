@@ -4,9 +4,11 @@ import {
   successMessage,
   errorMessage,
 } from '@/composables/firebase/store/messagehandlerStore';
-//CHANGE TO REACTIVE
-const userEmail = ref('');
-const userPassword = ref('');
+
+const userCredentials = reactive({
+  email: '',
+  password: '',
+});
 
 const emits = defineEmits(['emitSelected']);
 
@@ -22,10 +24,10 @@ const { closeModal } = useModal();
 
 async function handleSignIn(e: Event) {
   e.preventDefault();
-  console.log('Sign in attempt with email:', userEmail.value);
-  validateCredentials(userEmail.value, userPassword.value);
+  console.log('Sign in attempt with email:', userCredentials.email);
+  validateCredentials(userCredentials.email, userCredentials.password);
   console.log(errorMessage.value);
-  signIn(userEmail.value, userPassword.value).then(() => {
+  signIn(userCredentials.email, userCredentials.email).then(() => {
     console.log('Sign-in successful!');
 
     if (user.value !== null) closeModal();
@@ -47,21 +49,21 @@ function onKeyDown(e: KeyboardEvent) {
       label="Email"
       name="email"
       type="email"
-      v-model="userEmail"
+      v-model="userCredentials.email"
       placeholder="email@example.com"
       :errorMessage="emailError || undefined"
       autocomplete="email"
-      @blur="validateEmail(userEmail)"
+      @blur="validateEmail(userCredentials.email)"
     />
 
     <PasswordInput
       label="Password"
       name="password"
-      v-model="userPassword"
+      v-model="userCredentials.password"
       placeholder="At least 6 characters"
       :errorMessage="passwordError || undefined"
       autocomplete="current-password"
-      @blur="validatePassword(userPassword)"
+      @blur="validatePassword(userCredentials.password)"
     />
     <FormSubmitBtn>Sign In</FormSubmitBtn>
     <FormMessage
