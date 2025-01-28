@@ -9,9 +9,8 @@ export async function fetchData<T>(url: string): Promise<FetchResult<T>> {
 
   try {
     const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
+    if (!response.ok) throw new Error('Network response was not ok');
+
     data = await response.json();
   } catch (error) {
     console.error('Error fetching data:', error);
