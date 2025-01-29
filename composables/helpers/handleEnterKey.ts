@@ -3,7 +3,5 @@ interface ICallbackFunction {
 }
 
 export function handleEnterKey(e: KeyboardEvent, callback: ICallbackFunction) {
-  if (e.key === 'Enter') {
-    callback(e);
-  }
+  if (e.key === 'Enter') callback(e);
 }
