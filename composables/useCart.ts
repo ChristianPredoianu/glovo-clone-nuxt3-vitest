@@ -44,7 +44,7 @@ export function useCart() {
 
   const numberOfCartProducts = computed(() => {
     return cartProducts.value.reduce((total, product) => {
-      return total + (product.quantity || 0); // Default to 0 if undefined or null
+      return total + (product.quantity ?? 0); // Default to 0 if undefined or null
     }, 0);
   });
 
