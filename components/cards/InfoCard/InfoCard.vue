@@ -8,11 +8,8 @@ const props = defineProps({
   },
 });
 
-const isLoaded = ref(false);
+const {isLoaded} = useIsLoaded();
 
-onMounted(() => {
-  isLoaded.value = true;
-});
 </script>
 
 <template>
