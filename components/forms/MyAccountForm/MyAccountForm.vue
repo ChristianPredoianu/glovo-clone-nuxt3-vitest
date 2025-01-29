@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 import { errorMessage } from '@/composables/firebase/store/messagehandlerStore';
+import type { name } from 'happy-dom/lib/PropertySymbol.js';
 const emit = defineEmits(['handleForm']);
 
 //CHANGE TO RREACTIVE
-const userName = ref('');
-const userEmail = ref('');
-const currentPassword = ref('');
+const userCredentials = reactive({
+  name: '',
+  email: '',
+  currentPassword: '',
+});
 
 const { user, isAuthReady, successMessage } = useAuth();
 const { updateUserProfile } = useProfile();
@@ -23,7 +26,11 @@ async function handleUpdateProfile(e: Event) {
   e.preventDefault();
 
   if (validateForm()) {
-    updateUserProfile(userName.value, userEmail.value, currentPassword.value);
+    updateUserProfile(
+      userCredentials.name,
+      userCredentials.email,
+      userCredentials.currentPassword
+    );
   }
 }
 
@@ -31,16 +38,16 @@ watch(
   () => user.value,
   (newUser) => {
     if (newUser && isAuthReady) {
-      userName.value = newUser.displayName || '';
-      userEmail.value = newUser.email || '';
+      userCredentials.name = newUser.displayName || '';
+      userCredentials.email = newUser.email || '';
     }
   },
   { immediate: true }
 );
 
 function validateForm(): boolean {
-  validateUserName(userName.value);
-  validateEmail(userEmail.value);
+  validateUserName(userCredentials.name);
+  validateEmail(userCredentials.email);
 
   return !userNameError.value && !emailError.value;
 }
@@ -60,35 +67,34 @@ function onKeyDown(e: KeyboardEvent) {
     <TextInput
       label="User Name"
       name="userName"
-      v-model="userName"
+      v-model="userCredentials.name"
       placeholder="Your Full name"
       :errorMessage="userNameError"
       autocomplete="username"
-      @blur="validateUserName(userName)"
+      @blur="validateUserName(userCredentials.name)"
     />
 
     <TextInput
       label="Email"
       name="email"
       type="email"
-      v-model="userEmail"
+      v-model="userCredentials.email"
       placeholder="email@example.com"
       :errorMessage="emailError || undefined"
       autocomplete="username"
-      @blur="validateEmail(userEmail)"
+      @blur="validateEmail(userCredentials.email)"
     />
 
     <TextInput
       label="Current Password"
       name="currentPassword"
       type="password"
-      v-model="currentPassword"
+      v-model="userCredentials.currentPassword"
       placeholder="Your current password"
       :errorMessage="passwordError || undefined"
       autocomplete="current-password"
-      @blur="validatePassword(currentPassword)"
+      @blur="validatePassword(userCredentials.currentPassword)"
     />
-
     <FormSubmitBtn class="mt-10">Update</FormSubmitBtn>
   </form>
   <div class="mt-4 min-h-[60px]">
