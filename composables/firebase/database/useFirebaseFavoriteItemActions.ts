@@ -56,9 +56,7 @@ export function useFirebaseFavoriteItemActions() {
   async function isItemFavorite(label: string): Promise<boolean> {
     errorMessage.value = null;
     try {
-      if (!user.value || !label) {
-        throw new Error('Invalid user or label');
-      }
+      if (!user.value || !label) throw new Error('Invalid user or label');
 
       const favoriteItemRef = getFavoriteItemRef();
       const snapshot = await get(favoriteItemRef);
@@ -80,9 +78,7 @@ export function useFirebaseFavoriteItemActions() {
   ) {
     errorMessage.value = null;
     try {
-      if (!userId) {
-        throw new Error('User is not authenticated');
-      }
+      if (!userId) throw new Error('User is not authenticated');
 
       const isAlreadyFavorite = await isLabelAlreadyFavorite(
         userId,
