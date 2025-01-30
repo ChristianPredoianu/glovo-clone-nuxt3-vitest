@@ -23,6 +23,7 @@ const emits = defineEmits(['emitInput', 'emitOption', 'emitLocation']);
 let locationAdress: ILocationAdress | null = null;
 
 const inputText = ref<string>('');
+
 const locationIconRef = ref<HTMLInputElement | null>(null);
 const locationTextRef = ref<HTMLSpanElement | null>(null);
 
