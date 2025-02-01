@@ -66,7 +66,6 @@ export function useAuth(redirect: string | null = null) {
       setSuccessMessageWithTimeout('Successfully signed in!');
 
       await delay(DELAY);
-
       const redirectTo = redirect || '/dashboard'; // Use existing redirect if available
       await router.push(redirectTo);
     } catch (error: unknown) {
@@ -79,8 +78,6 @@ export function useAuth(redirect: string | null = null) {
 
     try {
       await signOut($auth);
-
-      console.log('User signed out successfully.');
       user.value = null;
       router.push('/');
     } catch (error) {
