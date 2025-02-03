@@ -110,7 +110,6 @@ export function useProfile() {
     if (user.value) {
       try {
         await updateProfile(user.value, { displayName: userName });
-        console.log('Display name updated:', userName);
         setSuccessMessageWithTimeout('Your display name has been successfully updated!');
 
         await delay(DELAY);
