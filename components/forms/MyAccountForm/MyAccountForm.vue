@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 import { errorMessage } from '@/composables/firebase/store/messagehandlerStore';
-import type { name } from 'happy-dom/lib/PropertySymbol.js';
+
 const emit = defineEmits(['handleForm']);
 
-//CHANGE TO RREACTIVE
 const userCredentials = reactive({
   name: '',
   email: '',
