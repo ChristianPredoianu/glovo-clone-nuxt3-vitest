@@ -5,7 +5,6 @@ import {
   errorMessage,
 } from '@/composables/firebase/store/messagehandlerStore';
 
-//CHANGE TO REACTIVE
 const userCredentials = reactive({
   email: '',
   password: '',
