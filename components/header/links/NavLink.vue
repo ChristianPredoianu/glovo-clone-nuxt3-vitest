@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { screenWidth } = useScreenWidth();
-
 const props = defineProps({
   title: String,
   link: String,
@@ -9,14 +7,15 @@ const props = defineProps({
   },
 });
 
-const { numberOfCartProducts } = useCart();
-
 const shouldShowNavItems = computed(() => {
   return (
     !(screenWidth.value > 768 && props.title === 'Cart') &&
     (screenWidth.value < 640 || props.title !== 'Sign in')
   );
 });
+
+const { screenWidth } = useScreenWidth();
+const { numberOfCartProducts } = useCart();
 </script>
 
 <template>
