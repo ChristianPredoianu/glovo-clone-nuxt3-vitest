@@ -5,12 +5,12 @@ import {
   errorMessage,
 } from '@/composables/firebase/store/messagehandlerStore';
 
+const emits = defineEmits(['emitSelected']);
+
 const userCredentials = reactive({
   email: '',
   password: '',
 });
-
-const emits = defineEmits(['emitSelected']);
 
 const { signIn, user } = useAuth();
 const {
