@@ -5,7 +5,6 @@ import type { ICuisineType } from '@/types/meals';
 const emit = defineEmits(['emitSelected']);
 
 const { filters } = useFilter();
-
 const { setActive, isActive } = useIsActive();
 const { getCategoryName } = useFilter();
 
