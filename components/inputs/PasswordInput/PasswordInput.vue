@@ -18,9 +18,9 @@ const emit = defineEmits(['update:modelValue', 'blur']);
 const inputField = ref<HTMLInputElement | null>(null);
 
 const togglePasswordVisibility = () => {
-  if (inputField.value) {
+  if (inputField.value) 
     inputField.value.type = inputField.value.type === 'password' ? 'text' : 'password';
-  }
+  
 };
 
 function handleInput(event: Event) {
