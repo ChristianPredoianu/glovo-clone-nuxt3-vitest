@@ -6,6 +6,15 @@ import {
   errorMessage,
 } from '@/composables/firebase/store/messagehandlerStore';
 
+const emit = defineEmits(['submitForm', 'handleForm']);
+
+const address = reactive({
+  streetAndHouseNumber: '',
+  zipCode: '',
+  city: '',
+  country: '',
+});
+
 onMounted(() => {
   watch(
     () => isAuthReady.value,
@@ -14,15 +23,6 @@ onMounted(() => {
     },
     { immediate: true }
   );
-});
-
-const emit = defineEmits(['submitForm', 'handleForm']);
-
-const address = reactive({
-  streetAndHouseNumber: '',
-  zipCode: '',
-  city: '',
-  country: '',
 });
 
 const { isAuthReady } = useAuth();
