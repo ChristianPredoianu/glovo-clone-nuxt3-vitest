@@ -2,12 +2,12 @@
 const { numberOfCartProducts, updatedTotalPrice } = useCart();
 defineEmits(['closeModal']);
 
-const { user } = useAuth();
-const { openModal, closeModal } = useModal();
-
 const orderText = computed(() => {
   return `Order ${numberOfCartProducts.value} for ${updatedTotalPrice.value} $`;
 });
+
+const { user } = useAuth();
+const { openModal, closeModal } = useModal();
 
 function placeOrder() {
   closeModal();
