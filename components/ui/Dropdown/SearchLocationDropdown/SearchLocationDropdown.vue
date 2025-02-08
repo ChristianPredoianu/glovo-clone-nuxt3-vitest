@@ -16,15 +16,38 @@ const props = defineProps({
 
 const emits = defineEmits(['emitOption', 'clearInput']);
 
-const isOpen = ref(true);
-
 const optionsLength = computed(() => {
   return Array.isArray(props.options) ? props.options.length : 0;
 });
 
-const { selectedIndex } = useKeyDown(optionsLength, selectOption);
+
+//The API sometimes returns two of the same adresses, this creates unique returns
+//so that we don't get duplicate keys when looping through props.options
+const uniqueOptions = computed(() => {
+  const options = props.options ?? [];
+
+  const uniqueOptionsMap = new Map<string, IDropdownOptions>(
+    options.map((option) => {
+      const key = option[props.idKey as keyof IDropdownOptions] as string;
+      return [key, option];
+    })
+  );
+
+  return Array.from(uniqueOptionsMap.values());
+});
+
+watch(
+  () => props.options,
+  () => {
+    isOpen.value = true;
+  }
+);
+
+const isOpen = ref(true);
 
 const dropdownRef = ref<HTMLElement | null>(null);
+
+const { selectedIndex } = useKeyDown(optionsLength, selectOption);
 
 useClickOutside(dropdownRef, () => {
   isOpen.value = false;
@@ -55,27 +78,6 @@ function selectOption(index: number) {
   }
 }
 
-//The API sometimes returns two of the same adresses, this creates unique returns
-//so that we don't get duplicate keys when looping through props.options
-const uniqueOptions = computed(() => {
-  const options = props.options ?? [];
-
-  const uniqueOptionsMap = new Map<string, IDropdownOptions>(
-    options.map((option) => {
-      const key = option[props.idKey as keyof IDropdownOptions] as string;
-      return [key, option];
-    })
-  );
-
-  return Array.from(uniqueOptionsMap.values());
-});
-
-watch(
-  () => props.options,
-  () => {
-    isOpen.value = true;
-  }
-);
 </script>
 
 <template>
