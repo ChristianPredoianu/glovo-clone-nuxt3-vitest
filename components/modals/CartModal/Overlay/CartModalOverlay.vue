@@ -1,13 +1,13 @@
 <script setup lang="ts">
-const { numberOfCartProducts, updatedTotalPrice } = useCart();
 defineEmits(['closeModal']);
+
+const { numberOfCartProducts, updatedTotalPrice } = useCart();
+const { user } = useAuth();
+const { openModal, closeModal } = useModal();
 
 const orderText = computed(() => {
   return `Order ${numberOfCartProducts.value} for ${updatedTotalPrice.value} $`;
 });
-
-const { user } = useAuth();
-const { openModal, closeModal } = useModal();
 
 function placeOrder() {
   closeModal();
