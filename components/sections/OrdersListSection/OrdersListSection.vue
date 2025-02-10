@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { fetchOrders, fetchedOrders, isLoading } = useFirebaseOrderActions();
-
 const { isAuthReady } = useAuth();
 
 onMounted(() => {
