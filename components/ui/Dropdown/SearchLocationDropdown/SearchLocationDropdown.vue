@@ -16,6 +16,10 @@ const props = defineProps({
 
 const emits = defineEmits(['emitOption', 'clearInput']);
 
+const isOpen = ref(true);
+
+const dropdownRef = ref<HTMLElement | null>(null);
+
 const optionsLength = computed(() => {
   return Array.isArray(props.options) ? props.options.length : 0;
 });
@@ -36,16 +40,9 @@ const uniqueOptions = computed(() => {
   return Array.from(uniqueOptionsMap.values());
 });
 
-watch(
-  () => props.options,
-  () => {
-    isOpen.value = true;
-  }
-);
 
-const isOpen = ref(true);
 
-const dropdownRef = ref<HTMLElement | null>(null);
+
 
 const { selectedIndex } = useKeyDown(optionsLength, selectOption);
 
@@ -78,6 +75,13 @@ function selectOption(index: number) {
   }
 }
 
+
+watch(
+  () => props.options,
+  () => {
+    isOpen.value = true;
+  }
+);
 </script>
 
 <template>
