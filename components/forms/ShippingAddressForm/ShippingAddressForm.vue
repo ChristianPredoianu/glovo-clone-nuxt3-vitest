@@ -15,16 +15,6 @@ const address = reactive({
   country: '',
 });
 
-onMounted(() => {
-  watch(
-    () => isAuthReady.value,
-    (ready) => {
-      if (ready) fetchAddressInfo(user.value!.uid, $database, address);
-    },
-    { immediate: true }
-  );
-});
-
 const { isAuthReady } = useAuth();
 const { user } = useAuth();
 const { $database } = useNuxtApp();
@@ -48,6 +38,16 @@ function handleSubmit(e: Event) {
 
   if (isFormValid) emit('submitForm', address);
 }
+
+onMounted(() => {
+  watch(
+    () => isAuthReady.value,
+    (ready) => {
+      if (ready) fetchAddressInfo(user.value!.uid, $database, address);
+    },
+    { immediate: true }
+  );
+});
 </script>
 
 <template>
