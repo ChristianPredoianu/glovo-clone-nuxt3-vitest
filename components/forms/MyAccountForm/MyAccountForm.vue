@@ -33,17 +33,6 @@ async function handleUpdateProfile(e: Event) {
   }
 }
 
-watch(
-  () => user.value,
-  (newUser) => {
-    if (newUser && isAuthReady) {
-      userCredentials.name = newUser.displayName || '';
-      userCredentials.email = newUser.email || '';
-    }
-  },
-  { immediate: true }
-);
-
 function validateForm(): boolean {
   validateUserName(userCredentials.name);
   validateEmail(userCredentials.email);
@@ -54,6 +43,17 @@ function validateForm(): boolean {
 function onKeyDown(e: KeyboardEvent) {
   handleEnterKey(e, handleUpdateProfile);
 }
+
+watch(
+  () => user.value,
+  (newUser) => {
+    if (newUser && isAuthReady) {
+      userCredentials.name = newUser.displayName || '';
+      userCredentials.email = newUser.email || '';
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
