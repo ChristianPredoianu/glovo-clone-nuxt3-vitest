@@ -18,9 +18,9 @@ const emit = defineEmits<{
   (event: 'pageChanged', newPage: number): void;
 }>();
 
-const totalPages = computed(() => Math.ceil(props.totalItems / props.itemsPerPage));
-
 const currentPage = ref(props.currentPage);
+
+const totalPages = computed(() => Math.ceil(props.totalItems / props.itemsPerPage));
 
 const { isLoaded } = useIsLoaded();
 
