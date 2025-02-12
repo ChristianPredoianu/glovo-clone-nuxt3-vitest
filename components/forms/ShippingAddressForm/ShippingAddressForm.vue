@@ -32,7 +32,6 @@ function onKeyDown(e: KeyboardEvent) {
 }
 
 function handleSubmit(e: Event) {
-  console.log('dsa');
   e.preventDefault();
   const isFormValid = validateAllFields(address);
 
