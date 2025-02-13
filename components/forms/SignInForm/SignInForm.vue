@@ -26,7 +26,7 @@ async function handleSignIn(e: Event) {
   e.preventDefault();
   console.log('Sign in attempt with email:', userCredentials.email);
   validateCredentials(userCredentials.email, userCredentials.password);
-  console.log(errorMessage.value);
+
   signIn(userCredentials.email, userCredentials.email).then(() => {
     console.log('Sign-in successful!');
 
