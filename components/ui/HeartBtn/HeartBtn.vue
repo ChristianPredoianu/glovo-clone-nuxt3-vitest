@@ -10,6 +10,10 @@ const props = defineProps({
 
 const isFavorite = ref<boolean>(false);
 
+const canCheckFavorite = computed(
+  () => user.value && props.mealItem && props.mealItem.label
+);
+
 const { $database } = useNuxtApp();
 const { user } = useAuth();
 const { openModal } = useModal();
@@ -18,9 +22,7 @@ const { writeFavoriteUserItemData, deleteFavoriteUserItemData } =
   useFirebaseFavoriteItemActions();
 const { isItemFavorite } = useFirebaseFavoriteItemActions();
 
-const canCheckFavorite = computed(
-  () => user.value && props.mealItem && props.mealItem.label
-);
+
 
 onMounted(() => {
   watchEffect(async () => {
