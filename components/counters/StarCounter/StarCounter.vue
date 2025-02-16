@@ -15,8 +15,6 @@ const fullStars = computed(() => Math.floor(props.rate!)); // Full stars count
 const halfStar = computed(() => props.rate! % 1 >= 0.5); // Half // Empty stars count
 
 const { isLoaded } = useIsLoaded();
-
-
 </script>
 
 <template>
