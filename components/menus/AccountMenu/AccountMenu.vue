@@ -8,7 +8,7 @@ const { isLoaded } = useIsLoaded();
 
 function handleClick(menuItem: IMenuItem) {
   const component = menuItem.component;
-
+  console.log('clisked');
   emit('changeComponent', component);
 }
 </script>
