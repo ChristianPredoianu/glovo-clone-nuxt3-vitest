@@ -19,6 +19,8 @@ const { closeModal } = useModal();
 
 async function handleSignUserUp(e: Event) {
   e.preventDefault();
+  console.log('Sign up attempt with email:', userCredentials.email);
+  console.log('Sign up attempt with email:', userCredentials.password);
   validateCredentials(userCredentials.email, userCredentials.password);
   await signUp(
     userCredentials.email,
