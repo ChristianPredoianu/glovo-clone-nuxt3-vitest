@@ -13,7 +13,8 @@ const { validatePassword, passwordError } = useAuthValidation();
 const { deleteUserWithReauthentication } = useAuth();
 
 function handleDeleteAccount() {
-  console.log(user.value.email, currentPassword.value, $database);
+  if (!user.value?.email || !currentPassword.value) return;
+
   deleteUserWithReauthentication(user.value.email, currentPassword.value, $database);
 }
 </script>

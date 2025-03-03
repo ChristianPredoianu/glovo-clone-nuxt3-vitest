@@ -25,9 +25,10 @@ const { closeModal } = useModal();
 async function handleSignIn(e: Event) {
   e.preventDefault();
   console.log('Sign in attempt with email:', userCredentials.email);
+  console.log('Sign in attempt with email:', userCredentials.password);
   validateCredentials(userCredentials.email, userCredentials.password);
 
-  signIn(userCredentials.email, userCredentials.email).then(() => {
+  signIn(userCredentials.email, userCredentials.password).then(() => {
     console.log('Sign-in successful!');
 
     if (user.value !== null) closeModal();
