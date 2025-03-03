@@ -57,7 +57,7 @@ watch(
 </script>
 
 <template>
-  <h2 class="text-2xl font-semibold text-gray-800 my-5">Personal info</h2>
+  <h2 class="text-xl font-semibold text-gray-800 my-5">Personal info</h2>
   <form
     @submit.prevent="handleUpdateProfile"
     @keydown="onKeyDown"
