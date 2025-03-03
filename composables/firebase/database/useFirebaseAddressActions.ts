@@ -1,4 +1,4 @@
-import { ref as dbRef, get, push, set, update } from 'firebase/database';
+import { ref as dbRef, get, push, set, update, getDatabase } from 'firebase/database';
 import type { IShippingAddress } from '@/types/locations';
 
 export function useFirebaseAddressActions() {
