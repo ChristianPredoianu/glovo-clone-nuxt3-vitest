@@ -6,6 +6,7 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential,
 } from 'firebase/auth';
+import { ref as dbRef, remove } from 'firebase/database';
 import { successMessage, errorMessage } from '../../store/messagehandlerStore';
 import { user, isAuthReady } from '@/composables/firebase/auth/store/authStore';
 import { delay } from '@/composables/helpers/delay';
@@ -86,7 +87,11 @@ export function useAuth(redirect: string | null = null) {
   }
 
   //REMEMBER YOU NEED TO MANUALLY DELETE THE USERS DATA FROM THE DATABASE
-  async function deleteUserWithReauthentication(email: string, password: string) {
+  async function deleteUserWithReauthentication(
+    email: string,
+    password: string,
+    database: any
+  ) {
     try {
       const user = $auth.currentUser;
       if (!user) throw new Error('No user is currently signed in.');
@@ -94,7 +99,14 @@ export function useAuth(redirect: string | null = null) {
       const credential = EmailAuthProvider.credential(email, password);
       await reauthenticateWithCredential(user, credential);
 
+      // Delete user data from Realtime Database
+      const userRef = dbRef(database, `users/${user.uid}`);
+      await remove(userRef);
+
+      // Delete the user from Firebase Authentication
       await user.delete();
+
+      console.log('User and their data have been successfully deleted.');
     } catch (error: any) {
       console.error('Error reauthenticating or deleting user:', error.message);
     }
