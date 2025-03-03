@@ -144,7 +144,6 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
     </div>
   </section>
   <Waves />
-  <p v-for="cartProduct in cartProducts">{{ cartProduct?.id }}</p>
   <div class="container mx-auto px-4">
     <section>
       <div class="flex items-center gap-x-2">
