@@ -50,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <h2 class="text-2xl font-semibold text-gray-800 my-5">Shipping info</h2>
+  <h2 class="text-xl font-semibold text-gray-800 my-5">Shipping info</h2>
   <form @submit.prevent="handleSubmit" @keydown="onKeyDown" class="flex flex-col gap-2">
     <TextInput
       label="Street and house number"
