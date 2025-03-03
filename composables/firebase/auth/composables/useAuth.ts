@@ -60,7 +60,7 @@ export function useAuth(redirect: string | null = null) {
 
     try {
       validateCredentials(email, password);
-
+      console.log(email, password);
       const userCredential = await signInWithEmailAndPassword($auth, email, password);
       const user = userCredential.user;
 
@@ -92,6 +92,7 @@ export function useAuth(redirect: string | null = null) {
     password: string,
     database: any
   ) {
+    resetMessage(errorMessage);
     try {
       const user = $auth.currentUser;
       if (!user) throw new Error('No user is currently signed in.');
@@ -106,9 +107,9 @@ export function useAuth(redirect: string | null = null) {
       // Delete the user from Firebase Authentication
       await user.delete();
 
-      console.log('User and their data have been successfully deleted.');
+      setSuccessMessageWithTimeout('User account deleted successfully');
     } catch (error: any) {
-      console.error('Error reauthenticating or deleting user:', error.message);
+      handleError(error);
     }
   }
 
@@ -118,6 +119,7 @@ export function useAuth(redirect: string | null = null) {
     signIn,
     signUp,
     signUserOut,
+    deleteUserWithReauthentication,
     emailError,
     repeatedPasswordError,
     successMessage,
