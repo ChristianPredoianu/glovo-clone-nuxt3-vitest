@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import MyAccountForm from '@/components/forms/MyAccountForm/MyAccountForm.vue';
 import ShippingAddressForm from '@/components/forms/ShippingAddressForm/ShippingAddressForm.vue';
+import DeleteAccount from '@/components/ui/DeteleAccount/DeleteAccount.vue';
 import type { IShippingAddress } from '@/types/locations';
 
-const componentMap: Record<string, typeof MyAccountForm | typeof ShippingAddressForm> = {
+const componentMap: Record<
+  string,
+  typeof MyAccountForm | typeof ShippingAddressForm | typeof DeleteAccount
+> = {
   MyAccountForm,
   ShippingAddressForm,
+  DeleteAccount,
 };
 
 const { changeComponent, currentComponent } = useDynamicComponent(MyAccountForm);
@@ -36,9 +41,9 @@ function handleUpdateShipping(address: IShippingAddress) {
       </div>
 
       <div class="flex-1 bg-white shadow-xl rounded-lg p-8 border border-gray-200">
-        <h2 class="text-2xl lg:text-3xl font-semibold text-gray-800 mb-6">
+        <h1 class="text-2xl lg:text-3xl font-semibold text-gray-800 mb-6">
           Your Account
-        </h2>
+        </h1>
         <component
           :is="currentComponent"
           @="
