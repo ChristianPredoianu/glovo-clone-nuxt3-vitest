@@ -6,7 +6,6 @@ export function useFirebaseAddressActions() {
 
   function handleError(message: string, error: any) {
     const errorDetails = error?.message || 'An unknown error occurred';
-    console.error(`${message}:`, errorDetails);
     setErrorMessage(`${message}: ${errorDetails}`);
   }
 
@@ -26,9 +25,7 @@ export function useFirebaseAddressActions() {
       const addressRef = dbRef(database, `users/${userId}/address`);
       const snapshot = await get(addressRef);
 
-      if (!snapshot.exists()) {
-        throw new Error('No address information found');
-      }
+      if (!snapshot.exists()) throw new Error('No address information found');
 
       const addressData = snapshot.val();
       const addressKey = Object.keys(addressData)[0];
@@ -39,7 +36,7 @@ export function useFirebaseAddressActions() {
       address.city = fetchedAddress.city || '';
       address.country = fetchedAddress.country || '';
     } catch (error: any) {
-      handleError('Error fetching address info', error);
+      handleError('Please update your address info', error);
     }
   }
 
