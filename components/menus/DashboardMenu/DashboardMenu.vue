@@ -5,15 +5,15 @@ const emit = defineEmits(['changeComponent']);
 
 const activeSection = ref('');
 
-onMounted(() => {
-  const ItemFavoritesSection = menuItems[0].section;
-  activeSection.value = ItemFavoritesSection;
-});
-
 function handleClick(section: string) {
   activeSection.value = section;
   emit('changeComponent', section);
 }
+
+onMounted(() => {
+  const ItemFavoritesSection = menuItems[0].section;
+  activeSection.value = ItemFavoritesSection;
+});
 </script>
 
 <template>
