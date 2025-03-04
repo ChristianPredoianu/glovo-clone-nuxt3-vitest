@@ -8,14 +8,6 @@ const { user, signUserOut } = useAuth();
 const { openModal, closeModal } = useModal();
 const { isLoaded } = useIsLoaded();
 
-onMounted(() => {
-  window.addEventListener('resize', closeNavigationDialog);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('resize', closeNavigationDialog);
-});
-
 function closeNavigationDialog() {
   closeNav();
   closeBackdrop();
@@ -24,6 +16,14 @@ function closeNavigationDialog() {
 function signOut() {
   signUserOut();
 }
+
+onMounted(() => {
+  window.addEventListener('resize', closeNavigationDialog);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', closeNavigationDialog);
+});
 </script>
 
 <template>
