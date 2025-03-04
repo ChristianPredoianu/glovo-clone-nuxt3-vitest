@@ -10,10 +10,6 @@ const props = defineProps({
 
 const isFavorite = ref<boolean>(false);
 
-const canCheckFavorite = computed(
-  () => user.value && props.mealItem && props.mealItem.label
-);
-
 const { $database } = useNuxtApp();
 const { user } = useAuth();
 const { openModal } = useModal();
@@ -22,16 +18,9 @@ const { writeFavoriteUserItemData, deleteFavoriteUserItemData } =
   useFirebaseFavoriteItemActions();
 const { isItemFavorite } = useFirebaseFavoriteItemActions();
 
-
-
-onMounted(() => {
-  watchEffect(async () => {
-    if (canCheckFavorite.value) {
-      const favoriteStatus = await isItemFavorite(props.mealItem.label);
-      isFavorite.value = favoriteStatus;
-    }
-  });
-});
+const canCheckFavorite = computed(
+  () => user.value && props.mealItem && props.mealItem.label
+);
 
 async function toggleFavorite() {
   console.log('User state:', user.value);
@@ -50,6 +39,15 @@ async function toggleFavorite() {
     isFavorite.value = true;
   }
 }
+
+onMounted(() => {
+  watchEffect(async () => {
+    if (canCheckFavorite.value) {
+      const favoriteStatus = await isItemFavorite(props.mealItem.label);
+      isFavorite.value = favoriteStatus;
+    }
+  });
+});
 </script>
 
 <template>

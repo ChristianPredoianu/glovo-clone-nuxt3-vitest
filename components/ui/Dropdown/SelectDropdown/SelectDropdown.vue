@@ -23,13 +23,13 @@ useClickOutside(selectDropdownRef, () => {
   isOpen.value = false;
 });
 
-function toggleDropdown() {
-  isOpen.value = !isOpen.value;
-}
-
 const displayBtnText = computed(() => {
   return selectedOption.value || props.defaultOptionText || 'Select an option';
 });
+
+function toggleDropdown() {
+  isOpen.value = !isOpen.value;
+}
 
 function closeDropdown() {
   isOpen.value = false;
