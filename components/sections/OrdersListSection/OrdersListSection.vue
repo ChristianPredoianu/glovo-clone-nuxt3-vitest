@@ -38,8 +38,14 @@ const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange 
     <div class="mt-6">
       <OrdersList :orderedItems="displayedItems" />
     </div>
-    <h2 v-if="displayedItems.length === 0" class="text-xl font-semibold text-center">
+    <h2
+      v-if="displayedItems.length === 0"
+      class="text-xl mt-10 font-semibold text-center"
+    >
       You don't have any orders.
     </h2>
   </section>
+  <h2 v-else class="text-xl mt-10 font-semibold text-center">
+    You don't have any orders yet
+  </h2>
 </template>
