@@ -7,6 +7,10 @@ export function useModalProps() {
   const mealModalProps = ref<IMealModalProps | null>(null);
   const productModalProps = ref<IProductModalProps | null>(null);
 
+  const currentModalProps = computed<ModalProps | null>(() => {
+    return mealModalProps.value || productModalProps.value || null;
+  });
+
   function extractRecipeId(uri: string): string {
     const prefix = '#recipe_';
     const index = uri.indexOf(prefix);
@@ -34,10 +38,6 @@ export function useModalProps() {
       mealModalProps.value = null;
     }
   }
-
-  const currentModalProps = computed<ModalProps | null>(() => {
-    return mealModalProps.value || productModalProps.value || null;
-  });
 
   return { currentModalProps, setModalProps } as const;
 }
