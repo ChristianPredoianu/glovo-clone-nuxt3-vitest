@@ -7,15 +7,15 @@ const props = defineProps({
   },
 });
 
+const { screenWidth } = useScreenWidth();
+const { numberOfCartProducts } = useCart();
+
 const shouldShowNavItems = computed(() => {
   return (
     !(screenWidth.value > 768 && props.title === 'Cart') &&
     (screenWidth.value < 640 || props.title !== 'Sign in')
   );
 });
-
-const { screenWidth } = useScreenWidth();
-const { numberOfCartProducts } = useCart();
 </script>
 
 <template>
