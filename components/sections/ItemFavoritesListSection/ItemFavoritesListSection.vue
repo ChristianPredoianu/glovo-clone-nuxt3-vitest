@@ -23,6 +23,20 @@ const filteredItemsRef = ref<IItem[]>(filteredItems.value);
 const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange } =
   usePagination(filteredItemsRef, 5);
 
+const mergedCategories = [
+  { category: 'All Categories' },
+  ...cuisineTypes.map(({ cuisineType }) => ({
+    category: capitalizeFirstLetter(cuisineType),
+  })),
+  ...fakeStoreCategories.map(({ category }) => ({
+    category: capitalizeFirstLetter(category),
+  })),
+];
+
+function emitSelected(option: string) {
+  selectedOption.value = option;
+}
+
 onMounted(() => {
   if (isAuthReady.value) {
     fetchFavoriteItems();
@@ -43,20 +57,6 @@ onMounted(() => {
 watch(filteredItems, (newFilteredItems) => {
   filteredItemsRef.value = newFilteredItems;
 });
-
-const mergedCategories = [
-  { category: 'All Categories' },
-  ...cuisineTypes.map(({ cuisineType }) => ({
-    category: capitalizeFirstLetter(cuisineType),
-  })),
-  ...fakeStoreCategories.map(({ category }) => ({
-    category: capitalizeFirstLetter(category),
-  })),
-];
-
-function emitSelected(option: string) {
-  selectedOption.value = option;
-}
 </script>
 
 <template>
