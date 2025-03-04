@@ -40,11 +40,18 @@ function toggleExpand(id: string | number) {
       class="border-2 border-gray-300 rounded-xl p-4 shadow-sm cursor-pointer transition-transform duration-200"
       @click="toggleExpand(order.id!)"
     >
-      <!-- Order Header -->
-      <div class="flex justify-between items-center mb-2">
-        <div class="text-lg font-semibold text-gray-800">Order #{{ order.id }}</div>
+      <div class="flex items-center justify-between">
+        <!-- Order Header -->
+        <div class="flex justify-between items-center mb-2">
+          <div class="text-lg font-semibold text-gray-800">Order #{{ order.id }}</div>
+        </div>
+        <font-awesome-icon
+          :icon="['fa', 'fa-plus']"
+          data-test="fa-shipping"
+          v-if="isLoaded"
+          class="cursor-pointer text-xl"
+        />
       </div>
-
       <!-- Order Details -->
       <transition name="expand">
         <div
