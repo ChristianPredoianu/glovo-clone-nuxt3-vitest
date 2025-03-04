@@ -9,8 +9,21 @@ const { writeOrderDetails } = useFirebaseOrderActions();
 const { numberOfCartProducts, cartProducts, updatedTotalPrice } = useCart();
 const { closeModal } = useModal();
 
+const address = ref<IShippingAddress>({
+  streetAndHouseNumber: '',
+  zipCode: '',
+  city: '',
+  country: '',
+});
+
+const hasEmptyFields = ref(false);
+
 function handleUpdateShipping(address: IShippingAddress) {
   writeAddressInfo(user.value!.uid, $database, address);
+}
+
+function emittedFields(value: boolean) {
+  hasEmptyFields.value = value;
 }
 
 async function placeOrder() {
@@ -32,6 +45,8 @@ async function placeOrder() {
 </script>
 
 <template>
-  <ShippingAddressForm @submitForm="handleUpdateShipping" />
-  <FormSubmitBtn class="mt-2" @click="placeOrder">Place order</FormSubmitBtn>
+  <ShippingAddressForm @submitForm="handleUpdateShipping" @emitFields="emittedFields" />
+  <FormSubmitBtn :disabled="hasEmptyFields" class="mt-2" @click="placeOrder"
+    >Place order</FormSubmitBtn
+  >
 </template>
