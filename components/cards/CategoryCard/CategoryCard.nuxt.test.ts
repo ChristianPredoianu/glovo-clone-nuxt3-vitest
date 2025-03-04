@@ -20,7 +20,9 @@ describe('CategoryCard', () => {
 
     const img = wrapper.find('img');
     expect(img.exists()).toBe(true);
-    expect(img.attributes('src')).toBe('/path/to/image.jpg');
+    expect(img.attributes('src')).toBe(
+      '/_ipx/f_webp&fit_cover&s_128x128/path/to/image.jpg'
+    );
     expect(img.attributes('alt')).toBe('Category Name');
 
     const text = wrapper.find('h3');
