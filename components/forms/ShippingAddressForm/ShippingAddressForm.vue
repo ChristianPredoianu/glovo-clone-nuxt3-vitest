@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { handleEnterKey } from '@/composables/helpers/handleEnterKey';
 import useShippingFormValidation from '@/composables/form-validations/useShippingFormValidation';
+import { hasEmptyFields } from '@/composables/helpers/hasEmptyFields';
 import {
   successMessage,
   errorMessage,
 } from '@/composables/firebase/store/messagehandlerStore';
 
-const emit = defineEmits(['submitForm', 'handleForm']);
+const emit = defineEmits(['submitForm', 'emitFields']);
 
 const address = reactive({
   streetAndHouseNumber: '',
@@ -14,6 +15,8 @@ const address = reactive({
   city: '',
   country: '',
 });
+
+const emptyFields = ref(false);
 
 const { isAuthReady } = useAuth();
 const { user } = useAuth();
@@ -27,6 +30,8 @@ const {
 } = useShippingFormValidation();
 const { fetchAddressInfo } = useFirebaseAddressActions();
 
+const hasEmptyAddressFields = computed(() => hasEmptyFields(address));
+
 function onKeyDown(e: KeyboardEvent) {
   handleEnterKey(e, handleSubmit);
 }
@@ -39,6 +44,8 @@ function handleSubmit(e: Event) {
 }
 
 onMounted(() => {
+  emptyFields.value = hasEmptyFields(address);
+  emit('emitFields', emptyFields.value);
   watch(
     () => isAuthReady.value,
     (ready) => {
@@ -46,6 +53,11 @@ onMounted(() => {
     },
     { immediate: true }
   );
+});
+
+watch(hasEmptyAddressFields, (newValue, oldValue) => {
+  emptyFields.value = newValue;
+  emit('emitFields', newValue);
 });
 </script>
 
