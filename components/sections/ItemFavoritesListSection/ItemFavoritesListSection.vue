@@ -78,8 +78,15 @@ function emitSelected(option: string) {
       />
     </div>
     <DashboardFavoriteItemList :displayedItems="displayedItems" />
-    <h2 v-if="displayedItems.length === 0" class="text-xl font-semibold text-center">
+
+    <h2
+      v-if="displayedItems.length === 0"
+      class="text-xl mt-10 font-semibold text-center"
+    >
       You don't have any favorites in this category
     </h2>
   </section>
+  <h2 v-else class="text-xl mt-10 font-semibold text-center">
+    You don't have any favorites yet
+  </h2>
 </template>
