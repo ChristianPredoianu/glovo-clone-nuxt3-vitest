@@ -2,6 +2,9 @@
 const { fetchOrders, fetchedOrders, isLoading } = useFirebaseOrderActions();
 const { isAuthReady } = useAuth();
 
+const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange } =
+  usePagination(fetchedOrders, 5);
+
 onMounted(() => {
   if (isAuthReady.value) {
     fetchOrders();
@@ -18,9 +21,6 @@ onMounted(() => {
     );
   }
 });
-
-const { currentPage, itemsPerPage, totalItems, displayedItems, handlePageChange } =
-  usePagination(fetchedOrders, 5);
 </script>
 
 <template>
