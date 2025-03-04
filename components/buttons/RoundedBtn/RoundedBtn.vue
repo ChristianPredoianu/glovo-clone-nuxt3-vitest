@@ -5,9 +5,9 @@ const props = defineProps({
   backCol: String,
 });
 
-const { isLoaded } = useIsLoaded();
-
 const emit = defineEmits(['emitClick']);
+
+const { isLoaded } = useIsLoaded();
 </script>
 
 <template>
