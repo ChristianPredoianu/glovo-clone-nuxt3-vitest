@@ -17,17 +17,14 @@ const emit = defineEmits(['update:modelValue', 'blur']);
 
 const inputField = ref<HTMLInputElement | null>(null);
 
-const togglePasswordVisibility = () => {
-  if (inputField.value) 
+function togglePasswordVisibility() {
+  if (inputField.value)
     inputField.value.type = inputField.value.type === 'password' ? 'text' : 'password';
-  
-};
+}
 
 function handleInput(event: Event) {
   const target = event.target as HTMLInputElement;
-  if (target) {
-    emit('update:modelValue', target.value);
-  }
+  if (target) emit('update:modelValue', target.value);
 }
 </script>
 
