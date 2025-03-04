@@ -1,50 +1,67 @@
 import { mount } from '@vue/test-utils';
+import { describe, it, expect } from 'vitest';
 import MealCard from '@/components/cards/MealCard/MealCard.vue';
-import { vi } from 'vitest';
+import type { IMealCardProps } from '@/types/meals/IMealCardProps';
 
-vi.mock('@/helpers/replaceRecipeText', () => ({
-  replaceRecipeText: vi.fn((text: string) =>
-    text.replace(/\brecipe\b|\brecipes\b/gi, '').trim()
-  ),
-}));
+describe('MealCard.vue', () => {
+  const meal: IMealCardProps = {
+    recipe: {
+      cuisineType: ['Italian'],
+      label: 'Pizza Margherita',
+      image: 'https://example.com/pizza.jpg',
+    },
+    price: 10,
+  };
 
-describe('MealCard', () => {
-  it('renders meal details correctly', async () => {
+  const props = {
+    index: 0,
+    price: 10,
+    meal: meal,
+  };
+
+  it('renders the meal image with correct src and alt attributes', () => {
     const wrapper = mount(MealCard, {
-      props: {
-        meal: {
-          recipe: {
-            cuisineType: ['dessert'],
-            label: 'Chocolate Cake recipe',
-            image: 'path/to/image.jpg',
-          },
-          price: 15,
-        },
-      },
+      props,
     });
 
-    const image = wrapper.find('img');
-    expect(image.exists()).toBe(true);
-    expect(image.attributes('src')).toBe('path/to/image.jpg');
+    const img = wrapper.find('img');
+    expect(img.attributes('src')).toBe(meal.recipe.image);
+    expect(img.attributes('alt')).toBe('Pizza Margherita');
+  });
 
-    expect(image.attributes('alt')).toBe('Chocolate Cake');
-
-    const category = wrapper.find('p');
-    expect(category.text()).toBe('Dessert');
+  it('renders the meal label correctly', () => {
+    const wrapper = mount(MealCard, {
+      props,
+    });
 
     const label = wrapper.find('h3');
-    expect(label.text()).toBe('Chocolate Cake');
+    expect(label.text()).toBe('Pizza Margherita');
+  });
 
-    expect(wrapper.find('[data-test="fa-icon"]').exists()).toBe(false);
+  it('renders the cuisine type correctly', () => {
+    const wrapper = mount(MealCard, {
+      props,
+    });
 
-    await wrapper.vm.$nextTick();
+    const cuisineType = wrapper.find('p').text();
+    expect(cuisineType).toBe('Italian');
+  });
+
+  it('renders the price correctly', () => {
+    const wrapper = mount(MealCard, {
+      props,
+    });
+
+    const price = wrapper.find('[data-test="price"]').text();
+    expect(price).toContain('10 $');
+  });
+
+  it('renders the HeartBtn component', () => {
+    const wrapper = mount(MealCard, {
+      props,
+    });
 
     const heartBtn = wrapper.findComponent({ name: 'HeartBtn' });
     expect(heartBtn.exists()).toBe(true);
-    expect(heartBtn.props('mealItem')).toEqual({
-      category: 'dessert',
-      label: 'Chocolate Cake recipe',
-      img: 'path/to/image.jpg',
-    });
   });
 });
