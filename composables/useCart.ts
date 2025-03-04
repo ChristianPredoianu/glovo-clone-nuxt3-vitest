@@ -6,6 +6,19 @@ export function useCart() {
 
   const { startProgressBar } = useProgressBar();
 
+  const updatedTotalPrice = computed(() => {
+    return cartProducts.value.reduce((total, product) => {
+      const quantity = product.quantity ?? 0; // Default to 0 if undefined or null
+      return +(total + quantity * product.price).toFixed(2);
+    }, 0);
+  });
+
+  const numberOfCartProducts = computed(() => {
+    return cartProducts.value.reduce((total, product) => {
+      return total + (product.quantity ?? 0); // Default to 0 if undefined or null
+    }, 0);
+  });
+
   function addToCart(product: ICartProduct | null) {
     if (product !== null) {
       // Check if the product already exists in the cart
@@ -34,19 +47,6 @@ export function useCart() {
         : cartProducts.value.splice(productIndex, 1);
     }
   }
-
-  const updatedTotalPrice = computed(() => {
-    return cartProducts.value.reduce((total, product) => {
-      const quantity = product.quantity ?? 0; // Default to 0 if undefined or null
-      return +(total + quantity * product.price).toFixed(2);
-    }, 0);
-  });
-
-  const numberOfCartProducts = computed(() => {
-    return cartProducts.value.reduce((total, product) => {
-      return total + (product.quantity ?? 0); // Default to 0 if undefined or null
-    }, 0);
-  });
 
   return {
     cartProducts,
