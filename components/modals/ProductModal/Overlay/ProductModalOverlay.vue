@@ -27,9 +27,9 @@ function handleAddToCart(product: IMealModalProps) {
   addToCart(product);
 }
 
-const isMealModalProps = (props: ModalProps | null): props is IMealModalProps => {
+function isMealModalProps(props: ModalProps | null): props is IMealModalProps {
   return props !== null && 'ingredients' in props;
-};
+}
 </script>
 
 <template>
