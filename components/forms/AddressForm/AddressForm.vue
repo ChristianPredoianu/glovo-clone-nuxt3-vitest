@@ -36,16 +36,6 @@ const { data } = await useFetch<ILocationAdress>(
     `${locationReverseEndpoint.value}&q&lat=${latitude.value}&lon=${longitude.value}&format=json`
 );
 
-watch(
-  () => data.value,
-  (newValue: ILocationAdress | null) => {
-    if (newValue) {
-      locationAdress = newValue;
-      emits('emitLocation', locationAdress);
-    }
-  }
-);
-
 function handleInputElements() {
   if (inputText) {
     inputText.valueOf.length > 20;
@@ -76,6 +66,16 @@ function handleOnChange() {
   handleInputElements();
   emits('emitInput', inputText.value);
 }
+
+watch(
+  () => data.value,
+  (newValue: ILocationAdress | null) => {
+    if (newValue) {
+      locationAdress = newValue;
+      emits('emitLocation', locationAdress);
+    }
+  }
+);
 </script>
 
 <template class="dsadsadas">
