@@ -10,11 +10,11 @@ const props = defineProps({
   },
 });
 
+const { isLoaded } = useIsLoaded();
+
 // Calculate the number of full, half, and empty stars based on the rating
 const fullStars = computed(() => Math.floor(props.rate!)); // Full stars count
 const halfStar = computed(() => props.rate! % 1 >= 0.5); // Half // Empty stars count
-
-const { isLoaded } = useIsLoaded();
 </script>
 
 <template>
