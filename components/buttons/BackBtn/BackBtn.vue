@@ -12,6 +12,7 @@ const router = useRouter();
 const { isLoaded } = useIsLoaded();
 
 function goToPage() {
+  console.log('goToPage called with:', props.page);
   router.push(`${props.page}`);
 }
 </script>
