@@ -7,6 +7,7 @@ declare module '#app' {
 }
 
 export const user = ref<User | null>(null);
+export const isLoading = ref(false);
 export const isAuthReady = ref(false);
 export const userNameError = ref('');
 export const emailError = ref<string | null>(null);
