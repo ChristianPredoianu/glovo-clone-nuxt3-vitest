@@ -9,11 +9,19 @@ const props = defineProps({
 
 const { screenWidth } = useScreenWidth();
 const { numberOfCartProducts } = useCart();
+const { user } = useAuth();
+const isAuthenticated = ref(user);
 
 const shouldShowNavItems = computed(() => {
   return (
     !(screenWidth.value > 768 && props.title === 'Cart') &&
     (screenWidth.value < 640 || props.title !== 'Sign in')
+  );
+});
+
+const shouldShowAuthNavItems = computed(() => {
+  return (
+    isAuthenticated.value || (props.title !== 'My Account' && props.title !== 'Dashboard')
   );
 });
 </script>
@@ -29,7 +37,9 @@ const shouldShowNavItems = computed(() => {
     <div
       class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2 cursor-pointer"
     >
-      {{ props.title }}
+      <template v-if="shouldShowAuthNavItems">
+        {{ props.title }}
+      </template>
       <font-awesome-icon :icon="props.icon" v-if="screenWidth < 640" />
     </div>
     <p
