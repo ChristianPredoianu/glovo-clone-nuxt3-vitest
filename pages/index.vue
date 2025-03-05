@@ -7,8 +7,6 @@ import type { ISingleMeal, IMeals } from '@/types/meals';
 import type { ILocationsData, ILocationAdress, ICountriesData } from '@/types/locations';
 import type { IDropdownOptions } from '@/types/ui';
 
-const { cartProducts } = useCart();
-
 const emittedInput = ref<string>('');
 const selectedMeal = ref<(ISingleMeal & { price: number }) | null>(null);
 const emittedOption = ref<IDropdownOptions>({ id: 0, text: '' });
@@ -83,6 +81,10 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
   selectedMeal.value = { ...meal, price };
   setModalProps(selectedMeal.value);
   openModal('productModal');
+}
+
+function goToLocalFood() {
+  navigateTo('/Dinner?index=2');
 }
 </script>
 
@@ -199,7 +201,7 @@ function handleMealCardClick(meal: ISingleMeal, price: number) {
         <InfoCard v-for="(card, index) in infoCardsData" :key="index" :card="card" />
       </div>
       <div class="pt-20">
-        <CtaBtn backCol="bg-green-500" textCol="text-gray-100"
+        <CtaBtn @click="goToLocalFood" backCol="bg-green-500" textCol="text-gray-100"
           >Explore food around you</CtaBtn
         >
       </div>
