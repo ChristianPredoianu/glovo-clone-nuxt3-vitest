@@ -8,7 +8,11 @@ import {
 } from 'firebase/auth';
 import { ref as dbRef, remove } from 'firebase/database';
 import { successMessage, errorMessage } from '../../store/messagehandlerStore';
-import { user, isAuthReady } from '@/composables/firebase/auth/store/authStore';
+import {
+  user,
+  isLoading,
+  isAuthReady,
+} from '@/composables/firebase/auth/store/authStore';
 import { delay } from '@/composables/helpers/delay';
 
 const DELAY = 2000;
@@ -24,15 +28,6 @@ export function useAuth(redirect: string | null = null) {
     emailError,
     repeatedPasswordError,
   } = useAuthValidation();
-
-  watchEffect(() => {
-    if ($auth) {
-      onAuthStateChanged($auth, (currentUser) => {
-        user.value = currentUser;
-        isAuthReady.value = true;
-      });
-    }
-  });
 
   async function signUp(email: string, password: string, repeatedPassword: string) {
     resetMessage(errorMessage);
@@ -93,6 +88,7 @@ export function useAuth(redirect: string | null = null) {
     database: any
   ) {
     resetMessage(errorMessage);
+    isLoading.value = true;
     try {
       const user = $auth.currentUser;
       if (!user) throw new Error('No user is currently signed in.');
@@ -110,12 +106,25 @@ export function useAuth(redirect: string | null = null) {
       setSuccessMessageWithTimeout('User account deleted successfully');
     } catch (error: any) {
       handleError(error);
+      throw error;
+    } finally {
+      isLoading.value = false;
     }
   }
+
+  watchEffect(() => {
+    if ($auth) {
+      onAuthStateChanged($auth, (currentUser) => {
+        user.value = currentUser;
+        isAuthReady.value = true;
+      });
+    }
+  });
 
   return {
     isAuthReady,
     user,
+    isLoading,
     signIn,
     signUp,
     signUserOut,
