@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import MyAccountForm from '@/components/forms/MyAccountForm/MyAccountForm.vue';
 import ShippingAddressForm from '@/components/forms/ShippingAddressForm/ShippingAddressForm.vue';
-import DeleteAccount from '@/components/ui/DeteleAccount/DeleteAccount.vue';
+import DeleteAccount from '@/components/ui/DeleteAccount/DeleteAccount.vue';
+import MyOrders from '@/components/sections/OrdersListSection/OrdersListSection.vue';
 import type { IShippingAddress } from '@/types/locations';
 
 const componentMap: Record<
   string,
-  typeof MyAccountForm | typeof ShippingAddressForm | typeof DeleteAccount
+  | typeof MyAccountForm
+  | typeof ShippingAddressForm
+  | typeof MyOrders
+  | typeof DeleteAccount
 > = {
   MyAccountForm,
   ShippingAddressForm,
+  MyOrders,
   DeleteAccount,
 };
 
@@ -19,7 +24,7 @@ const { $database } = useNuxtApp();
 const { writeAddressInfo } = useFirebaseAddressActions();
 
 function handleChangeComponent(menuComponent: string) {
-  console.log('dsa');
+  console.log('Changing component to:', menuComponent);
   changeComponent(menuComponent, componentMap);
 }
 
