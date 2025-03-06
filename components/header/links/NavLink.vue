@@ -36,7 +36,6 @@ const shouldDisplayAuthNavLinks = computed(() => {
 
 function handleModalLinksClick() {
   props.title === 'Sign in' ? openModal('signin') : openModal('cart');
-
   closeNav();
 }
 </script>
@@ -44,30 +43,43 @@ function handleModalLinksClick() {
 <template>
   <li
     v-if="shouldDisplayAuthNavLinks"
-    class="block sm:flex items-center text-2xl font-semibold text-gray-700 sm:text-sm text-teal-lighter sm:hover:text-white cursor-pointer sm:mr-4"
+    class="block sm:flex items-center text-2xl font-semibold text-gray-700 sm:text-sm text-teal-lighter sm:hover:text-gray-900 cursor-pointer sm:mr-4 transition duration-100 ease-in-out"
     :class="{
       'text-xs': screenWidth < 230,
     }"
   >
-    <NuxtLink v-if="!isModalLinks" :to="props.link" @click="closeNav" class="w-full">
+    <!-- Standard Nav Link -->
+    <NuxtLink
+      v-if="!isModalLinks"
+      :to="props.link"
+      @click="closeNav"
+      class="w-full"
+      aria-label="Navigate to {{ props.title }}"
+    >
       <div
-        class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2 cursor-pointer"
+        class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2 font-semibold cursor-pointer hover:bg-teal-100 transform transition-all duration-200 ease-in-out hover:px-2 hover:rounded-xl focus:ring-2 focus:ring-indigo-500"
       >
         {{ props.title }}
-
-        <font-awesome-icon v-if="screenWidth < 640" :icon="props.icon" />
+        <font-awesome-icon v-if="screenWidth < 640" :icon="props.icon" class="text-xl" />
       </div>
     </NuxtLink>
 
-    <div v-else @click="handleModalLinksClick" class="w-full cursor-pointer">
+    <!-- Modal Trigger Links -->
+    <div
+      v-else
+      @click="handleModalLinksClick"
+      class="w-full cursor-pointer"
+      aria-label="Open {{ props.title }} modal"
+    >
       <div
-        class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2"
+        class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2 cursor-pointer focus:ring-2 focus:ring-indigo-500"
       >
         {{ props.title }}
-        <font-awesome-icon v-if="screenWidth < 640" :icon="props.icon" />
+        <font-awesome-icon v-if="screenWidth < 640" :icon="props.icon" class="text-xl" />
       </div>
     </div>
 
+    <!-- Cart Badge -->
     <p
       v-if="props.title === 'Cart' && shouldShowNavItems"
       class="hidden ml-1 bg-green-600 text-white rounded-full p-2 w-6 h-6 sm:flex items-center justify-center text-xs font-semibold"
