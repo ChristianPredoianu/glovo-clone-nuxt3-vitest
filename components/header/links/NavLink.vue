@@ -22,51 +22,52 @@ const shouldShowNavItems = computed(() => {
   );
 });
 
-const shouldShowAuthNavItems = computed(() => {
+const isModalLinks = computed(() => {
+  return (props.title?.replace(' ', '') === 'Signin' || props.title === 'Cart') ?? false;
+});
+
+const shouldDisplayAuthNavLinks = computed(() => {
   return (
-    isAuthenticated.value || (props.title !== 'My Account' && props.title !== 'Dashboard')
+    shouldShowNavItems.value &&
+    (isAuthenticated.value ||
+      (props.title !== 'Dashboard' && props.title !== 'My Account'))
   );
 });
 
-const isCartLink = computed(() => {
-  return props.title === 'Cart';
-});
+function handleModalLinksClick() {
+  props.title === 'Sign in' ? openModal('signin') : openModal('cart');
 
-function handleCartClick() {
-  openModal('cart');
   closeNav();
 }
 </script>
 
 <template>
   <li
-    v-if="shouldShowNavItems"
+    v-if="shouldDisplayAuthNavLinks"
     class="block sm:flex items-center text-2xl font-semibold text-gray-700 sm:text-sm text-teal-lighter sm:hover:text-white cursor-pointer sm:mr-4"
     :class="{
       'text-xs': screenWidth < 230,
     }"
   >
-    <NuxtLink v-if="!isCartLink" :to="props.link" @click="closeNav" class="w-full">
+    <NuxtLink v-if="!isModalLinks" :to="props.link" @click="closeNav" class="w-full">
       <div
         class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2 cursor-pointer"
       >
-        <template v-if="shouldShowAuthNavItems">
-          {{ props.title }}
-        </template>
-        <font-awesome-icon :icon="props.icon" v-if="screenWidth < 640" />
+        {{ props.title }}
+
+        <font-awesome-icon v-if="screenWidth < 640" :icon="props.icon" />
       </div>
     </NuxtLink>
 
-    <div v-else @click="handleCartClick" class="w-full cursor-pointer">
+    <div v-else @click="handleModalLinksClick" class="w-full cursor-pointer">
       <div
         class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2"
       >
-        <template v-if="shouldShowAuthNavItems">
-          {{ props.title }}
-        </template>
-        <font-awesome-icon :icon="props.icon" v-if="screenWidth < 640" />
+        {{ props.title }}
+        <font-awesome-icon v-if="screenWidth < 640" :icon="props.icon" />
       </div>
     </div>
+
     <p
       v-if="props.title === 'Cart' && shouldShowNavItems"
       class="hidden ml-1 bg-green-600 text-white rounded-full p-2 w-6 h-6 sm:flex items-center justify-center text-xs font-semibold"
