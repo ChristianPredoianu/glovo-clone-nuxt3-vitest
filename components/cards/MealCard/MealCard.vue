@@ -27,11 +27,11 @@ const mealItem = {
     class="flex flex-col shadow-lg p-4 sm:p-6 relative cursor-pointer rounded-md bg-white w-full sm:max-w-[400px] md:max-w-[500px]"
   >
     <div class="relative">
-      <div class="relative overflow-hidden w-full h-[200px] sm:h-[250px]">
+      <div class="relative overflow-hidden w-full h-[250px]">
         <NuxtImg
           :src="props.meal.recipe.image"
           :alt="replaceRecipeText(props.meal.recipe.label)"
-          class="rounded-lg transform transition-transform duration-300 hover:scale-105 object-cover w-full h-full"
+          class="rounded-lg transform transition-transform duration-300 hover:scale-105 object-cover w-full sm:h-auto"
           format="webp"
           loading="lazy"
           height="auto"
@@ -66,7 +66,12 @@ const mealItem = {
       </div>
 
       <div class="flex justify-between mt-2 sm:mt-3">
-        <p data-test="price" class="font-bold text-lg sm:text-xl">{{ props.price }} $</p>
+        <p
+          data-test="price"
+          class="font-semibold text-green-600 mt-2 ml-1 text-lg sm:text-xl"
+        >
+          {{ props.price }} $
+        </p>
       </div>
     </div>
   </article>
