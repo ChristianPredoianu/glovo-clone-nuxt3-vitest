@@ -2,10 +2,16 @@
 const { screenWidth } = useScreenWidth();
 const { closeNav } = useNav();
 const { closeBackdrop } = useBackdrop();
+const { openModal } = useModal();
 
 function closeNavigationDialog() {
   closeNav();
   closeBackdrop();
+}
+
+function goToSignUp() {
+  closeNavigationDialog();
+  openModal('signin');
 }
 </script>
 
@@ -27,7 +33,7 @@ function closeNavigationDialog() {
         }"
       >
         <span class="text-green-500">Connect</span>
-        | New Account
+        | <span @click="goToSignUp" class="cursor-pointer">New Account</span>
       </h1>
     </div>
     <NavList />
