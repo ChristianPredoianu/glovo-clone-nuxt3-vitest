@@ -158,7 +158,7 @@ function goToLocalFood() {
       </div>
       <div
         v-if="mealData"
-        class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-y-8 gap-x-8 mt-8"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-8 gap-x-8 mt-8"
       >
         <MealCard
           v-for="(meal, index) in mealData.hits"
