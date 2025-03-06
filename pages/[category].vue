@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { generateRandomPrice } from '@/composables/helpers/randomPrice';
 import { capitalizeFirstLetter } from '@/composables/helpers/capitalizeFirstLetter';
 import { fetchData } from '@/composables/helpers/fetchGenericData';
 import { isMealData } from '@/composables/helpers/mealTypeGuards';
@@ -21,7 +20,6 @@ const filteredData = useState<FetchResult<IMeals | IProduct[] | null>>(
 const route = useRoute();
 const { isFakeStoreIndex, getCategoryName } = useFilter();
 const { screenWidth } = useScreenWidth();
-
 const { currentModalProps, setModalProps } = useModalProps();
 const { openModal, closeModal } = useModal();
 
@@ -31,9 +29,7 @@ const { initialFetchEndpoint, selectedApiEndpoint } = useEndpoints(
   route.query.index as string
 );
 
-const { data, pending } = await useFetch<IMeals | IProduct[] | null>(
-  initialFetchEndpoint.value!
-);
+const { data } = await useFetch<IMeals | IProduct[] | null>(initialFetchEndpoint.value!);
 
 async function fetchDataAndUpdate() {
   if (emittedFilter.value) {
@@ -150,10 +146,7 @@ onBeforeRouteLeave((to, from, next) => {
           {{ emittedFilter }}
         </h2>
 
-        <div
-          v-if="pending || filteredData.isLoading"
-          class="flex justify-center -mt-40 w-full"
-        >
+        <div v-if="filteredData.isLoading" class="flex justify-center -mt-40 w-full">
           <LoadingSpinner />
         </div>
 
