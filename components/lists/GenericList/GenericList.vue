@@ -23,11 +23,11 @@ function getItemField(item: Item, field: string): string {
 </script>
 
 <template>
-  <ul class="flex flex-wrap gap-2 justify-around">
+  <ul class="flex flex-wrap gap-4 justify-center">
     <li
       v-for="(item, key) in props.items"
       :key="key"
-      class="bg-orange-200 text-lg font-semibold p-4 rounded-3xl cursor-pointer"
+      class="bg-orange-200 text-lg font-semibold py-3 px-6 rounded-full cursor-pointer transition-all duration-300 ease-in-out transform hover:bg-orange-400 hover:shadow-lg"
     >
       {{ capitalizeFirstLetter(getItemField(item, props.field || '')) }}
     </li>
