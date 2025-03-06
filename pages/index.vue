@@ -195,7 +195,7 @@ function goToLocalFood() {
     </section>
   </div>
   <div class="container mx-auto px-4">
-    <h3 class="text-center text-4xl font-bold pb-20">Anything delivered</h3>
+    <h3 class="text-center text-2xl md:text-4xl font-bold pb-20">Anything delivered</h3>
     <section class="flex flex-col items-center">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <InfoCard v-for="(card, index) in infoCardsData" :key="index" :card="card" />
@@ -216,7 +216,9 @@ function goToLocalFood() {
       ></path>
     </svg>
     <div class="bg-amber-400 w-full pb-20">
-      <h3 class="text-center text-4xl font-bold pb-20">Countries where we deliver</h3>
+      <h3 class="text-center text-2xl md:text-4xl font-bold pb-20">
+        Countries where we deliver
+      </h3>
       <div class="container mx-auto px-4">
         <GenericList v-if="countriesData" :items="countriesData" field="name.common" />
       </div>
