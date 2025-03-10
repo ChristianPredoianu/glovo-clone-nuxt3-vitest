@@ -32,9 +32,12 @@ defineExpose({
       <component :is="currentComponent" @reset-component="" />
       <h4 class="-mt-10 ml-4">
         {{ isSignIn ? "Don't have an account?" : 'Already have an account?' }}
-        <span class="text-yellow-600 font-semibold cursor-pointer" @click="toggleForm">{{
-          isSignIn ? 'Sign up' : 'Sign in'
-        }}</span>
+        <span
+          class="text-yellow-600 font-semibold cursor-pointer"
+          @click="toggleForm"
+          data-test="span-auth"
+          >{{ isSignIn ? 'Sign up' : 'Sign in' }}</span
+        >
       </h4>
     </div>
   </section>
