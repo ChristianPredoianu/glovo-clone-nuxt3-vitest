@@ -3,16 +3,16 @@ import { describe, it, expect, vi } from 'vitest';
 import CartModalList from '@/components/modals/CartModal/List/CartModalList.vue';
 
 const cartProducts = [
-  { id: 1, img: 'image1.jpg', quantity: 2, label: 'Product 1', price: 10.0 },
-  { id: 2, img: 'image2.jpg', quantity: 1, label: 'Product 2', price: 20.0 },
+  { id: 1, img: '/glovo.jpg', quantity: 2, label: 'Product 1', price: 10.0 },
+  { id: 2, img: '/glovo.jpg', quantity: 1, label: 'Product 2', price: 20.0 },
 ];
 
 const removeFromCartMock = vi.fn();
 vi.mock('@/composables/useCart', () => ({
   useCart: () => ({
     cartProducts: [
-      { id: 1, img: 'image1.jpg', quantity: 2, label: 'Product 1', price: 10.0 },
-      { id: 2, img: 'image2.jpg', quantity: 1, label: 'Product 2', price: 20.0 },
+      { id: 1, img: '/glovo.jpg', quantity: 2, label: 'Product 1', price: 10.0 },
+      { id: 2, img: '/glovo.jpg', quantity: 1, label: 'Product 2', price: 20.0 },
     ],
     removeFromCart: removeFromCartMock,
   }),
