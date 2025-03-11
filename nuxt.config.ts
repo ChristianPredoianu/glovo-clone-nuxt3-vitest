@@ -15,11 +15,6 @@ export default defineNuxtConfig({
     ],
   },
 
-  routeRules: {
-    '/dashboard/**': { appMiddleware: 'auth' },
-    '/my-account/**': { appMiddleware: 'auth' }, // This will apply auth middleware to all routes under /dashboard
-  },
-
   runtimeConfig: {
     public: {
       apiKeyLocationReverse: process.env.NUXT_PUBLIC_API_KEY_LOCATION_REVERSE,
