@@ -57,7 +57,7 @@ function handleModalLinksClick() {
       aria-label="Navigate to {{ props.title }}"
     >
       <div
-        class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2 font-semibold cursor-pointer hover:bg-teal-100 transform transition-all duration-200 ease-in-out hover:px-2 hover:rounded-xl focus:ring-2 focus:ring-indigo-500"
+        class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2 font-semibold cursor-pointer hover:bg-teal-100 transform transition-all duration-200 ease-in-out hover:rounded-md md:px-2 focus:ring-2 focus:ring-indigo-500"
       >
         {{ props.title }}
         <font-awesome-icon v-if="screenWidth < 640" :icon="props.icon" class="text-xl" />
