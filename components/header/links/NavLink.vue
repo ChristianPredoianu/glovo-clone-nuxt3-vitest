@@ -79,7 +79,6 @@ function handleModalLinksClick() {
       </div>
     </div>
 
-    <!-- Cart Badge -->
     <p
       v-if="props.title === 'Cart' && shouldShowNavItems"
       class="hidden ml-1 bg-green-600 text-white rounded-full p-2 w-6 h-6 sm:flex items-center justify-center text-xs font-semibold"
