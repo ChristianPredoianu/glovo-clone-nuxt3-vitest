@@ -5,7 +5,7 @@ const { isLoaded } = useIsLoaded();
 </script>
 
 <template>
-  <footer class="bg-gray-900 text-white py-12" v-if="isLoaded">
+  <footer class="mt-20 bg-gray-900 text-white py-12" v-if="isLoaded">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div v-for="section in aboutData" :key="section.id">
