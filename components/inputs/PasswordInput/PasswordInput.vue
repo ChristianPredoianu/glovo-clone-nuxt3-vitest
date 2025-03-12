@@ -29,7 +29,7 @@ function handleInput(event: Event) {
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col gap-1 w-full">
     <label :for="name" class="text-sm font-medium text-gray-700">{{ label }}</label>
     <div class="relative">
       <input
@@ -44,19 +44,18 @@ function handleInput(event: Event) {
         :autocomplete="autocomplete"
         :required="required"
         ref="inputField"
-        class="w-full border-0 border-b-2 border-gray-300 py-2 px-1 mt-1"
+        class="w-full border-b-2 border-gray-300 py-2 focus:outline-none focus:border-gray-700 transition-all"
       />
-
       <button
         type="button"
         @click="togglePasswordVisibility"
-        class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
       >
         <span v-if="type === 'password'">Show</span>
         <span v-if="type === 'text'">Hide</span>
       </button>
     </div>
-    <p v-if="errorMessage" class="text-red-600 text-xs mt-1 h-4">
+    <p v-if="errorMessage" class="text-red-600 text-xs mt-1">
       {{ errorMessage }}
     </p>
   </div>
