@@ -42,7 +42,7 @@ function handleDeleteFilter() {
         v-if="isActive(getCategoryName(category))"
         @click.stop="handleDeleteFilter"
         :icon="['fas', 'close']"
-        class="absolute bottom-10 right-4 rounded-full p-2 text-xs bg-gray-600 text-gray-200 cursor-pointer shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-gray-700"
+        class="absolute top-0 right-0 rounded-full p-2 text-xs bg-gray-600 text-gray-200 cursor-pointer shadow-lg transition-transform duration-200 hover:scale-105 hover:bg-gray-700"
         title="Remove Filter"
       />
     </li>
