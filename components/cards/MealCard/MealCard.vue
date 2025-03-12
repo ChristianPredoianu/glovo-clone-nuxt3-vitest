@@ -27,7 +27,7 @@ const mealItem = {
     class="flex flex-col shadow-lg p-4 sm:p-6 relative cursor-pointer rounded-md bg-white w-full sm:max-w-[400px] md:max-w-[500px]"
   >
     <div class="relative">
-      <div class="relative overflow-hidden w-full h-[250px]">
+      <div class="relative overflow-hidden w-full">
         <NuxtImg
           :src="props.meal.recipe.image"
           :alt="replaceRecipeText(props.meal.recipe.label)"
