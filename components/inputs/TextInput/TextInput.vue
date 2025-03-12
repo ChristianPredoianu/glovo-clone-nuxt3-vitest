@@ -22,19 +22,21 @@ function handleInput(event: Event) {
 </script>
 
 <template>
-  <label :for="name" class="text-sm font-medium text-gray-700">{{ label }}</label>
-  <input
-    :id="name"
-    :name="name"
-    :type="type"
-    :placeholder="placeholder"
-    :autocomplete="autocomplete"
-    :value="modelValue"
-    @input="handleInput"
-    @blur="$emit('blur')"
-    class="w-full border-0 border-b-2 border-gray-300 py-2 px-1 mb-2"
-  />
-  <p v-if="errorMessage" class="text-red-600 text-xs mt-1 h-4">
-    {{ errorMessage }}
-  </p>
+  <div class="flex flex-col gap-1 w-full">
+    <label :for="name" class="text-sm font-medium text-gray-700">{{ label }}</label>
+    <input
+      :id="name"
+      :name="name"
+      :type="type"
+      :placeholder="placeholder"
+      :autocomplete="autocomplete"
+      :value="modelValue"
+      @input="handleInput"
+      @blur="$emit('blur')"
+      class="w-full border-b-2 border-gray-300 py-2 focus:outline-none focus:border-gray-700 transition-all"
+    />
+    <p v-if="errorMessage" class="text-red-600 text-xs mt-1">
+      {{ errorMessage }}
+    </p>
+  </div>
 </template>
