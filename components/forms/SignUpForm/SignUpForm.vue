@@ -40,7 +40,7 @@ function onKeyDown(e: KeyboardEvent) {
   <form
     @submit.prevent="handleSignUserUp"
     @keydown="onKeyDown"
-    class="flex flex-col gap-7 p-4"
+    class="flex flex-col gap-6 w-full max-w-md mx-auto"
   >
     <TextInput
       label="Email"
