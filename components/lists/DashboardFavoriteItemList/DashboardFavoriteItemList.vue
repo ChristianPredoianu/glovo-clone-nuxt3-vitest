@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { capitalizeFirstLetter } from '@/composables/helpers/capitalizeFirstLetter';
 import { replaceRecipeText } from '@/composables/helpers/replaceRecipeText';
-import type { IItem } from '@/types/products';
+import type { IItem } from '@/types';
 
 const props = defineProps({
   displayedItems: {
