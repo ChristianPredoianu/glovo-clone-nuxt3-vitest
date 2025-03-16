@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IIngredient } from '@/types/meals';
+import type { IIngredient } from '@/types';
 
 const props = defineProps({
   ingredients: {
