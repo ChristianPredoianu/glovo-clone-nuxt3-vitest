@@ -1,6 +1,4 @@
-import type { ICartProduct, IItem } from '@/types';
-
-import { computed } from 'vue';
+import type { ICartProduct } from '@/types';
 
 export function useCart() {
   const cartProducts = useState<ICartProduct[]>('cartProducts', () => []);
