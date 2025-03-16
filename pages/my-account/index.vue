@@ -3,7 +3,7 @@ import MyAccountForm from '@/components/forms/MyAccountForm/MyAccountForm.vue';
 import ShippingAddressForm from '@/components/forms/ShippingAddressForm/ShippingAddressForm.vue';
 import DeleteAccount from '@/components/ui/DeleteAccount/DeleteAccount.vue';
 import MyOrders from '@/components/sections/OrdersListSection/OrdersListSection.vue';
-import type { IShippingAddress } from '@/types/locations';
+import type { IShippingAddress } from '@/types';
 
 const componentMap: Record<
   string,
