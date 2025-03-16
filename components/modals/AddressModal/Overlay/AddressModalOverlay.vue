@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DELAY } from '@/composables/firebase/useMessageHandler';
-import type { IShippingAddress } from '@/types/locations';
+import type { IShippingAddress } from '@/types';
 
 const { user } = useAuth();
 const { $database } = useNuxtApp();
