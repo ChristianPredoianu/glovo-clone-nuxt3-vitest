@@ -7,6 +7,9 @@ const props = defineProps({
     required: true,
   },
 });
+
+const { addToCart } = useCart();
+console.log(props.product);
 </script>
 
 <template>
@@ -35,13 +38,6 @@ const props = defineProps({
           {{ product?.price }} $
         </p>
         <StarCounter :rate="props.product!.rating.rate" :count="product?.rating.count" />
-        <div class="mt-auto w-full">
-          <button
-            class="w-full bg-green-500 inline text-white py-2 px-4 shadow-md hover:bg-green-600 transition duration-200"
-          >
-            Add to cart
-          </button>
-        </div>
       </div>
     </div>
   </article>
