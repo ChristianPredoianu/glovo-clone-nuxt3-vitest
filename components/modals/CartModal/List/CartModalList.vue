@@ -18,7 +18,7 @@ const { removeFromCart } = useCart();
         <p class="text-lg font-bold ml-1">{{ product.quantity }}x</p>
         <p class="text-sm text-center w-1/2">{{ replaceRecipeText(product.label) }}</p>
         <p class="font-semibold">{{ (product.price ?? 0).toFixed(2) }} $</p>
-        <p @click="removeFromCart(product.id)">x</p>
+        <p @click="removeFromCart(product.id!)">x</p>
       </div>
       <ProductCounter :quantity="product.quantity ?? 0" :product="product" />
     </li>
