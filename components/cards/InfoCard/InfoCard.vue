@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IInfoCardProps } from '@/types/ui/IInfoCardProps';
+import type { IInfoCardProps } from '@/types';
 
 const props = defineProps({
   card: {
@@ -8,8 +8,7 @@ const props = defineProps({
   },
 });
 
-const {isLoaded} = useIsLoaded();
-
+const { isLoaded } = useIsLoaded();
 </script>
 
 <template>
