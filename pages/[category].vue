@@ -177,7 +177,7 @@ onBeforeRouteLeave((to, from, next) => {
               :key="product.id"
               :product="product"
               :price="prices[index]"
-              @click="handleMealCardClick(product)"
+              @click="handleMealCardClick(product, product.price)"
             />
           </template>
         </div>
