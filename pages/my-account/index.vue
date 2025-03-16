@@ -45,7 +45,7 @@ function handleUpdateShipping(address: IShippingAddress) {
         </div>
       </div>
 
-      <div class="flex-1 bg-white h-dvh shadow-xl rounded-lg p-8 border border-gray-200">
+      <div class="flex-1 bg-white shadow-xl rounded-lg p-8 border border-gray-200">
         <h1 class="text-2xl lg:text-3xl font-semibold text-gray-800 mb-6">
           Your Account
         </h1>
