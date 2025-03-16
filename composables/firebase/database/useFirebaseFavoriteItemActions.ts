@@ -3,7 +3,7 @@ import {
   fetchedFavoriteItems,
   isLoading,
 } from '@/composables/firebase/database/store/databaseStore';
-import type { IItem } from '@/types/products/IItem';
+import type { IItem } from '@/types';
 
 declare module '#app' {
   interface NuxtApp {
