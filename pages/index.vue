@@ -3,9 +3,14 @@ import Modal from '@/components/modals/Modal/Modal.vue';
 import { productCategories, dishTypes } from '@/data/productCategoriesData';
 import { infoCardsData } from '@/data/infocardsData';
 import { convertToDropdownOptions } from '@/composables/helpers/convertToDropdownOptions';
-import type { ISingleMeal, IMeals } from '@/types/meals';
-import type { ILocationsData, ILocationAdress, ICountriesData } from '@/types/locations';
-import type { IDropdownOptions } from '@/types/ui';
+import type {
+  ISingleMeal,
+  IMeals,
+  ILocationsData,
+  ILocationAdress,
+  ICountriesData,
+  IDropdownOptions,
+} from '@/types';
 
 const emittedInput = ref<string>('');
 const selectedMeal = ref<(ISingleMeal & { price: number }) | null>(null);
@@ -44,6 +49,41 @@ const { openModal, closeModal } = useModal();
 const { isLoaded } = useIsLoaded();
 const { prices: mealPrices } = useRandomPrices(mealData.value?.hits.length || 0);
 
+const checkLocationOutput = computed(() => {
+  return emittedLocation.value.address.road !== ''
+    ? `${emittedLocation.value.address.road}, 
+       ${emittedLocation.value.address.postcode}, 
+       ${emittedLocation.value.address.town}, 
+       ${emittedLocation.value.address.country}`
+    : emittedOption.value.text;
+});
+
+const checkIfLocation = computed(() => {
+  return emittedOption.value.text !== '' || emittedLocation.value.address.road !== '';
+});
+
+function handleEmittedSearchQuery(searchQuery: string) {
+  emittedInput.value = searchQuery;
+}
+
+function handleEmmitedOption(option: IDropdownOptions) {
+  emittedOption.value = option;
+}
+
+function handleEmmitedLocation(location: ILocationAdress) {
+  emittedLocation.value = location;
+}
+
+function handleMealCardClick(meal: ISingleMeal, price: number) {
+  selectedMeal.value = { ...meal, price };
+  setModalProps(selectedMeal.value);
+  openModal('productModal');
+}
+
+function goToLocalFood() {
+  navigateTo('/Dinner?index=2');
+}
+
 watch(
   () => locationData.value,
   (newValue: ILocationsData[] | null) => {
@@ -59,41 +99,6 @@ watch(
     if (newValue !== null) emittedLocation.value.address.road = '';
   }
 );
-
-function handleEmittedSearchQuery(searchQuery: string) {
-  emittedInput.value = searchQuery;
-}
-
-function handleEmmitedOption(option: IDropdownOptions) {
-  emittedOption.value = option;
-}
-
-function handleEmmitedLocation(location: ILocationAdress) {
-  emittedLocation.value = location;
-}
-
-function checkIfLocation() {
-  return emittedOption.value.text !== '' || emittedLocation.value.address.road !== '';
-}
-
-function checkLocationOutput() {
-  return emittedLocation.value.address.road !== ''
-    ? `${emittedLocation.value.address.road}, 
-                  ${emittedLocation.value.address.postcode}, 
-                  ${emittedLocation.value.address.town}, 
-                  ${emittedLocation.value.address.country}`
-    : emittedOption.value.text;
-}
-
-function handleMealCardClick(meal: ISingleMeal, price: number) {
-  selectedMeal.value = { ...meal, price };
-  setModalProps(selectedMeal.value);
-  openModal('productModal');
-}
-
-function goToLocalFood() {
-  navigateTo('/Dinner?index=2');
-}
 </script>
 
 <template>
@@ -131,11 +136,11 @@ function goToLocalFood() {
           />
 
           <p
-            v-if="checkIfLocation()"
+            v-if="checkIfLocation"
             class="text-sm md:text-lg font-medium mt-4 absolute top-12 left-0"
           >
             Deliver to:
-            <span class="text-sm md:text-lg font-bold">{{ checkLocationOutput() }}</span>
+            <span class="text-sm md:text-lg font-bold">{{ checkLocationOutput }}</span>
           </p>
         </div>
       </div>
@@ -184,7 +189,7 @@ function goToLocalFood() {
         class="text-7xl mx-auto w-full py-20 text-amber-400"
       />
       <div
-        v-if="checkIfLocation()"
+        v-if="checkIfLocation"
         class="flex flex-col w-full items-center justify-center gap-10 pb-20"
       >
         <h3 class="text-xl md:text-3xl font-bold">
