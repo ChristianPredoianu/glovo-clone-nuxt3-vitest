@@ -33,6 +33,7 @@ export function useModalProps() {
         id: item.id,
         label: item.title!,
         img: item.image,
+        description: item.description,
         price: item.price,
       };
       mealModalProps.value = null;
