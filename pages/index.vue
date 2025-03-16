@@ -23,8 +23,16 @@ const { locationEndpoint, indexMealDataEndpoint, restCountriesEndpoint } = useEn
 const { data: mealData } = await useFetch<IMeals>(() => `${indexMealDataEndpoint.value}`);
 
 const { data: locationData } = await useFetch<ILocationsData[]>(
-  () => `${locationEndpoint.value}`
+  () => {
+    if (!emittedInput.value || emittedInput.value.trim() === '') return '';
+
+    return `${locationEndpoint.value}`;
+  },
+  {
+    watch: [emittedInput],
+  }
 );
+
 const { data: countriesData } = await useFetch<ICountriesData[]>(
   () => `${restCountriesEndpoint}`
 );
