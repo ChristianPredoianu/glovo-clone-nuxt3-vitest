@@ -62,6 +62,10 @@ function isMealModalProps(props: ModalProps | null): props is IMealModalProps {
         <ProductModalList :ingredients="props.productModalProps!.ingredients" />
       </div>
 
+      <div v-else>
+        <p class="text-gray-600 mb-8">{{ props.productModalProps!.description }}</p>
+      </div>
+
       <div class="flex-shrink-0">
         <CtaBtn
           class="w-full md:w-auto px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors duration-300"
