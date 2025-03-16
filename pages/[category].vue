@@ -3,8 +3,13 @@ import { capitalizeFirstLetter } from '@/composables/helpers/capitalizeFirstLett
 import { fetchData } from '@/composables/helpers/fetchGenericData';
 import { isMealData } from '@/composables/helpers/mealTypeGuards';
 import { productCategories } from '@/data/productCategoriesData';
-import type { IMeals, ISingleMeal, ICuisineType } from '@/types/meals';
-import type { IProduct, IFakeStoreCategories } from '@/types/products';
+import type {
+  IMeals,
+  ISingleMeal,
+  ICuisineType,
+  IProduct,
+  IFakeStoreCategories,
+} from '@/types';
 
 interface FetchResult<T> {
   data: IMeals | IProduct[] | null;
