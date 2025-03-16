@@ -20,7 +20,7 @@ const { addToCart, removeFromCart } = useCart();
     <p
       data-test="remove-btn"
       class="bg-gray-500 text-gray-100 rounded-sm flex items-center justify-center w-8 h-8 cursor-pointer"
-      @click="removeFromCart(product.id)"
+      @click="removeFromCart(product.id!)"
     >
       -
     </p>
