@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { cuisineTypes } from '@/data/productCategoriesData';
 import { fakeStoreCategories } from '@/data/productCategoriesData';
-import type { IItem } from '@/types/products';
+import type { IItem } from '@/types';
 
 const selectedOption = ref('');
 
