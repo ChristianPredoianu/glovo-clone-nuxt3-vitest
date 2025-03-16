@@ -1,5 +1,5 @@
 import { capitalizeFirstLetter } from '@/composables/helpers/capitalizeFirstLetter';
-import type { IShippingAddress } from '@/types/locations';
+import type { IShippingAddress } from '@/types';
 
 type AddressField = 'streetAndHouseNumber' | 'zipCode' | 'city' | 'country';
 
