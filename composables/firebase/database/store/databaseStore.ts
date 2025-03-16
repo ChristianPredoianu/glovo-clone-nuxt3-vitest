@@ -1,5 +1,4 @@
-import type { IItem } from '@/types/products/IItem';
-import type { IOrder } from '@/types/cart/IOrder';
+import type { IItem, IOrder } from '@/types';
 
 export const fetchedFavoriteItems: Ref<IItem[]> = ref([]);
 export const fetchedOrders = ref<IOrder[]>([]);
