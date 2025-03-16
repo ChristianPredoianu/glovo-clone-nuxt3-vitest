@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IDropdownOptions } from '@/types/ui';
+import type { IDropdownOptions } from '@/types';
 
 const props = defineProps({
   options: {
@@ -24,7 +24,6 @@ const optionsLength = computed(() => {
   return Array.isArray(props.options) ? props.options.length : 0;
 });
 
-
 //The API sometimes returns two of the same adresses, this creates unique returns
 //so that we don't get duplicate keys when looping through props.options
 const uniqueOptions = computed(() => {
@@ -39,10 +38,6 @@ const uniqueOptions = computed(() => {
 
   return Array.from(uniqueOptionsMap.values());
 });
-
-
-
-
 
 const { selectedIndex } = useKeyDown(optionsLength, selectOption);
 
@@ -74,7 +69,6 @@ function selectOption(index: number) {
     emits('clearInput');
   }
 }
-
 
 watch(
   () => props.options,
