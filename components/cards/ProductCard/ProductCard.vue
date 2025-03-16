@@ -8,7 +8,6 @@ const props = defineProps({
   },
 });
 
-const { addToCart } = useCart();
 console.log(props.product);
 </script>
 
