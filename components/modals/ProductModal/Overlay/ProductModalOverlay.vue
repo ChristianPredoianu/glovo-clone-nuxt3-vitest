@@ -55,15 +55,14 @@ function isMealModalProps(props: ModalProps | null): props is IMealModalProps {
         {{ productModalProps.price }} $
       </p>
 
-      <div
-        v-if="isMealModalProps(props.productModalProps)"
-        class="mt-4 mb-8 text-gray-600 flex-grow"
-      >
-        <ProductModalList :ingredients="props.productModalProps!.ingredients" />
-      </div>
-
-      <div v-else>
-        <p class="text-gray-600 mb-8">{{ props.productModalProps!.description }}</p>
+      <div class="mt-4 mb-8 text-gray-600 flex-grow">
+        <ProductModalList
+          :ingredients="props.productModalProps!.ingredients"
+          v-if="isMealModalProps(props.productModalProps)"
+        />
+        <p class="text-gray-600 mb-8" v-else>
+          {{ props.productModalProps!.description }}
+        </p>
       </div>
 
       <div class="flex-shrink-0">
