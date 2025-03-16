@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IItem } from '@/types/products';
+import type { IItem } from '@/types';
 
 const props = defineProps({
   mealItem: {
