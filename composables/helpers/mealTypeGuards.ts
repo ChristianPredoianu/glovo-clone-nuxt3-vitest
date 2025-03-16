@@ -1,5 +1,4 @@
-import type { IMeals, ISingleMeal } from '@/types/meals';
-import type { IProduct } from '@/types/products';
+import type { IMeals, ISingleMeal, IProduct } from '@/types';
 
 export function isMealData(data: IMeals | IProduct[] | null): data is IMeals {
   return data !== null && 'hits' in data;
