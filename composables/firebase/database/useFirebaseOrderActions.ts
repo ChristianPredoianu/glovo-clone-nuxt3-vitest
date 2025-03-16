@@ -3,7 +3,7 @@ import {
   fetchedOrders,
   isLoading,
 } from '@/composables/firebase/database/store/databaseStore';
-import type { IOrder } from '@/types/cart/IOrder';
+import type { IOrder } from '@/types';
 
 export function useFirebaseOrderActions() {
   const { setSuccessMessageWithTimeout, errorMessage, handleError, resetMessage } =
