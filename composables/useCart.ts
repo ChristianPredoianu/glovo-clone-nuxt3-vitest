@@ -20,7 +20,7 @@ export function useCart() {
     }, 0);
   });
 
-  function addToCart(product: ICartProduct | IProduct | null) {
+  function addToCart(product: ICartProduct | null) {
     if (product !== null) {
       // Check if the product already exists in the cart
       const existingProduct = cartProducts.value.find((p) => p.id === product.id);
