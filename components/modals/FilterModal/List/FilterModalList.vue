@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { IFakeStoreCategories } from '@/types/products';
-import type { ICuisineType } from '@/types/meals';
+import type { IFakeStoreCategories, ICuisineType } from '@/types';
 
 const { setActive, isActive } = useIsActive();
 const { filters, getCategoryName } = useFilter();
