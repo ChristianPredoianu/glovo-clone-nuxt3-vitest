@@ -1,5 +1,5 @@
-import type { ICartProduct } from '@/types/cart';
-import type { IProduct } from '@/types/products';
+import type { ICartProduct, IItem } from '@/types';
+
 import { computed } from 'vue';
 
 export function useCart() {
