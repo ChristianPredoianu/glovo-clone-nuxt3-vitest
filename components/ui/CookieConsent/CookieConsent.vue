@@ -20,7 +20,7 @@ function declineCookies() {
       cookies.
     </p>
     <div class="space-x-2">
-      <button @click="acceptCookies" class="bg-green-500 text-white px-4 py-2 rounded">
+      <button @click="acceptCookies" class="bg-green-600 text-white px-4 py-2 rounded">
         Accept
       </button>
       <button @click="declineCookies" class="bg-gray-500 text-white px-4 py-2 rounded">
