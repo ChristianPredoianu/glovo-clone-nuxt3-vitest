@@ -1,0 +1,5 @@
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build]
+  environment = { NETLIFY_IMAGE_CDN_DOMAIN = "none" }
