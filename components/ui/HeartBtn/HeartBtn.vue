@@ -60,6 +60,7 @@ onMounted(() => {
         ? 'text-red-500 border-red-500'
         : 'text-gray-500 border-gray-300',
     ]"
+    aria-label="Toggle favorite"
   >
     <font-awesome-icon v-if="isLoaded" :icon="['fas', 'fa-heart']" />
   </button>
