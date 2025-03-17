@@ -26,7 +26,7 @@ const isModalLinks = computed(() => {
   return (props.title?.replace(' ', '') === 'Signin' || props.title === 'Cart') ?? false;
 });
 
-const shouldDisplayAuthNavLinks = computed(() => {
+const shouldNotDisplayAuthNavLinks = computed(() => {
   return (
     shouldShowNavItems.value &&
     (isAuthenticated.value ||
@@ -42,7 +42,7 @@ function handleModalLinksClick() {
 
 <template>
   <li
-    v-if="shouldDisplayAuthNavLinks"
+    v-if="shouldNotDisplayAuthNavLinks"
     class="block sm:flex items-center text-2xl font-semibold text-gray-700 sm:text-sm text-teal-lighter sm:hover:text-gray-900 cursor-pointer sm:mr-4 transition duration-100 ease-in-out"
     :class="{
       'text-xs': screenWidth < 230,
@@ -73,6 +73,7 @@ function handleModalLinksClick() {
     >
       <div
         class="w-full flex items-center justify-between border-b-2 sm:mt-1 sm:border-0 py-2 cursor-pointer focus:ring-2 focus:ring-indigo-500"
+        data-testid="modal-link"
       >
         {{ props.title }}
         <font-awesome-icon v-if="screenWidth < 640" :icon="props.icon" class="text-xl" />
