@@ -66,7 +66,7 @@ const mealItem = {
       <div class="flex justify-between mt-2 sm:mt-3">
         <p
           data-test="price"
-          class="font-semibold text-green-600 mt-2 ml-1 text-lg sm:text-xl"
+          class="font-semibold text-green-700 mt-2 ml-1 text-lg sm:text-xl"
         >
           {{ props.price }} $
         </p>
