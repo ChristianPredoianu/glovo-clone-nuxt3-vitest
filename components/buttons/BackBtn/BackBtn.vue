@@ -1,4 +1,7 @@
 <script setup lang="ts">
+//Import for testing purposes
+import { useRouter } from 'vue-router';
+
 const props = defineProps({
   page: {
     type: String,
