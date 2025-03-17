@@ -77,8 +77,8 @@ watch(
 );
 </script>
 
-<template class="dsadsadas">
-  <div data-test="dsa" class="dsa">
+<template>
+  <div>
     <span
       class="h-full bg-green-500 absolute rounded-l-md top-0 px-3 flex items-center cursor-pointer"
       @click="getUserLocation"
