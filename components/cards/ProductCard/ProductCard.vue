@@ -14,7 +14,7 @@ const props = defineProps({
     <div
       class="bg-white p-x-6 rounded-xl shadow-lg overflow-hidden flex flex-col items-center justify-center w-full h-full"
     >
-      <div class="h-40 p-4 w-full">
+      <div class="h-40 p-4 w-full relative">
         <NuxtImg
           :src="product?.image"
           alt="Product image"
@@ -23,6 +23,7 @@ const props = defineProps({
           loading="lazy"
           fit="contain"
         />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
       </div>
       <div class="flex flex-col flex-grow p-6">
         <h3
