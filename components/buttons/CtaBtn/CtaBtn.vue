@@ -28,7 +28,7 @@ const emit = defineEmits(['clicked']);
 
 <template>
   <button
-    class="bg-green-600 py-3 px-10 rounded-xl font-bold cursor-pointer hover:bg-green-700"
+    class="bg-green-700 py-3 px-10 rounded-xl font-bold cursor-pointer hover:bg-green-800"
     :class="[
       props.fontSize,
       props.backCol,
