@@ -34,6 +34,7 @@ const mealItem = {
           class="rounded-lg transform transition-transform duration-300 hover:scale-105 object-cover w-full sm:h-auto"
           loading="lazy"
         />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
       </div>
       <p
         class="absolute bottom-2 left-2 px-2 py-1 text-xs sm:text-sm font-semibold tracking-wide text-gray-100 bg-opacity-50 rounded-md"
