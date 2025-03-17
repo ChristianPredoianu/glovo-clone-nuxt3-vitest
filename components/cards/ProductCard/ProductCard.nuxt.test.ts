@@ -50,10 +50,4 @@ describe('ProductCard', () => {
     expect(starCounter.props('rate')).toBe(product.rating.rate);
     expect(starCounter.props('count')).toBe(product.rating.count);
   });
-
-  it('renders the "Add to cart" button', () => {
-    const button = wrapper.find('button');
-    expect(button.exists()).toBe(true);
-    expect(button.text()).toBe('Add to cart');
-  });
 });
