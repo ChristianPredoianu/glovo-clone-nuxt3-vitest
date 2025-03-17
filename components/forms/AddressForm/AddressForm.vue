@@ -80,7 +80,7 @@ watch(
 <template>
   <div>
     <span
-      class="h-full bg-green-500 absolute rounded-l-md top-0 px-3 flex items-center cursor-pointer"
+      class="h-full bg-green-600 absolute rounded-l-md top-0 px-3 flex items-center cursor-pointer"
       @click="getUserLocation"
     >
       <font-awesome-icon v-if="isLoaded" :icon="['fas', 'location']" />
@@ -106,7 +106,7 @@ watch(
       />
     </span>
     <span
-      class="location-text hidden text-sm text-green-600 font-bold md:block location-text absolute top-3.5 translate-x-1/2 right-20 cursor-pointer"
+      class="location-text hidden text-sm text-green-700 font-bold md:block location-text absolute top-3.5 translate-x-1/2 right-20 cursor-pointer"
       ref="locationTextRef"
       @click="getUserLocation"
       >Use current location</span
