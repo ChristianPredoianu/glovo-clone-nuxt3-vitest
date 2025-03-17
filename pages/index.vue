@@ -104,7 +104,7 @@ watch(
 <template>
   <!-- Product Modal -->
   <Modal modalName="productModal">
-    ><ProductModalOverlay :productModalProps="currentModalProps" @closeModal="closeModal"
+    <ProductModalOverlay :productModalProps="currentModalProps" @closeModal="closeModal"
   /></Modal>
 
   <!-- Address Modal -->
