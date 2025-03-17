@@ -36,13 +36,15 @@ function isMealModalProps(props: ModalProps | null): props is IMealModalProps {
     class="container h-full mx-auto p-6 md:p-10 flex flex-col flex-grow overflow-auto"
   >
     <div
-      class="mx-auto relative overflow-hidden w-full max-w-[500px] rounded-lg flex-shrink-0"
+      class="mx-auto relative overflow-hidden w-full max-w-[400px] rounded-lg flex-shrink-0 shadow-lg hover:shadow-xl transition-shadow duration-300 sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px]"
     >
       <img
         :src="props.productModalProps!.img"
         :alt="props.productModalProps!.label"
-        class="object-cover w-full h-full"
+        class="object-cover w-full h-full aspect-[4/3]"
+        loading="lazy"
       />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
     </div>
 
     <div class="mt-6 text-center md:text-left flex flex-col flex-grow">
