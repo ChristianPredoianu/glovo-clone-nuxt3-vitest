@@ -10,6 +10,11 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          name: 'description',
+          content:
+            'GlovoApp is your go-to delivery service for food, groceries, and more. Order now and get your favorite items delivered fast!',
+        },
       ],
     },
   },
