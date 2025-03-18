@@ -13,7 +13,7 @@ function declineCookies() {
 <template>
   <div
     v-if="!cookieConsent"
-    class="fixed z-50 bottom-4 left-4 right-4 bg-white shadow-lg p-4 rounded-lg flex justify-between items-center"
+    class="fixed z-50 bottom-4 left-4 right-4 bg-white shadow-lg p-4 rounded-lg flex flex-col gap-y-4 lg:flex-row lg:gap-0 justify-between items-center"
   >
     <p class="text-sm">
       We use cookies to improve your experience. By accepting, you agree to our use of
