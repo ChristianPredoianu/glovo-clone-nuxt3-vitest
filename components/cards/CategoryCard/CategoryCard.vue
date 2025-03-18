@@ -34,8 +34,8 @@ async function navigateToPage(selectedCategory: ISelectedCategory) {
         height="128"
       />
     </div>
-    <h3 class="text-gray-700 mt-3 text-center font-semibold">
+    <h2 class="text-gray-700 mt-3 text-center font-semibold">
       {{ props.productCategory.text }}
-    </h3>
+    </h2>
   </article>
 </template>
