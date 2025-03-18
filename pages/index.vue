@@ -117,7 +117,13 @@ watch(
       class="container px-4 pt-28 mx-auto flex flex-col items-center justify-center gap-8 p-10 md:flex-row"
     >
       <div class="w-1/2 md:w-1/3">
-        <img src="@/assets/food.png" alt="food" class="md:w-1/2" />
+        <nuxt-img
+          src="/food.png"
+          alt="food"
+          class="md:w-1/2"
+          loading="lazy"
+          sizes="sm:100vw md:50vw"
+        />
       </div>
       <div class="text-green-900 bg-amber-400 text-center">
         <h1 class="text-2xl font-bold md:text-4xl">Food delivery and more</h1>
