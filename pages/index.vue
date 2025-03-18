@@ -127,9 +127,7 @@ watch(
       </div>
       <div class="text-green-900 bg-amber-400 text-center">
         <h1 class="text-2xl font-bold md:text-4xl">Food delivery and more</h1>
-        <p class="mt-2 font-medium md:font-xl">
-          Groceries, clothing, electronics, anything!
-        </p>
+        <p class="mt-2 font-medium md:font-xl">Food, clothing, electronics, anything!</p>
         <div class="input-container relative mt-8">
           <AddressForm
             v-if="locationData || dropdownOptions"
