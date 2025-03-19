@@ -27,7 +27,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="relative bg-white border-b border-green-500" v-if="screenWidth">
+  <header class="relative bg-white border-b border-green-500">
     <nav class="flex items-center justify-between container mx-auto p-4">
       <!-- Cart Modal -->
       <Modal modalName="cart">
