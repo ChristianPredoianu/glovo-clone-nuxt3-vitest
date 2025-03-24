@@ -1,23 +1,23 @@
-# Explore the world - React + Vite + Typescript 
+# Glovo clone - Nuxt 3 + Vite + Typescript 
 
 
  
  <!-- PROJECT LOGO -->   
 <br />
 <p align="center">
-  <a href="https://github.com/ChristianPredoianu/explore-the-world">
+  <a href="https://github.com/ChristianPredoianu/glovo-clone-nuxt3-vitest">
     <img src="public/glovo.jpg" alt="Logo" width="300" height="200">
   </a> 
  
-  <h3 align="center">Explore the world</h3>
+  <h3 align="center">Glovo clone</h3>
    
   <p align="center">
-    <a href="https://github.com/ChristianPredoianu/explore-the-world"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/ChristianPredoianu/glovo-clone-nuxt3-vitest"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://exploretheworldapp.netlify.app/">View Demo</a>
+    <a href="https://glovoclonenuxt3.netlify.app/">View Demo</a>
     ·
-    <a href="https://github.com/ChristianPredoianu/explore-the-world/issues">Report Bug</a>
+    <a href="https://github.com/ChristianPredoianu/glovo-clone-nuxt3-vitest/issues">Report Bug</a>
   </p>
 </p>
 
@@ -52,21 +52,20 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-A website where you can explore different countries.
+A clone of the Glovo delivery app built with Nuxt 3 and Vitest.
 
 ### Built With
 
-* [React](https://react.dev/)
-* [React Router 6.4](https://reactrouter.com/en/main)
+* [Nuxt](https://nuxt.com/)
 * [Typescript](https://reactrouter.com/en/main)
 * [Vite](https://vitejs.dev/)
+* [Vitest](https://vitest.dev/)
+* [Vue test utils](https://test-utils.vuejs.org/)
 * [HTML5](https://developer.mozilla.org/en-US/docs/Glossary/HTML5)
-* [Css3](https://developer.mozilla.org/en-US/docs/Web/CSS)
-* [Sass](https://sass-lang.com/)
-* [Swiper.js](https://swiperjs.com/)
-* [React-leaflet](https://react-leaflet.js.org/)
-* [React-calendar](https://www.npmjs.com/package/react-calendar)
-* [Classnames](https://www.npmjs.com/package/classnames)
+* [TailwindCss](https://tailwindcss.com/)
+* [Firebase](https://firebase.google.com/)
+
+
 
 
 
@@ -87,7 +86,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/ChristianPredoianu/explore-the-world.git
+   git clone https://github.com/ChristianPredoianu/glovo-clone-nuxt3-vitest.git
    ```
 2. Install NPM packages
    ```sh
@@ -105,8 +104,7 @@ To get a local copy up and running follow these simple steps.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-Search for a country, see todays forecast or 5-days forecast, see the air quality, choose a countrys holiday
-to see the date via calendar and see also a currency converter is avaliable. 
+Filter meals, products. Add items to your cart, and proceed to checkout. Enjoy a seamless delivery experience similar to Glovo.
 
 
 <!-- LICENSE -->
@@ -120,7 +118,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Christian Predoianu - [@linkedin](https://se.linkedin.com/in/christian-predoianu-369218157) - christianpredoianu@yahoo.com
 
-Project Link: [https://github.com/ChristianPredoianu/explore-the-world](https://github.com/ChristianPredoianu/explore-the-world)
+Project Link: [https://github.com/ChristianPredoianu/glovo-clone-nuxt3-vitest](https://github.com/ChristianPredoianu/glovo-clone-nuxt3-vitest)
 
 
 
@@ -128,4 +126,4 @@ Project Link: [https://github.com/ChristianPredoianu/explore-the-world](https://
 ## Acknowledgements
 * [Google Fonts](https://fonts.google.com/)
 * [Font-Awesome](https://fontawesome.com/)
-* [Currency-flags](https://www.npmjs.com/package/currency-flags)
+
