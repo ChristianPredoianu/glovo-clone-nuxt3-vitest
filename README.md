@@ -104,7 +104,7 @@ To get a local copy up and running follow these simple steps.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-Filter meals, products. Add items to your cart, and proceed to checkout. Enjoy a seamless delivery experience similar to Glovo.
+Filter meals, products. Add items to your cart, and proceed to checkout. Check your orders, change your address. Enjoy a seamless delivery experience similar to Glovo.
 
 
 <!-- LICENSE -->
