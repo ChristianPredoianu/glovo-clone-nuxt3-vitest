@@ -6,7 +6,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ChristianPredoianu/explore-the-world">
-    <img src="public/food.png" alt="Logo" width="300" height="200">
+    <img src="public/glovo.jpg" alt="Logo" width="300" height="200">
   </a> 
  
   <h3 align="center">Explore the world</h3>
