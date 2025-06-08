@@ -44,7 +44,7 @@ function handleInput(event: Event) {
         :autocomplete="autocomplete"
         :required="required"
         ref="inputField"
-        class="w-full border-b-2 border-gray-300 py-2 focus:outline-none focus:border-gray-700 transition-all"
+        class="w-full border-b-2 border-gray-300 py-2 px-1 focus:outline-none focus:border-gray-700 transition-all"
       />
       <button
         type="button"
