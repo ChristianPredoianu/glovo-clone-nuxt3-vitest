@@ -33,7 +33,7 @@ function handleInput(event: Event) {
       :value="modelValue"
       @input="handleInput"
       @blur="$emit('blur')"
-      class="w-full border-b-2 border-gray-300 py-2 focus:outline-none focus:border-gray-700 transition-all"
+      class="w-full border-b-2 border-gray-300 py-2 px-1 focus:outline-none focus:border-gray-700 transition-all"
     />
     <p v-if="errorMessage" class="text-red-600 text-xs mt-1">
       {{ errorMessage }}
